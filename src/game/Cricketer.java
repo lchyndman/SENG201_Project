@@ -10,7 +10,6 @@ public class Cricketer {
 	private String position;
 	private int price;
 	private final int MAXLEVEL = 100;
-	private final int MINLEVEL = 0;
 	private int batting;
 	private int bowling;
 	private int fielding;
@@ -18,6 +17,8 @@ public class Cricketer {
 	private int currentStamina;
 	private boolean isInjured = false;
 	private ArrayList<Item> appliedItems = new ArrayList<Item>();
+	private String itemsString = "";
+	
 	
 	public Cricketer(String name, int batting, int bowling, int fielding, int stamina)
 	{
@@ -34,11 +35,11 @@ public class Cricketer {
 	
 	public void updatePosition() 
 	{
-		if (this.batting > this.bowling + 20)
+		if (this.batting >= this.bowling + 20)
 		{
 			this.position = "Batsman";
 		}
-		else if (this.bowling > this.batting + 20)
+		else if (this.bowling >= this.batting + 20)
 		{
 			this.position = "Bowler";
 		}
@@ -81,22 +82,92 @@ public class Cricketer {
 		}
 	}
 	
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-	
 	public void checkStamina()
 	{
-		if (this.currentStamina < 0)
+		if (this.currentStamina <= 0)
 		{
 			this.currentStamina = 0;
 			this.isInjured = true;
 		}
 	}
 	
-	public void applyItem(Item item) {
-		this
+	public void applyItem(Item item)
+	{
+		this.batIncrement(item.getBatting());
+		this.bowlIncrement(item.getBowling());
+		this.fieldIncrement(item.getFielding());
+		this.staminaIncrement(item.getStamina());
+		this.updatePosition();
+		this.updatePrice();
+		this.itemsString += (item.toString()+"\n");
 	}
 	
+	private int checkGreaterThanMax(int level) {
+		if (level > this.MAXLEVEL) {
+			return this.MAXLEVEL;
+		}
+		return level;
+	}
+	public void batIncrement(int batting) {
+		this.batting += batting;
+		this.batting = this.checkGreaterThanMax(this.batting);
+	}
+
+	public void bowlIncrement(int bowling) {
+		this.bowling += bowling;
+		this.batting = this.checkGreaterThanMax(this.batting);
+		
+	}
+
+	public void fieldIncrement(int fielding) {
+		this.fielding += fielding;
+		this.batting = this.checkGreaterThanMax(this.batting);
+	}
+
+	public void staminaIncrement(int stamina) {
+		this.stamina += stamina;
+		this.batting = this.checkGreaterThanMax(this.batting);
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	public String getName() {
+		return this.name;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public boolean isInjured() {
+		return isInjured;
+	}
+
+	public ArrayList<Item> getAppliedItems() {
+		return appliedItems;
+	}
+	
+	public String toString() {
+		return "NAME: "+this.name+"\nPOSITION: "+this.position+"\nPRICE: "+this.price+
+				"\nBATTING: "+this.batting+"\nBOWLING: "+this.bowling+"\nFIELDING: "+this.fielding+
+				"\n STAMINA:"+this.stamina+"\nCURRENT STAMINA: "+this.currentStamina+"\nINJURED: "+this.isInjured+
+				"\nITEMS: "+this.itemsString;
+	}
+
+
+	public static void main(String args[])
+	{
+		Cricketer c = new Cricketer("Timux", 60, 95, 75, 60);
+		System.out.println(c);
+		Item i = new Item("Jordans", "adds zero points but now your player is steezy", 0, 0, 0, 0);
+		Cricketer c1 = new Cricketer("Benny", 80, 80, 80, 80);
+		c1.applyItem(i);
+		System.out.println(c1);
+	}
 }
