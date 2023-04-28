@@ -1,7 +1,7 @@
 package game;
 import java.util.ArrayList;
 
-public class Cricketer {
+public class Athlete {
 	/*
 	 * Type Athlete that represents a cricketer's name, stats and position and price
 	 */
@@ -20,7 +20,7 @@ public class Cricketer {
 	private String itemsString = "";
 	
 	
-	public Cricketer(String name, int batting, int bowling, int fielding, int stamina)
+	public Athlete(String name, int batting, int bowling, int fielding, int stamina)
 	{
 		this.playerName = name;
 		this.batting = batting;
@@ -160,14 +160,4 @@ public class Cricketer {
 				"\nITEMS: "+this.itemsString;
 	}
 
-
-	public static void main(String args[])
-	{
-		Cricketer c = new Cricketer("Timux", 60, 95, 75, 60);
-		System.out.println(c);
-		Item i = new Item("Jordans", "adds zero points but now your player is steezy", 0, 0, 0, 0);
-		Cricketer c1 = new Cricketer("Benny", 80, 80, 80, 80);
-		c1.applyItem(i);
-		System.out.println(c1);
-	}
 }

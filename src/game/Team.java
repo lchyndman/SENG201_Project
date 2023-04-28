@@ -5,12 +5,12 @@ public class Team {
 
 	private String teamName;
 	private ArrayList<Item> inventory;
-	private ArrayList<Cricketer> athletes;
+	private ArrayList<Athlete> athletes;
 	private final int MAX_ATHLETES = 16;
-	private ArrayList<Cricketer> startingAthletes;
-	private ArrayList<Cricketer> reserveAthletes;
-	private Cricketer[] bowlingOrder = new Cricketer[11];
-	private Cricketer[] battingOrder = new Cricketer[11];
+	private ArrayList<Athlete> startingAthletes;
+	private ArrayList<Athlete> reserveAthletes;
+	private Athlete[] bowlingOrder = new Athlete[11];
+	private Athlete[] battingOrder = new Athlete[11];
 	
 	public Team() {
 		
