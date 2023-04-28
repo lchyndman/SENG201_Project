@@ -6,7 +6,7 @@ public class Cricketer {
 	 * Type Athlete that represents a cricketer's name, stats and position and price
 	 */
 	// Fields
-	private String name;
+	private String playerName;
 	private String position;
 	private int price;
 	private final int MAXLEVEL = 100;
@@ -22,7 +22,7 @@ public class Cricketer {
 	
 	public Cricketer(String name, int batting, int bowling, int fielding, int stamina)
 	{
-		this.name = name;
+		this.playerName = name;
 		this.batting = batting;
 		this.bowling = bowling;
 		this.fielding = fielding;
@@ -129,12 +129,12 @@ public class Cricketer {
 		this.batting = this.checkGreaterThanMax(this.batting);
 	}
 
-	public void setName(String name)
+	public void setPlayerName(String name)
 	{
-		this.name = name;
+		this.playerName = name;
 	}
-	public String getName() {
-		return this.name;
+	public String getPlayerName() {
+		return this.playerName;
 	}
 
 	public String getPosition() {
@@ -154,7 +154,7 @@ public class Cricketer {
 	}
 	
 	public String toString() {
-		return "NAME: "+this.name+"\nPOSITION: "+this.position+"\nPRICE: "+this.price+
+		return "NAME: "+this.playerName+"\nPOSITION: "+this.position+"\nPRICE: "+this.price+
 				"\nBATTING: "+this.batting+"\nBOWLING: "+this.bowling+"\nFIELDING: "+this.fielding+
 				"\n STAMINA:"+this.stamina+"\nCURRENT STAMINA: "+this.currentStamina+"\nINJURED: "+this.isInjured+
 				"\nITEMS: "+this.itemsString;
