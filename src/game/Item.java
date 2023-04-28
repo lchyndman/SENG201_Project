@@ -1,24 +1,38 @@
 package game;
 
 public class Item {
-
-	private String name;
-	private String description;
-	private int stamina;
+/*
+ * Class Item represents an item that can be applied to buff the attributes of an object of type Athlete
+ */
+	private String name; // name of item
+	private int price; // self-determined price based on attributes
+	
+	private int stamina; // attributes set on initialization
 	private int batting;
 	private int bowling;
 	private int fielding;
 	
-	public Item(String name, String description, int bowling, int batting, int fielding, int stamina)
-	{
+	public Item(String name, int bowling, int batting, int fielding, int stamina){
+		/* Construct a new item of a given name, with given bowling, batting, etc, buffs
+		 * update price based on attributes
+		 */
 		this.name = name;
-		this.description = description;
 		this.bowling = bowling;
 		this.batting = batting;
 		this.fielding = fielding;
 		this.stamina = stamina;
+		this.updatePrice();
 	}
 
+	public void updatePrice()
+	{
+		this.price = this.batting * 10 + this.bowling * 10 + this.fielding * 6 + this.stamina * 8;
+	}
+	
+	public int getPrice() {
+		return this.price;
+	}
+	
 	public int getStamina() {
 		return stamina;
 	}
@@ -38,12 +52,12 @@ public class Item {
 	public String getName() {
 		return name;
 	}
-
-	public String getDescription() {
-		return description;
-	}
 	
 	public String toString() {
-		return "\nNAME: "+this.name+"\n    DESCRIPTION: "+this.description;
+		return "NAME: "+this.name+"\n	PRICE: "+this.price+"\n	BATTING: "+
+	this.batting+"\n	BOWLING: "+this.bowling+"\n	FIELDING: "+this.fielding+
+				"\n	STAMINA:"+this.stamina;
 	}
 }
+
+

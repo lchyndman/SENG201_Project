@@ -4,37 +4,43 @@ import java.util.ArrayList;
 public class Athlete {
 	/*
 	 * Type Athlete that represents a cricketer's name, stats and position and price
+	 * Stamima is decreased by different types of play and is replenished by recovering
+	 * if stamina drops too low athlete becomes injured
 	 */
 	// Fields
 	private String playerName;
-	private String position;
-	private int price;
-	private final int MAXLEVEL = 100;
-	private int batting;
-	private int bowling;
-	private int fielding;
-	private int stamina;
-	private int currentStamina;
-	private boolean isInjured = false;
-	private ArrayList<Item> appliedItems = new ArrayList<Item>();
-	private String itemsString = "";
+	private String position; // self assigned position based on stats
+	private int price; // self assigned price based on stats
+	
+	private final int MAXLEVEL = 100; // Maximum level any of Athletes stats can reach
+	
+	private int batting; // batting ability
+	private int bowling; // bowling ability
+	private int fielding; // fielding ability
+	
+	private int stamina; // athletes maximum stamina
+	private int currentStamina; // athletes current stamina
+	private boolean isInjured = false; // athlete is injured y/n, defaults n on initialization
+	
+	private ArrayList<Item> appliedItems = new ArrayList<Item>(); // list of items applied to athlete
+	private String itemsString = ""; // string representation of items applied to athlete
 	
 	
-	public Athlete(String name, int batting, int bowling, int fielding, int stamina)
-	{
+	public Athlete(String name, int batting, int bowling, int fielding, int stamina) {
+	/* Constructor sets fields to params and calls methods to set self-defined values */
 		this.playerName = name;
 		this.batting = batting;
 		this.bowling = bowling;
 		this.fielding = fielding;
 		this.stamina = stamina;
-		this.currentStamina = this.stamina;
-		this.updatePosition();
+		this.currentStamina = this.stamina; // stamina defaults to full
+		this.updatePosition(); 
 		this.updatePrice();
 		
 	}
 	
-	public void updatePosition() 
-	{
+	public void updatePosition() {
+	/* determines best position for athlete based on their batting and bowling stats*/
 		if (this.batting >= this.bowling + 20)
 		{
 			this.position = "Batsman";
@@ -49,90 +55,105 @@ public class Athlete {
 		}
 	}
 	
-	public void updatePrice()
-	{
+	public void updatePrice() {
+	/* Sets athlete price based on their stats */
 		this.price = this.batting * 10 + this.bowling * 10 + this.fielding * 6 + this.stamina * 8;
 	}
 	
-	public void bat()
-	{
+	
+	public void batOver() {
+	/* increment stamina based on batting for one over */
 		this.currentStamina -= 2;
 		this.checkStamina();
 		}
 	
-	public void bowl() {
+	public void bowlOver() {
+		/* increment stamina based on bowling for one Over */
 		this.currentStamina -= 3;
 		this.checkStamina();
 	}
 	
-	public void field()
-	{
+	public void fieldOver(){
+		/* increment stamina based on fielding for one Over */
 		this.currentStamina -= 1;
 		this.checkStamina();
 	}
 	
-	public void recover()
-	{
-		if (this.currentStamina + 10 <= this.stamina)
+	public void recover() {
+	/* recover 1 week of stamina */
+		if (this.currentStamina + 30 <= this.stamina)
 		{
-			this.currentStamina += 10;
+			this.currentStamina += 30;
 		}
 		else {
 			this.currentStamina = this.stamina;
 		}
 	}
 	
-	public void checkStamina()
-	{
+	public void checkStamina() {
+	/* Check if stamina at zero and set isInjured */
 		if (this.currentStamina <= 0)
 		{
 			this.currentStamina = 0;
 			this.isInjured = true;
 		}
+		else {
+			this.isInjured = false;
+		}
 	}
 	
-	public void applyItem(Item item)
-	{
-		this.batIncrement(item.getBatting());
-		this.bowlIncrement(item.getBowling());
-		this.fieldIncrement(item.getFielding());
+	public void applyItem(Item item) {
+	/* 
+	 * Takes an object of type Item and applies its buffs to Athletes stats.
+	 * Then, updates Athletes price and position to reflect new stats.
+	 * Then, adds item to String representation and list of applied items
+	 */
+		this.battingIncrement(item.getBatting());
+		this.bowlingIncrement(item.getBowling());
+		this.fieldingIncrement(item.getFielding());
 		this.staminaIncrement(item.getStamina());
+		
 		this.updatePosition();
 		this.updatePrice();
+		
+		this.appliedItems.add(item);
 		this.itemsString += (item.toString()+"\n");
 	}
 	
 	private int checkGreaterThanMax(int level) {
+		/* private utility method to check if a level is greater than the maximum level */
 		if (level > this.MAXLEVEL) {
 			return this.MAXLEVEL;
 		}
 		return level;
 	}
-	public void batIncrement(int batting) {
+	
+	public void battingIncrement(int batting) {
+		/* increment batting ability by given amount */
 		this.batting += batting;
 		this.batting = this.checkGreaterThanMax(this.batting);
 	}
 
-	public void bowlIncrement(int bowling) {
+	public void bowlingIncrement(int bowling) {
 		this.bowling += bowling;
-		this.batting = this.checkGreaterThanMax(this.batting);
-		
+		this.bowling = this.checkGreaterThanMax(this.bowling);
 	}
 
-	public void fieldIncrement(int fielding) {
+	public void fieldingIncrement(int fielding) {
 		this.fielding += fielding;
-		this.batting = this.checkGreaterThanMax(this.batting);
+		this.fielding = this.checkGreaterThanMax(this.fielding);
 	}
 
 	public void staminaIncrement(int stamina) {
 		this.stamina += stamina;
-		this.batting = this.checkGreaterThanMax(this.batting);
+		this.stamina = this.checkGreaterThanMax(this.stamina);
 	}
 
-	public void setPlayerName(String name)
-	{
+	public void setPlayerName(String name){
+		/* lone setter for playerName as athlete can be nicknamed by player */
 		this.playerName = name;
 	}
+	
 	public String getPlayerName() {
 		return this.playerName;
 	}
@@ -154,9 +175,10 @@ public class Athlete {
 	}
 	
 	public String toString() {
+		/* returns a string representation of all of athletes attributes and applied items */
 		return "NAME: "+this.playerName+"\nPOSITION: "+this.position+"\nPRICE: "+this.price+
 				"\nBATTING: "+this.batting+"\nBOWLING: "+this.bowling+"\nFIELDING: "+this.fielding+
-				"\n STAMINA:"+this.stamina+"\nCURRENT STAMINA: "+this.currentStamina+"\nINJURED: "+this.isInjured+
+				"\nSTAMINA:"+this.stamina+"\nCURRENT STAMINA: "+this.currentStamina+"\nINJURED: "+this.isInjured+
 				"\nITEMS: "+this.itemsString;
 	}
 

@@ -12,7 +12,4 @@ public class Team {
 	private Athlete[] bowlingOrder = new Athlete[11];
 	private Athlete[] battingOrder = new Athlete[11];
 	
-	public Team() {
-		
-	}
 }
