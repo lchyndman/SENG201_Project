@@ -166,6 +166,21 @@ public class Athlete {
 		return price;
 	}
 
+	public int getBatting() {
+		return this.batting;
+	}
+	
+	public int getBowling() {
+		return this.bowling;
+	}
+	
+	public int getFielding() {
+		return this.fielding;
+	}
+	
+	public int getStamina() {
+		return this.stamina;
+	}
 	public boolean isInjured() {
 		return isInjured;
 	}
@@ -176,10 +191,10 @@ public class Athlete {
 	
 	public String toString() {
 		/* returns a string representation of all of athletes attributes and applied items */
-		return "NAME: "+this.playerName+"\nPOSITION: "+this.position+"\nPRICE: "+this.price+
-				"\nBATTING: "+this.batting+"\nBOWLING: "+this.bowling+"\nFIELDING: "+this.fielding+
-				"\nSTAMINA:"+this.stamina+"\nCURRENT STAMINA: "+this.currentStamina+"\nINJURED: "+this.isInjured+
-				"\nITEMS: "+this.itemsString;
+		return "\nNAME: "+this.playerName+"\n    POSITION: "+this.position+"\n    PRICE: "+this.price+
+				"\n    BATTING: "+this.batting+"\n    BOWLING: "+this.bowling+"\n    FIELDING: "+this.fielding+
+				"\n    STAMINA:"+this.stamina+"\n    CURRENT STAMINA: "+this.currentStamina+"\n    INJURED: "+this.isInjured+
+				"\n    ITEMS: "+this.itemsString;
 	}
 
 }

@@ -41,14 +41,14 @@ public class Match {
 		Team bowlingTeam = opponentTeam;
 //		will this change the original team?
 		
-		int lenBat = battingTeam.battingOrder.size();
+		int lenBat = battingTeam.getBattingOrder().size();
 		int batIn = 0;
-		currentBatter = battingTeam.battingOrder.get(batIn);
+		currentBatter = battingTeam.getBattingOrder().get(batIn);
 		int battersthree = 0;
 		
-		int lenBowl = bowlingTeam.bowlingOrder.size();
+		int lenBowl = bowlingTeam.getBowlingOrder().size();
 		int bowlIn = 0;
-		currentBowler = bowlingTeam.bowlingOrder.get(bowlIn);
+		currentBowler = bowlingTeam.getBowlingOrder().get(bowlIn);
 		int bowlerThree = 0;
 	
 		

@@ -92,11 +92,11 @@ public class Generator {
 		return new Athlete(this.getRandomName(), this.getRandomStat(), this.getRandomStat(), this.getRandomStat(), this.getRandomStat());
 	}
 	
-	public Athlete[] generateAthletes(int num){
-		/* return array of n randomly generated athletes */
-		Athlete[] athletes = new Athlete[num];
-		for (int i = 0; i < athletes.length; i++) {
-			athletes[i] = this.generateAthlete();
+	public ArrayList<Athlete> generateAthletes(int num){
+		/* return arraylist of n randomly generated athletes */
+		ArrayList<Athlete> athletes = new ArrayList<Athlete>();
+		for (int i = 0; i < num; i++) {
+			athletes.add(this.generateAthlete());
 		}
 		return athletes;
 	}
@@ -118,11 +118,11 @@ public class Generator {
 		return new Item(type, 0, 0, 0, this.getRandomBuff());
 	}
 	
-	public Item[] generateItems(int num){
-		/* return array of n randomly generated items */
-		Item[] items = new Item[num];
-		for (int i = 0; i < items.length; i++) {
-			items[i] = this.generateItem();
+	public ArrayList<Item> generateItems(int num){
+		/* return arraylist of n randomly generated Items */
+		ArrayList<Item> items = new ArrayList<Item>();
+		for (int i = 0; i < num; i++) {
+			items.add(this.generateItem());
 		}
 		return items;
 	}
