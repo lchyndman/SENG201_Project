@@ -1,5 +1,8 @@
 package game;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 48d7e819cd2beda3ee4973ff5247051f4b1855b2
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -42,6 +45,7 @@ public class Match {
 		Team bowlingTeam = opponentTeam;
 //		will this change the original team?
 		
+<<<<<<< HEAD
 		int lenBat = battingTeam.battingOrder.size();
 		int batIn = 0;
 		currentBatter = battingTeam.battingOrder.get(batIn);
@@ -50,6 +54,16 @@ public class Match {
 		int lenBowl = bowlingTeam.bowlingOrder.size();
 		int bowlIn = 0;
 		currentBowler = bowlingTeam.bowlingOrder.get(bowlIn);
+=======
+		int lenBat = battingTeam.getBattingOrder().size();
+		int batIn = 0;
+		currentBatter = battingTeam.getBattingOrder().get(batIn);
+		int battersthree = 0;
+		
+		int lenBowl = bowlingTeam.getBowlingOrder().size();
+		int bowlIn = 0;
+		currentBowler = bowlingTeam.getBowlingOrder().get(bowlIn);
+>>>>>>> 48d7e819cd2beda3ee4973ff5247051f4b1855b2
 		int bowlerThree = 0;
 	
 		
@@ -132,7 +146,11 @@ public class Match {
 		
 		
 		case -1:
+<<<<<<< HEAD
 //			wicket outs
+=======
+//			wicket ouuts
+>>>>>>> 48d7e819cd2beda3ee4973ff5247051f4b1855b2
 			return -1;
 			break;
 			
