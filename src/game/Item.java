@@ -12,7 +12,7 @@ public class Item {
 	private int bowling;
 	private int fielding;
 	
-	public Item(String name, int bowling, int batting, int fielding, int stamina){
+	public Item(String name, int batting, int bowling, int fielding, int stamina){
 		/* Construct a new item of a given name, with given bowling, batting, etc, buffs
 		 * update price based on attributes
 		 */
@@ -26,7 +26,7 @@ public class Item {
 
 	public void updatePrice()
 	{
-		this.price = this.batting * 10 + this.bowling * 10 + this.fielding * 6 + this.stamina * 8;
+		this.price = (int) (Math.pow(this.batting, 3) + Math.pow(this.bowling,3) + Math.pow(this.fielding, 2) + Math.pow(this.stamina, 2));
 	}
 	
 	public int getPrice() {
@@ -54,7 +54,7 @@ public class Item {
 	}
 	
 	public String toString() {
-		return "NAME: "+this.name+"\n	PRICE: "+this.price+"\n	BATTING: "+
+		return "\n	NAME: "+this.name+"\n	PRICE: "+this.price+"\n	BATTING: "+
 	this.batting+"\n	BOWLING: "+this.bowling+"\n	FIELDING: "+this.fielding+
 				"\n	STAMINA:"+this.stamina;
 	}

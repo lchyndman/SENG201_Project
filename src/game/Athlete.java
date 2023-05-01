@@ -57,7 +57,7 @@ public class Athlete {
 	
 	public void updatePrice() {
 	/* Sets athlete price based on their stats */
-		this.price = this.batting * 10 + this.bowling * 10 + this.fielding * 6 + this.stamina * 8;
+		this.price = (int) (Math.pow(this.batting, 3) + Math.pow(this.bowling,3) + Math.pow(this.fielding, 2) + Math.pow(this.stamina, 2));
 	}
 	
 	
@@ -117,7 +117,7 @@ public class Athlete {
 		this.updatePrice();
 		
 		this.appliedItems.add(item);
-		this.itemsString += (item.toString()+"\n");
+		this.itemsString += ("	"+item.toString()+"\n");
 	}
 	
 	private int checkGreaterThanMax(int level) {

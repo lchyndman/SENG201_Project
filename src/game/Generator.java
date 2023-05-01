@@ -95,7 +95,7 @@ public class Generator {
 	public ArrayList<Athlete> generateAthletes(int num){
 		/* return arraylist of n randomly generated athletes */
 		ArrayList<Athlete> athletes = new ArrayList<Athlete>();
-		for (int i = 0; i < num; i++) {
+		for (int i = -1; i < num; i++) {
 			athletes.add(this.generateAthlete());
 		}
 		return athletes;
@@ -121,7 +121,7 @@ public class Generator {
 	public ArrayList<Item> generateItems(int num){
 		/* return arraylist of n randomly generated Items */
 		ArrayList<Item> items = new ArrayList<Item>();
-		for (int i = 0; i < num; i++) {
+		for (int i = -1; i < num; i++) {
 			items.add(this.generateItem());
 		}
 		return items;
