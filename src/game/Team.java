@@ -2,23 +2,37 @@ package game;
 import java.util.ArrayList;
 
 public class Team {
-
-	private int wallet = 0;
+	/*
+	 * Represents a team of cricketers with all of the relevant attributes
+	 * includes methods for adding/buying, removing/selling players
+	 */
+	private int balance = 0;
 	private int points = 0;
 	private String teamName;
 	private ArrayList<Item> inventory;
-	private ArrayList<Athlete> athletes;
+	private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
 	private final int MAX_ATHLETES = 16;
 	private ArrayList<Athlete> startingAthletes = new ArrayList<Athlete>();
 	private ArrayList<Athlete> reserveAthletes = new ArrayList<Athlete>();
 	private Athlete[] bowlingOrder = new Athlete[11];
 	private Athlete[] battingOrder = new Athlete[11];
 	
+	public Team(int balance) {
+		this.balance = balance;
+	}
 	public void addAthlete(Athlete a) {
 		if (this.athletes.size() < this.MAX_ATHLETES) {
 			this.athletes.add(a);
 		}
 	}
+	
+	public void buyAthlete(Athlete a) {
+		if (a.getPrice() <= this.balance && this.athletes.size() < this.MAX_ATHLETES) {
+			this.addAthlete(a);
+			this.balance -= a.getPrice();
+		}
+	}
+	
 	
 	public void printAthletes() {
 		System.out.println(this.athletes);
@@ -77,7 +91,7 @@ public class Team {
 	}
 	
 	public void sortAthletes() {
-		 // Custom input array
+	 // Custom input array
         Athlete[] arr = this.athleteArray();
         int n = 0;
         // Outer loop
@@ -99,14 +113,14 @@ public class Team {
         }
         for (int k = n +1; k <arr.length; k++) {
         	this.reserveAthletes.add(arr[k]);
-        }
+        
+		}
 	}
 	
 	public String getTeamName() {
 		return teamName;
 	}
-	
-		public void setTeamName(String teamName) {
+	public void setTeamName(String teamName) {
 		this.teamName = teamName;
 	}
 	public ArrayList<Item> getInventory() {
@@ -147,13 +161,12 @@ public class Team {
 	}
 	
 	public static void main(String args[]) {
-		Team t = new Team();
+		Team t = new Team(10000000);
 		Generator g = new Generator();
-		t.setAthletes(g.generateAthletes(16));
-		t.sortAthletes();
-		System.out.println(t.getStartingAthletes());
-		System.out.println(t.getReserveAthletes());
-		
+		Athlete a = g.generateAthlete();
+		t.buyAthlete(a);
+		t.printAthletes();
+
 	}
 	
 }
