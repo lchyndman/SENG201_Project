@@ -1,5 +1,6 @@
 package game;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Team {
 	/*
@@ -20,6 +21,7 @@ public class Team {
 	public Team(int balance) {
 		this.balance = balance;
 	}
+	
 	public void addAthlete(Athlete a) {
 		if (this.athletes.size() < this.MAX_ATHLETES) {
 			this.athletes.add(a);
@@ -32,11 +34,33 @@ public class Team {
 			this.balance -= a.getPrice();
 		}
 	}
-	
-	
-	public void printAthletes() {
-		System.out.println(this.athletes);
+	public void sellAthlete() {
+		int i = 0;
+		for (Athlete a: this.athletes) {
+			i++;
+			System.out.print(i);
+			System.out.println(a);
+		}
+	    Scanner myObj = new Scanner(System.in);
+	    System.out.println("Select one of the above players to sell(1-11)");
+	    String playerNum = myObj.nextLine();
+	    int n = (Integer.parseInt(playerNum)-1);
+	    this.addBalance(this.athletes.get(n).getPrice());
+	    this.removeAthlete(n);
 	}
+	
+	public void removeAthlete(int i) {
+		Athlete removed = this.athletes.get(i);
+	    this.athletes.remove(removed);
+	    if (removed.isStarting()) {
+	    	this.startingAthletes.remove(removed);
+	    	this.bowlingOrder[(removed.getBowlingOrderNumber() - 1)] = null;
+	    	this.battingOrder[(removed.getBattingOrderNumber() - 1)] = null;
+	    }
+	    else {
+	    	this.reserveAthletes.remove(removed);
+	    }
+	  }
 	
 	public Athlete[] athleteArray() {
 		Athlete[] arr = new Athlete[this.athletes.size()];
@@ -65,6 +89,7 @@ public class Team {
             }
             // Printing sorted array elements
             this.battingOrder[i] = arr[i];
+            arr[i].setBattingOrderNumbber(i+1);
         }
     }
 
@@ -87,6 +112,7 @@ public class Team {
             }
             // Printing sorted array elements
             this.bowlingOrder[i] = arr[i];
+            arr[i].setBowlingOrderNumber(i+1);
         }
 	}
 	
@@ -109,10 +135,12 @@ public class Team {
             }
             // Printing sorted array elements
             this.startingAthletes.add(arr[i]);
+            arr[i].setStarting(true);
             n = i;
         }
         for (int k = n +1; k <arr.length; k++) {
         	this.reserveAthletes.add(arr[k]);
+        	arr[k].setStarting(false);
         
 		}
 	}
@@ -160,13 +188,23 @@ public class Team {
 		this.battingOrder = battingOrder;
 	}
 	
-	public static void main(String args[]) {
-		Team t = new Team(10000000);
-		Generator g = new Generator();
-		Athlete a = g.generateAthlete();
-		t.buyAthlete(a);
-		t.printAthletes();
-
+	public int getPoints() {
+		return points;
 	}
 	
+	public int getBalance() {
+		return this.balance;
+	}
+	
+	public void addPoints(int points){
+		this.points += points;
+	}
+	
+	public void addBalance(int amount) {
+		this.balance += amount;
+	}
+	
+	public String toString() {
+		return "\nTEAM NAME: "+ this.teamName+"\nPLAYERS: "+this.athletes +"\nBALANCE: "+this.balance;
+	}
 }

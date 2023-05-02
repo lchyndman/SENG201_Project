@@ -26,7 +26,7 @@ public class Item {
 
 	public void updatePrice()
 	{
-		this.price = (int) (Math.pow(this.batting, 3) + Math.pow(this.bowling,3) + Math.pow(this.fielding, 2) + Math.pow(this.stamina, 2));
+		this.price = (int) (Math.pow(this.batting, 3) + Math.pow(this.bowling,3) + Math.pow(this.fielding, 3) + Math.pow(this.stamina, 3));
 	}
 	
 	public int getPrice() {

@@ -11,6 +11,7 @@ public class Athlete {
 	private String playerName;
 	private String position; // self assigned position based on stats
 	private int price; // self assigned price based on stats
+	private boolean starting;
 	
 	private final int MAXLEVEL = 100; // Maximum level any of Athletes stats can reach
 	
@@ -20,10 +21,14 @@ public class Athlete {
 	
 	private int stamina; // athletes maximum stamina
 	private int currentStamina; // athletes current stamina
+	private final int MINSTAMINA = 1;
 	private boolean isInjured = false; // athlete is injured y/n, defaults n on initialization
 	
 	private ArrayList<Item> appliedItems = new ArrayList<Item>(); // list of items applied to athlete
 	private String itemsString = ""; // string representation of items applied to athlete
+	
+	private int bowlingOrderNumber;
+	private int battingOrderNumber;
 	
 	
 	public Athlete(String name, int batting, int bowling, int fielding, int stamina) {
@@ -57,20 +62,22 @@ public class Athlete {
 	
 	public void updatePrice() {
 	/* Sets athlete price based on their stats */
-		this.price = (int) (Math.pow(this.batting, 3) + Math.pow(this.bowling,3) + Math.pow(this.fielding, 2) + Math.pow(this.stamina, 2));
+		this.price = (int) (Math.pow(this.batting, 3) + Math.pow(this.bowling,3) + Math.pow(this.fielding, 3) + Math.pow(this.stamina, 3));
 	}
 	
 	
-	public void batOver() {
+	public void batOver(int increment) {
 	/* increment stamina based on batting for one over */
-		this.currentStamina -= 2;
+		this.currentStamina -= increment;
 		this.checkStamina();
 		}
 	
 	public void bowlOver() {
 		/* increment stamina based on bowling for one Over */
-		this.currentStamina -= 3;
+		this.currentStamina -= 2;
 		this.checkStamina();
+
+		
 	}
 	
 	public void fieldOver(){
@@ -78,6 +85,7 @@ public class Athlete {
 		this.currentStamina -= 1;
 		this.checkStamina();
 	}
+	
 	
 	public void recover() {
 	/* recover 1 week of stamina */
@@ -195,6 +203,30 @@ public class Athlete {
 				"\n    BATTING: "+this.batting+"\n    BOWLING: "+this.bowling+"\n    FIELDING: "+this.fielding+
 				"\n    STAMINA:"+this.stamina+"\n    CURRENT STAMINA: "+this.currentStamina+"\n    INJURED: "+this.isInjured+
 				"\n    ITEMS: "+this.itemsString;
+	}
+
+	public int getBowlingOrderNumber() {
+		return bowlingOrderNumber;
+	}
+
+	public void setBowlingOrderNumber(int bowlingOrderNumber) {
+		this.bowlingOrderNumber = bowlingOrderNumber;
+	}
+
+	public int getBattingOrderNumber() {
+		return battingOrderNumber;
+	}
+
+	public void setBattingOrderNumbber(int battingOrderNumber) {
+		this.battingOrderNumber = battingOrderNumber;
+	}
+
+	public boolean isStarting() {
+		return starting;
+	}
+
+	public void setStarting(boolean starting) {
+		this.starting = starting;
 	}
 
 }
