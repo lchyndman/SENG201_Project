@@ -192,6 +192,10 @@ public class Athlete {
 	public boolean isInjured() {
 		return isInjured;
 	}
+	
+	public void setInjured(boolean booleanB) {
+		isInjured = booleanB;
+	}
 
 	public ArrayList<Item> getAppliedItems() {
 		return appliedItems;

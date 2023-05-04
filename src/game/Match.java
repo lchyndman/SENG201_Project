@@ -9,13 +9,14 @@ public class Match {
 	private int currentOver = 0;
 	
 	private Team playerTeam;
-	private Athlete currentBatter;
-	private Athlete currentBowler;
-	
 	private Team opponentTeam;
-	private Athlete opponentCurrentBatter;
-	private Athlete opponentCurrentBowler;
-	private int opponentCurrentScore;
+	
+	public Match(PlayerTeam P, EnemyTeam M) {
+		playerTeam = P;
+		opponentTeam = M;
+		
+		
+	}
 	
 	
 	public String playMatch() {
@@ -48,14 +49,17 @@ public class Match {
 		Team battingTeam = team1;
 		Team bowlingTeam = team2;
 		
-		int lenBat = battingTeam.getBattingOrder.size();
-		int batIn = 0;
-		Athlete currentBatter = battingTeam.getBattingOrder.get(batIn);
-		int battersthree = 0;
+		Athlete[] battingOrder = battingTeam.getBattingOrder();
+		Athlete[] bowlingOrder = bowlingTeam.getBattingOrder();
 		
-		int lenBowl = bowlingTeam.getBowlingOrder().length;
+		int lenBat = battingOrder.length;
+		
+		int batIn = 0;
+		Athlete currentBatter = battingOrder[batIn];
+		
+		int lenBowl = bowlingOrder.length;
 		int bowlIn = 0;
-		Athlete currentBowler = bowlingTeam.getBowlingOrder()[bowlIn];
+		Athlete currentBowler = bowlingOrder[bowlIn];
 
 		int bowlerThree = 0;
 	
@@ -76,7 +80,7 @@ public class Match {
 				int random = getRandomNumber(0,1000);
 				if (random < risk) {
 					batterfreakinjury = true;
-//					set player injured
+					currentBowler.setInjured(batterfreakinjury);
 				}
 				
 				boolean bowlerfreakinjury = false;
@@ -84,12 +88,12 @@ public class Match {
 				int random1 = getRandomNumber(0,1000);
 				if (random1 < risk1) {
 					bowlerfreakinjury = true;
-//				set player injured
+					currentBowler.setInjured(true);
 				}
 				
 				
 				int fieldStat = 0;
-				Athlete[] fieldingPlayers = bowlingTeam.getBowlingOrder();
+				Athlete[] fieldingPlayers = bowlingOrder;
 				for (Athlete fielder : fieldingPlayers) {
 					fieldStat += fielder.getFielding();
 				}
@@ -111,8 +115,7 @@ public class Match {
 				if (batterOut || batterfreakinjury ) {
 					batIn += 1;
 					currentBatter.batOver(5);
-					currentBatter = battingTeam.batterOrder.get(batIn);
-					battersthree = 0;
+					currentBatter = battingOrder[batIn];
 					}
 				else {
 					currentScore += points;
@@ -120,15 +123,20 @@ public class Match {
 				
 				
 				if (bowlerfreakinjury)  {
-//					bowlIn += 1;
-					currentBowler = bowlingTeam.bowlerOrder(bowlIn);
+					bowlIn += 1;
+					currentBowler = bowlingOrder[bowlIn];
 					bowlerThree = 0;
 				}
-				bowlerThree += 1;
-				if (bowlerThree % 3 ==0) {
-					bowlIn += 1;
-					bowlerThree = 0;
-					currentBowler = bowlingTeam.bowlerOrder(bowlIn);
+				else {
+					bowlerThree += 1;
+					if (bowlerThree % 3 ==0) {
+						bowlIn += 1;
+						bowlerThree = 0;
+						currentBowler = bowlingOrder[bowlIn]; 
+						}
+					}
+				if (bowlIn >= lenBowl) {
+					bowlIn = 0;
 				}
 			}
 		}
@@ -148,8 +156,8 @@ public class Match {
 		
 		
 		int base_result = 500;
-		int batting = batter.getBatting;
-		int bowling = bowler.getBowling;
+		int batting = batter.getBatting();
+		int bowling = bowler.getBowling();
 		int batnum = 1/2 * this.getRandomNumber(1, 20);
 		int bowlnum = 1/2 * this.getRandomNumber(1, 5);
 		
@@ -187,10 +195,11 @@ public class Match {
 		case 6:
 			batter.batOver(0);
 			return 6;
-			
-			
-		}		
 		
+						
+		}		
+		return -2;
+
 	}
 	
 	
@@ -201,4 +210,14 @@ public class Match {
 //		code from https://www.baeldung.com/java-generating-random-numbers-in-range
 //		min is inclusive however max is exclusive, hence +1
 	}
+	
+	public static void main(String args[]) {
+		Team team = new Team(1000000);
+		Generator g = new Generator();
+		for (int i=0; i < 11; i++) {
+			team.addAthlete(g.generateAthlete());
+		}
+	}
+	
+	
 }
