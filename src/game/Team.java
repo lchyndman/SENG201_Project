@@ -5,48 +5,23 @@ import java.util.Scanner;
 public class Team {
 	/*
 	 * Represents a team of cricketers with all of the relevant attributes
-	 * includes methods for adding/buying, removing/selling players
+	 * includes methods for adding/selling players, sorting by player price and ability
 	 */
-	private int balance = 0; // stores how much cash team has for purchasing players and items
-	private int points = 0; // stores how many points the team has gained this season
-	private String teamName; // name of team
-	private ArrayList<Item> inventory; //
-	private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
-	private final int MAX_ATHLETES = 16;
-	private ArrayList<Athlete> startingAthletes = new ArrayList<Athlete>();
-	private ArrayList<Athlete> reserveAthletes = new ArrayList<Athlete>();
-	private Athlete[] bowlingOrder = new Athlete[11];
-	private Athlete[] battingOrder = new Athlete[11];
+	protected String teamName; // name of team
+	protected int[] teamRatings = new int[5]; // array describing the average abilities of teams players
+	protected final int MAX_ATHLETES = 16; // maximum number of owned athletes
+	protected ArrayList<Athlete> athletes = new ArrayList<Athlete>(); // list of athletes owned by the team
+	protected ArrayList<Athlete> startingAthletes = new ArrayList<Athlete>(); // lists of starting and reserved athletes
+	protected ArrayList<Athlete> reserveAthletes = new ArrayList<Athlete>(); //...
+	protected Athlete[] bowlingOrder = new Athlete[11]; // order of bowlers and batters for matches
+	protected Athlete[] battingOrder = new Athlete[11]; //...
 	
-	public Team(int balance) {
-		this.balance = balance;
-	}
 	
 	public void addAthlete(Athlete a) {
-		if (this.athletes.size() < this.MAX_ATHLETES) {
+		/* add athlete a to list of owned athletes*/
+		if (this.athletes.size() < this.MAX_ATHLETES) { // check that adding a will not make len(athletes) > max athletes
 			this.athletes.add(a);
 		}
-	}
-	
-	public void buyAthlete(Athlete a) {
-		if (a.getPrice() <= this.balance && this.athletes.size() < this.MAX_ATHLETES) {
-			this.addAthlete(a);
-			this.balance -= a.getPrice();
-		}
-	}
-	public void sellAthlete() {
-		int i = 0;
-		for (Athlete a: this.athletes) {
-			i++;
-			System.out.print(i);
-			System.out.println(a);
-		}
-	    Scanner myObj = new Scanner(System.in);
-	    System.out.println("Select one of the above players to sell(1-11)");
-	    String playerNum = myObj.nextLine();
-	    int n = (Integer.parseInt(playerNum)-1);
-	    this.addBalance(this.athletes.get(n).getPrice());
-	    this.removeAthlete(n);
 	}
 	
 	public void removeAthlete(int i) {
@@ -145,66 +120,65 @@ public class Team {
 		}
 	}
 	
+	public int getTeamRatings() {
+		
+		for (Athlete a : this.athletes) {
+			total += a.getPrice();
+		}
+		r (total / this.athletes.size());
+		
+		
+	}
+	
 	public String getTeamName() {
 		return teamName;
 	}
+	
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
 	}
-	public ArrayList<Item> getInventory() {
-		return inventory;
-	}
-	public void setInventory(ArrayList<Item> inventory) {
-		this.inventory = inventory;
-	}
+
 	public ArrayList<Athlete> getAthletes() {
 		return athletes;
 	}
+	
 	public void setAthletes(ArrayList<Athlete> athletes) {
 		this.athletes = athletes;
 	}
+	
 	public ArrayList<Athlete> getStartingAthletes() {
 		return startingAthletes;
 	}
+	
 	public void setStartingAthletes(ArrayList<Athlete> startingAthletes) {
 		this.startingAthletes = startingAthletes;
 	}
+	
 	public ArrayList<Athlete> getReserveAthletes() {
 		return reserveAthletes;
 	}
+	
 	public void setReserveAthletes(ArrayList<Athlete> reserveAthletes) {
 		this.reserveAthletes = reserveAthletes;
 	}
+	
 	public Athlete[] getBowlingOrder() {
 		return bowlingOrder;
 	}
+	
 	public void setBowlingOrder(Athlete[] bowlingOrder) {
 		this.bowlingOrder = bowlingOrder;
 	}
+	
 	public Athlete[] getBattingOrder() {
 		return battingOrder;
 	}
+	
 	public void setBattingOrder(Athlete[] battingOrder) {
 		this.battingOrder = battingOrder;
 	}
 	
-	public int getPoints() {
-		return points;
-	}
-	
-	public int getBalance() {
-		return this.balance;
-	}
-	
-	public void addPoints(int points){
-		this.points += points;
-	}
-	
-	public void addBalance(int amount) {
-		this.balance += amount;
-	}
-	
 	public String toString() {
-		return "\nTEAM NAME: "+ this.teamName+"\nPLAYERS: "+this.athletes +"\nBALANCE: "+this.balance;
+		return "\nTEAM NAME: "+ this.teamName+"\nPLAYERS: "+this.athletes;
 	}
 }
