@@ -7,10 +7,10 @@ public class Team {
 	 * Represents a team of cricketers with all of the relevant attributes
 	 * includes methods for adding/buying, removing/selling players
 	 */
-	private int balance = 0;
-	private int points = 0;
-	private String teamName;
-	private ArrayList<Item> inventory;
+	private int balance = 0; // stores how much cash team has for purchasing players and items
+	private int points = 0; // stores how many points the team has gained this season
+	private String teamName; // name of team
+	private ArrayList<Item> inventory; //
 	private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
 	private final int MAX_ATHLETES = 16;
 	private ArrayList<Athlete> startingAthletes = new ArrayList<Athlete>();
