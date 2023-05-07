@@ -8,8 +8,9 @@ public class Match {
 	private int maxOvers = 20;
 	private int currentOver = 0;
 	
-	private Team playerTeam;
-	private Team opponentTeam;
+	private PlayerTeam playerTeam;
+	private EnemyTeam opponentTeam;
+	private Team winner;
 	
 	public Match(PlayerTeam P, EnemyTeam M) {
 		playerTeam = P;
@@ -23,9 +24,11 @@ public class Match {
 		int playerFinalScore = playHalf(playerTeam, opponentTeam);
 		int opponentFinalScore = playHalf(opponentTeam,playerTeam);
 		if (playerFinalScore > opponentFinalScore) {
+			winner = playerTeam;
 			return "Player team wins";
 		}
 		if (playerFinalScore < opponentFinalScore) {
+			winner = opponentTeam;
 			return "Opponent wins";
 		}
 		else {
@@ -212,11 +215,16 @@ public class Match {
 	}
 	
 	public static void main(String args[]) {
-		Team team = new Team(1000000);
+		Team team = new PlayerTeam(1000000);
 		Generator g = new Generator();
 		for (int i=0; i < 11; i++) {
 			team.addAthlete(g.generateAthlete());
 		}
+	}
+
+
+	public Team getWinner() {
+		return winner;
 	}
 	
 	
