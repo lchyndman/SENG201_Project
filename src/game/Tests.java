@@ -10,7 +10,7 @@ public class Tests {
 		t.addAthlete(g.generateAthlete());
 		t.addAthlete(g.generateAthlete());
 		System.out.println(t);
-		System.out.println(t.getTeamRating());
+
 	}
 
 }
