@@ -120,15 +120,38 @@ public class Team {
 		}
 	}
 	
-	public int getTeamRatings() {
-		
+	public int getAverageBatting() {
+		int total = 0;
 		for (Athlete a : this.athletes) {
-			total += a.getPrice();
+			total += a.getBatting();
 		}
-		r (total / this.athletes.size());
-		
-		
+		return (total / this.athletes.size());
 	}
+	
+	public int getAverageBowling() {
+		int total = 0;
+		for (Athlete a : this.athletes) {
+			total += a.getBowling();
+		}
+		return (total / this.athletes.size());
+	}
+	
+	public int getAverageFielding() {
+		int total = 0;
+		for (Athlete a : this.athletes) {
+			total += a.getFielding();
+		}
+		return (total / this.athletes.size());
+	}
+	
+	public int getAverageStamina() {
+		int total = 0;
+		for (Athlete a : this.athletes) {
+			total += a.getStamina();
+		}
+		return (total / this.athletes.size());
+	}
+	
 	
 	public String getTeamName() {
 		return teamName;
