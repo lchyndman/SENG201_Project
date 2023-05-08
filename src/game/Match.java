@@ -10,7 +10,7 @@ public class Match {
 	
 	private PlayerTeam playerTeam;
 	private EnemyTeam opponentTeam;
-	private Team winner;
+	private String winner;
 	
 	public Match(PlayerTeam P, EnemyTeam M) {
 		playerTeam = P;
@@ -20,19 +20,17 @@ public class Match {
 	}
 	
 	
-	public String playMatch() {
+	public void playMatch() {
 		int playerFinalScore = playHalf(playerTeam, opponentTeam);
 		int opponentFinalScore = playHalf(opponentTeam,playerTeam);
 		if (playerFinalScore > opponentFinalScore) {
-			winner = playerTeam;
-			return "Player team wins";
+			winner = "Player team wins";
 		}
 		if (playerFinalScore < opponentFinalScore) {
-			winner = opponentTeam;
-			return "Opponent wins";
+			winner = "Opponent wins";
 		}
 		else {
-			return "It was a draw";
+			winner = "It was a draw";
 		}
 		
 	}
@@ -223,7 +221,7 @@ public class Match {
 	}
 
 
-	public Team getWinner() {
+	public String getWinner() {
 		return winner;
 	}
 	

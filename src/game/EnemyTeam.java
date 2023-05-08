@@ -8,6 +8,9 @@ public class EnemyTeam extends Team{
 		this.sortBowlingOrder();
 		this.sortAthletes();
 	}
+	
+	private int worthPoints;
+	private int worthMoney;
 
 	public void fillTeam() {
 		Generator g = new Generator();
@@ -16,5 +19,22 @@ public class EnemyTeam extends Team{
 		}
 	}
 	
+	public void setPoints() {
+		worthPoints = 1000;
+//		make based on team stats
+	}
+	
+	public void setMoney() {
+		worthMoney = 1000;
+//		make based on team stats 
+	}
+	
+	public int getPoints() {
+		return worthPoints;
+	}
+	
+	public int getMoney() {
+		return worthMoney;
+	}
 
 }

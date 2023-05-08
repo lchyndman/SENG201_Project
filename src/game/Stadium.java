@@ -39,7 +39,16 @@ public class Stadium {
 	public void playMatch() {
 		if (!allInjured) {   //team also needs to be full
 		Match game = new Match(playerTeam, enemyTeam);
-		
+		String outcome = game.getWinner();
+		if (outcome =="Player team wins") {
+			playerTeam.addBalance(enemyTeam);
+		}
+		if (outcome == "Opponent wins") {
+			
+		}
+		else {
+			
+		}
 	}
 }
 }
