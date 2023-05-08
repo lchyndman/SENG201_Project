@@ -40,18 +40,6 @@ public class Stadium {
 		if (!allInjured) {   //team also needs to be full
 		Match game = new Match(playerTeam, enemyTeam);
 		
-		try
-		{
-		Team winner = game.getWinner();
-		}
-		catch()// the error, it was a draw
-		{
-			
-		}
-		finally
-		{
-			// code that increases player teams money and points correctly
-		}
 	}
 }
 }
