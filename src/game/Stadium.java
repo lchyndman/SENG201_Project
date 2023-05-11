@@ -29,6 +29,13 @@ public class Stadium {
 	public EnemyTeam[] generateOpponents() {
 //		return an array of possible matches (3-5)
 //		needs to show the money and points gained by winning this match
+		EnemyTeam e1 = new EnemyTeam();
+		EnemyTeam e2 = new EnemyTeam();
+		EnemyTeam e3 = new EnemyTeam();
+		EnemyTeam e4 = new EnemyTeam();
+		EnemyTeam e5 = new EnemyTeam();
+		EnemyTeam[] enemyoptions = {e1, e2, e3, e4, e5};
+		return enemyoptions;
 	}
 	
 	public void chooseOpponent(EnemyTeam E) {
@@ -41,13 +48,15 @@ public class Stadium {
 		Match game = new Match(playerTeam, enemyTeam);
 		String outcome = game.getWinner();
 		if (outcome =="Player team wins") {
-			playerTeam.addBalance(enemyTeam);
+			playerTeam.addBalance(enemyTeam.getMoney());
+			playerTeam.addPoints(enemyTeam.getPoints());
 		}
 		if (outcome == "Opponent wins") {
-			
+//			"get better"
 		}
-		else {
-			
+		else { // u tied
+			playerTeam.addBalance((enemyTeam.getMoney())/2);
+			playerTeam.addPoints((enemyTeam.getPoints())/2);
 		}
 	}
 }
