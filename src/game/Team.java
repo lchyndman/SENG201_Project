@@ -25,6 +25,7 @@ public class Team {
 	}
 	
 	public void removeAthlete(int i) {
+		// remove an athlete at given index i
 		Athlete removed = this.athletes.get(i);
 	    this.athletes.remove(removed);
 	    if (removed.isStarting()) {
@@ -38,6 +39,7 @@ public class Team {
 	  }
 	
 	public Athlete[] athleteArray() {
+		// return athlete list as an array
 		Athlete[] arr = new Athlete[this.athletes.size()];
 		for (int i = 0; i<arr.length; i++) {
 			arr[i] = this.athletes.get(i);
@@ -46,7 +48,7 @@ public class Team {
 	}
 	
 	public void sortBattingOrder() {
-        // Custom input array
+        // Sort bowling order by athlete batting ablility
         Athlete[] arr = this.athleteArray();
  
         // Outer loop
@@ -92,7 +94,7 @@ public class Team {
 	}
 	
 	public void sortAthletes() {
-	 // Custom input array
+	 // Sort starting and reserve athletes based on price
         Athlete[] arr = this.athleteArray();
         int n = 0;
         // Outer loop
