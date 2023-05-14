@@ -21,7 +21,15 @@ public class Team {
 		/* add athlete a to list of owned athletes*/
 		if (this.athletes.size() < this.MAX_ATHLETES) { // check that adding a will not make len(athletes) > max athletes
 			this.athletes.add(a);
+			if (startingAthletes.size() < 12 ) {
+				startingAthletes.add(a);
+			}
+			else {      // (reserveAthletes.size() < 6)
+				reserveAthletes.add(a);
+			}
 		}
+		this.sortBattingOrder();
+		this.sortBowlingOrder();
 	}
 	
 	public void removeAthlete(int i) {
