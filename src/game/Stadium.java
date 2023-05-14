@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Scanner;
+
 public class Stadium {
 // a wonderful class
 	
@@ -9,23 +11,14 @@ public class Stadium {
 //	match outcome 
 	
 	
-	private PlayerTeam playerTeam;
 	private boolean allInjured = true;
-	private EnemyTeam[] enemyoptions;
+	private EnemyTeam[] enemyOptions;
 	private EnemyTeam enemyTeam;
+	private Scanner sc = new Scanner(System.in);
 	
-	public Stadium(PlayerTeam P) {
-		playerTeam = P;
-	}
+
 	
-	public void checkAllInjured() {
-		for (Athlete player : playerTeam.getStartingAthletes()) {
-			if (! player.isInjured()) {
-				allInjured = false;
-			}
-		}
-	}
-	
+
 	public EnemyTeam[] generateOpponents() {
 //		return an array of possible matches (3-5)
 //		needs to show the money and points gained by winning this match
@@ -34,16 +27,30 @@ public class Stadium {
 		EnemyTeam e3 = new EnemyTeam();
 		EnemyTeam e4 = new EnemyTeam();
 		EnemyTeam e5 = new EnemyTeam();
-		EnemyTeam[] enemyoptions = {e1, e2, e3, e4, e5};
-		return enemyoptions;
+		EnemyTeam[] enemyOptions = {e1, e2, e3, e4, e5};
+		return enemyOptions;
 	}
 	
-	public void chooseOpponent(EnemyTeam E) {
-		enemyTeam = E;
+	public void chooseOpponent() {
+		System.out.println("Which opponent would you like to play? (1-5");
+		int enemyNum = Integer.parseInt(sc.nextLine()) - 1;
+		enemyTeam = enemyOptions[enemyNum-1];
+		
+	}
+	
+	public void chooseToBye() {
+		// pick a player to train 
 	}
 	
 	
-	public void playMatch() {
+	public void playMatch(PlayerTeam playerTeam) {
+		
+		for (Athlete player : playerTeam.getStartingAthletes()) {
+			if (! player.isInjured()) {
+				allInjured = false;
+			}
+		}
+				
 		if (!allInjured) {   //team also needs to be full
 		Match game = new Match(playerTeam, enemyTeam);
 		String outcome = game.getWinner();
@@ -57,7 +64,14 @@ public class Stadium {
 		else { // u tied
 			playerTeam.addBalance((enemyTeam.getMoney())/2);
 			playerTeam.addPoints((enemyTeam.getPoints())/2);
+			}
+		}
+	}
+	
+	public void printOpponents() { // these aren't numbered
+		for (EnemyTeam opponent : this.generateOpponents()) {
+			System.out.println(opponent);
 		}
 	}
 }
-}
+

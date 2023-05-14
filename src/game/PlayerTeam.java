@@ -45,6 +45,16 @@ public class PlayerTeam extends Team {
 		}
 	}
 	
+	public void buyItem(Item e) {
+		if (e.getPrice() <= this.balance) {
+			inventory.add(e);
+		}
+		else {
+			System.out.println("Insufficient funds for purchase");
+		}
+		
+	}
+	
 	public ArrayList<Item> getInventory() {
 		return inventory;
 	}

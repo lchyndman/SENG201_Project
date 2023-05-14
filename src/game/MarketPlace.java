@@ -27,9 +27,9 @@ public class MarketPlace {
 	public PlayerTeam buyItem(PlayerTeam team) {
 		System.out.println("Choose which item you wish to purchase (1-4)");
 		int itemInt = Integer.parseInt(sc.nextLine()) - 1;
-		team.buyAthlete(this.athletes.get(playerInt));
-		this.athletes.remove(playerInt);
-		this.athletes.add(this.generator.generateAthlete());
+		team.buyItem(this.items.get(itemInt));
+		this.items.remove(itemInt);
+		this.items.add(this.generator.generateItem());
 		return team;
 	}
 	
