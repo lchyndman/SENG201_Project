@@ -65,7 +65,7 @@ public class GameEnvironment {
 		GameEnvironment game = new GameEnvironment();
 		game.gameSetup();
 		while (game.currentWeek < game.seasonLength) {
-			t
+			
 		}
 	}
 }
