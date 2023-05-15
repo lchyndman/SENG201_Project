@@ -211,7 +211,12 @@ public class Team {
 		this.battingOrder = battingOrder;
 	}
 	
+//	public String toString() {
+//		return "\nTEAM NAME: "+ this.teamName+"\nPLAYERS: "+this.athletes;
+//	}
+	
 	public String toString() {
-		return "\nTEAM NAME: "+ this.teamName+"\nPLAYERS: "+this.athletes;
+		return "\nTEAM NAME: "+ this.teamName+"\nSTARTING PLAYERS: "+this.startingAthletes+"\nRESERVE PLAYERS: "+this.reserveAthletes;
 	}
+	
 }

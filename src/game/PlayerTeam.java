@@ -79,4 +79,10 @@ public class PlayerTeam extends Team {
 		this.balance += amount;
 	}
 
+	public void printInventory() {
+		for (Item item : inventory) {
+			System.out.println(item);
+		}
+	}
+	
 }

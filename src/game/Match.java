@@ -21,18 +21,43 @@ public class Match {
 	
 	
 	public void playMatch() {
-		int playerFinalScore = playHalf(playerTeam, opponentTeam);
-		int opponentFinalScore = playHalf(opponentTeam,playerTeam);
-		if (playerFinalScore > opponentFinalScore) {
-			winner = "Player team wins";
-		}
-		if (playerFinalScore < opponentFinalScore) {
-			winner = "Opponent wins";
-		}
-		else {
-			winner = "It was a draw";
+		
+		int opponentFinalScore = 0;
+		int playerFinalScore = 0;
+		
+		playerFinalScore = playHalf(playerTeam, opponentTeam);
+		
+		Boolean playersAllInjured = true;
+		for (Athlete player : playerTeam.getStartingAthletes()) {
+			if (! player.isInjured()) {
+				playersAllInjured = false;
+			}
+		}	
+		Boolean opponentsAllInjured = true;
+		for (Athlete player : opponentTeam.getStartingAthletes()) {
+			if (! player.isInjured()) {
+				opponentsAllInjured = false;
+			}
 		}
 		
+		if (playersAllInjured) {
+			winner = "Opponent wins";
+		}
+		else if (opponentsAllInjured) {
+			winner = "Player team wins";
+		}
+		else {
+			opponentFinalScore = playHalf(opponentTeam,playerTeam);
+			if (playerFinalScore > opponentFinalScore) {
+				winner = "Player team wins";
+			}
+			if (playerFinalScore < opponentFinalScore) {
+				winner = "Opponent wins";
+			}
+			else {
+				winner = "It was a draw";
+			}
+		}	
 	}
 	
 	public int playHalf(Team team1, Team team2) {
@@ -71,8 +96,6 @@ public class Match {
 			while (batIn < lenBat) {    // stops count if all batters out before end of overs
 			
 				boolean batterOut = false;
-				
-				
 				
 				int points = faceOff(currentBatter, currentBowler);
 				
@@ -117,6 +140,10 @@ public class Match {
 					batIn += 1;
 					currentBatter.batOver(5);
 					currentBatter = battingOrder[batIn];
+					while (currentBatter.isInjured()) {
+						batIn += 1;
+						currentBatter = battingOrder[batIn];
+						}
 					}
 				else {
 					currentScore += points;
@@ -126,19 +153,27 @@ public class Match {
 				if (bowlerfreakinjury)  {
 					bowlIn += 1;
 					currentBowler = bowlingOrder[bowlIn];
+					while (currentBowler.isInjured()) {
+						bowlIn += 1;
+						currentBowler = bowlingOrder[batIn];
+						}
 					bowlerThree = 0;
 				}
-				else {
-					bowlerThree += 1;
-					if (bowlerThree % 3 ==0) {
-						bowlIn += 1;
-						bowlerThree = 0;
-						currentBowler = bowlingOrder[bowlIn]; 
-						}
-					}
-				if (bowlIn >= lenBowl) {
-					bowlIn = 0;
-				}
+//				else {
+//					bowlerThree += 1;
+//					if (bowlerThree % 3 ==0) {
+//						bowlIn += 1;
+//						currentBowler = bowlingOrder[bowlIn]; 
+//						while (currentBowler.isInjured()) {
+//							bowlIn += 1;
+//							currentBowler = bowlingOrder[batIn];
+//							}
+//						bowlerThree = 0;
+//						}
+//					}
+//				if (bowlIn >= lenBowl) {
+//					bowlIn = 0;
+//				}
 			}
 		}
 		
