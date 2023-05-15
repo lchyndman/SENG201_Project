@@ -110,20 +110,27 @@ public class GameEnvironment {
 		String bye = this.sc.nextLine();
 		if (bye == "y") {
 			this.stadium.chooseToBye();
+			this.currentWeek += 1;
 		}
 		else {
-			this.stadium.chooseOpponent();
-			this.stadium.playMatch(playerTeam);
-			//show out come of game in gui somewhere
+			if (playerTeam.getStartingAthletes().size() == 11) {
+				this.stadium.chooseOpponent();
+				this.stadium.playMatch(playerTeam);
+				//show out come of game in gui somewhere
+				this.currentWeek += 1;
+			}
+			else {
+				System.out.println("You cannot play a match without a full team.");
+			}
 		}
-		
-		this.currentWeek += 1;
 	}
 	
 	public void goToClub() {
 //		displaying athletes
 		System.out.println(playerTeam);
 
+// 		displaying inventory
+		playerTeam.printInventory();
 		
 //		swapping players
 		System.out.println("Do you wish to swap two players? (y/n)");
@@ -143,6 +150,20 @@ public class GameEnvironment {
 			
 			this.playerTeam.sortBattingOrder();
 			this.playerTeam.sortBowlingOrder();
+		}
+		
+//		applying items
+		System.out.println("Do you want to use any items? (y/n)");
+		String conf = this.sc.nextLine();
+		if (conf == "y") {
+			System.out.print(playerTeam.athletes);
+			System.out.println("Pick a player (1-16)"); //dont have to worry about picking a number greater than then in the team as will be buttons
+			int playerIn = Integer.parseInt(sc.nextLine());
+			
+			playerTeam.printInventory();
+			System.out.println("Pick a item (int)"); // again button or drop down box?
+			int itemIn = Integer.parseInt(sc.nextLine());
+			playerTeam.athletes.get(itemIn).applyItem(playerTeam.getInventory().get(itemIn));
 		}
 	}
 	

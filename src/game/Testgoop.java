@@ -3,16 +3,14 @@ package game;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JList;
 
 public class Testgoop {
 
 	private JFrame frame;
-	private JTextField txtPlayerTwo;
-	private final JTextArea textArea = new JTextArea();
 
 	/**
 	 * Launch the application.
@@ -46,37 +44,21 @@ public class Testgoop {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		txtPlayerTwo = new JTextField();
-		txtPlayerTwo.setText("Player two");
-		txtPlayerTwo.setBounds(146, 10, 96, 19);
-		frame.getContentPane().add(txtPlayerTwo);
-		txtPlayerTwo.setColumns(10);
-		textArea.setBounds(10, 7, 107, 103);
-		frame.getContentPane().add(textArea);
+		JButton btnNewButton = new JButton("button one");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		
-		JTextArea txtrHi = new JTextArea();
-		txtrHi.setText(playerTeam.);
-		txtrHi.setBounds(51, 133, 66, 72);
-		frame.getContentPane().add(txtrHi);
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(51, 217, 85, 21);
+		JList list_1 = new JList();
+		list_1.setBounds(312, 147, 38, 52);
+		frame.getContentPane().add(list_1);
+		btnNewButton.setBounds(33, 128, 85, 21);
 		frame.getContentPane().add(btnNewButton);
 		
-		JTextArea textArea_2 = new JTextArea();
-		textArea_2.setBounds(163, 133, 66, 72);
-		frame.getContentPane().add(textArea_2);
-		
-		JTextArea textArea_2_1 = new JTextArea();
-		textArea_2_1.setBounds(263, 133, 66, 72);
-		frame.getContentPane().add(textArea_2_1);
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(163, 217, 85, 21);
+		JButton btnNewButton_1 = new JButton("button two");
+		btnNewButton_1.setBounds(190, 128, 85, 21);
 		frame.getContentPane().add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("New button");
-		btnNewButton_2.setBounds(263, 217, 85, 21);
-		frame.getContentPane().add(btnNewButton_2);
 	}
 }
