@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class SetupWindow {
+public class HomeWindow {
 
 	private JFrame frame;
 
@@ -15,7 +15,7 @@ public class SetupWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SetupWindow window = new SetupWindow();
+					HomeWindow window = new HomeWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class SetupWindow {
 	/**
 	 * Create the application.
 	 */
-	public SetupWindow() {
+	public HomeWindow() {
 		initialize();
 	}
 
@@ -36,7 +36,7 @@ public class SetupWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
