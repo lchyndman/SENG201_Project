@@ -79,4 +79,8 @@ public class PlayerTeam extends Team {
 		this.balance += amount;
 	}
 
+	public String toString() {
+		return "\nTEAM NAME: "+ this.teamName+"\nBALANCE: "+this.balance+"\nPLAYERS: "+this.athletes;
+	}
+	
 }

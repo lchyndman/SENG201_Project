@@ -34,6 +34,7 @@ public class MarketPlace {
 	}
 	
 	public void printAthletes() {
+		System.out.println();
 		for (int i = 0; i < this.athletes.size(); i++) {
 			System.out.println((i+1)+") "+this.athletes.get(i));
 		}

@@ -28,8 +28,11 @@ public class Team {
 				reserveAthletes.add(a);
 			}
 		}
-		this.sortBattingOrder();
-		this.sortBowlingOrder();
+		if (this.athletes.size() >= 11) {
+			this.sortAthletes();
+			this.sortBattingOrder();
+			this.sortBowlingOrder();
+		}
 	}
 	
 	public void removeAthlete(int i) {
@@ -60,7 +63,7 @@ public class Team {
         Athlete[] arr = this.athleteArray();
  
         // Outer loop
-        for (int i = 0; i < this.battingOrder.length; i++) {
+        for (int i = 0; i < this.startingAthletes.size(); i++) {
             // Inner nested loop pointing 1 index ahead
             for (int j = i + 1; j < arr.length; j++) {
                 // Checking elements
@@ -83,7 +86,7 @@ public class Team {
         Athlete[] arr = this.athleteArray();
  
         // Outer loop
-        for (int i = 0; i < this.bowlingOrder.length; i++) {
+        for (int i = 0; i < this.startingAthletes.size(); i++) {
             // Inner nested loop pointing 1 index ahead
             for (int j = i + 1; j < arr.length; j++) {
                 // Checking elements
@@ -118,12 +121,12 @@ public class Team {
                     arr[j] = temp;
                 }
             }
-            // Printing sorted array elements
+
             this.startingAthletes.add(arr[i]);
             arr[i].setStarting(true);
             n = i;
         }
-        for (int k = n +1; k <arr.length; k++) {
+        for (int k = n + 1; k <arr.length; k++) {
         	this.reserveAthletes.add(arr[k]);
         	arr[k].setStarting(false);
         

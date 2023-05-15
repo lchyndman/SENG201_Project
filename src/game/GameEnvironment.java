@@ -6,7 +6,7 @@ public class GameEnvironment {
 	private MarketPlace market = new MarketPlace();
 	private int seasonLength;
 	private int currentWeek;
-	private int startingBalance = 1000 * 1000 * 5;
+	private int startingBalance = 1000 * 1000 * 11;
 	private Generator generator = new Generator();
 	private Stadium stadium;
 	private PlayerTeam playerTeam;
@@ -31,15 +31,17 @@ public class GameEnvironment {
 		this.playerTeam.setTeamName(teamName);
 		System.out.println("How many weeks will the season be?"); // make into slider
 		this.seasonLength = Integer.parseInt(sc.nextLine());
-		while (seasonLength < 4 || seasonLength > 15) {
+		while (seasonLength < 5 || seasonLength > 15) {
 			System.out.println("Season length must be between 5 and 15 weeks.");
 			seasonLength = Integer.parseInt(sc.nextLine());
 		}
 		this.currentWeek = 1;
 		this.goToMarket();
+		System.out.print(this.playerTeam);
 	}
 	
 	public void goToMarket() {
+		System.out.print(this.playerTeam.getBalance());
 		boolean buy;
 		boolean sell;
 		do {
