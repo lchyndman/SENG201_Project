@@ -1,8 +1,9 @@
 package game;
 
 public class EnemyTeam extends Team{
+	private int difficulty;
 	
-	public EnemyTeam() {
+	public EnemyTeam(int difficulty) {
 		this.fillTeam();
 		this.sortBattingOrder();
 		this.sortBowlingOrder();
@@ -13,7 +14,7 @@ public class EnemyTeam extends Team{
 	private int worthMoney;
 
 	public void fillTeam() {
-		Generator g = new Generator();
+		Generator g = new Generator(this.difficulty);
 		for (int i = 0; i < this.MAX_ATHLETES; i++) {
 			this.athletes.add(g.generateAthlete());
 		}
