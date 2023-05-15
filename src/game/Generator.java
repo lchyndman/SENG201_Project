@@ -2,7 +2,8 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class Generator {
 	private Random random = new Random();
 	
 	private final int MAX_LEVEL = 100; // maximum athlete attribute level
-	private final int MIN_LEVEL = 0; // minimum athlete attribute level
+	private final int MIN_LEVEL; // minimum athlete attribute level
 	private final int MAX_BUFF = 30; // maximum item buff amount
 	private final int MIN_BUFF = 10; // minimum item buff amount
 	
@@ -27,19 +28,39 @@ public class Generator {
 	public Generator() {
 		/* construct a new generator and call method to fill name lists */
 		this.fillNames();
+		this.MIN_LEVEL = 20;
 
+	}
+	
+	public Generator(int difficulty) {
+		if (difficulty == 1) {
+			this.MIN_LEVEL = 20;
+		}
+		else if (difficulty == 2) {
+			this.MIN_LEVEL = 40;
+		}
+		else {
+			this.MIN_LEVEL = 60;
+		}
+		this.fillNames();
 	}
 	
 	public void fillNames() {
 		/* read names from 2 .txt files into 2 arraylists */
 		BufferedReader reader;
+		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+
+
 
 		try {
 			reader = new BufferedReader(new FileReader("Names/first_names.txt"));
 			String line = reader.readLine();
 
 			while (line != null) {
-				this.firstNames.add(line);
+				Matcher m = p.matcher(line);
+				if (!m.find()) {
+					this.firstNames.add(line);
+				}
 				line = reader.readLine();
 			}
 
@@ -52,7 +73,10 @@ public class Generator {
 			String line = reader.readLine();
 
 			while (line != null) {
-				this.lastNames.add(line);
+				Matcher m = p.matcher(line);
+				if (!m.find()) {
+					this.lastNames.add(line);
+				}
 				line = reader.readLine();
 			}
 

@@ -169,8 +169,9 @@ public class GameEnvironment {
 	
 	public static void main(String args[]) {
 		GameEnvironment game = new GameEnvironment();
-		game.gameSetup();
-		while (game.currentWeek < game.seasonLength) {
+		Generator g = new Generator();
+		for (int i = 0; i<1000;i++) {
+			System.out.println(g.getRandomName());
 			
 		}
 	}
