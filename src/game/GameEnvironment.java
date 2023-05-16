@@ -11,6 +11,7 @@ public class GameEnvironment {
 	private Stadium stadium;
 	private PlayerTeam playerTeam;
 	private Scanner sc = new Scanner(System.in);
+	private int difficulty;
 	
 	
 	
@@ -25,7 +26,7 @@ public class GameEnvironment {
 		}
 		
 		System.out.println("Choose your difficulty."); //will be buttons so no need to add something check input
-		String difficulty = sc.nextLine();
+		difficulty = Integer.parseInt(sc.nextLine());
 				
 		this.playerTeam = new PlayerTeam(this.startingBalance);  //change due to chosen difficulty?
 		this.playerTeam.setTeamName(teamName);
@@ -103,7 +104,7 @@ public class GameEnvironment {
 	}
 	
 	public void goToStadium() {
-		this.stadium.generateOpponents();
+		this.stadium.generateOpponents(difficulty);
 		this.stadium.printOpponents();
 //		choose opponent or bye
 		System.out.println("Would you like to bye this week? (y/n)");

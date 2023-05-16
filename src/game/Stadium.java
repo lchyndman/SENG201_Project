@@ -19,14 +19,16 @@ public class Stadium {
 
 	
 
-	public EnemyTeam[] generateOpponents() {
+	
+
+	public EnemyTeam[] generateOpponents(int difficulty) {
 //		return an array of possible matches (3-5)
 //		needs to show the money and points gained by winning this match
-		EnemyTeam e1 = new EnemyTeam();
-		EnemyTeam e2 = new EnemyTeam();
-		EnemyTeam e3 = new EnemyTeam();
-		EnemyTeam e4 = new EnemyTeam();
-		EnemyTeam e5 = new EnemyTeam();
+		EnemyTeam e1 = new EnemyTeam(difficulty);
+		EnemyTeam e2 = new EnemyTeam(difficulty);
+		EnemyTeam e3 = new EnemyTeam(difficulty);
+		EnemyTeam e4 = new EnemyTeam(difficulty);
+		EnemyTeam e5 = new EnemyTeam(difficulty);
 		EnemyTeam[] enemyOptions = {e1, e2, e3, e4, e5};
 		return enemyOptions;
 	}
@@ -69,7 +71,7 @@ public class Stadium {
 	}
 	
 	public void printOpponents() { // these aren't numbered
-		for (EnemyTeam opponent : this.generateOpponents()) {
+		for (EnemyTeam opponent : this.enemyOptions) {
 			System.out.println(opponent);
 		}
 	}
