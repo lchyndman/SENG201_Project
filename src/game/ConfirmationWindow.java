@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class SetupWindow {
+public class ConfirmationWindow {
 
 	private JFrame frame;
 
@@ -15,7 +15,7 @@ public class SetupWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SetupWindow window = new SetupWindow();
+					ConfirmationWindow window = new ConfirmationWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class SetupWindow {
 	/**
 	 * Create the application.
 	 */
-	public SetupWindow() {
+	public ConfirmationWindow() {
 		initialize();
 	}
 

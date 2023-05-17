@@ -39,6 +39,6 @@ public class EnemyTeam extends Team{
 	}
 
 	public String toString() {  // will this override the team toString?
-		return "\nOpponent team:\n	WINNING POINTS: "+this.getPoints()+"\nWINNING MONEY: "+this.getMoney()+"\n";
+		return "\nOpponent team:\nAVERAGE BATTING: "+this.getAverageBatting()+"\nAVERAGE BOWLING: "+this.getAverageBowling()+"\nAVERAGE FEILDING: "+this.getAverageFielding()+"\nWINNING POINTS: "+this.getPoints()+"\nWINNING MONEY: "+this.getMoney()+"\n";
 	}
 }
