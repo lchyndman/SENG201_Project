@@ -79,15 +79,13 @@ public class PlayerTeam extends Team {
 		this.balance += amount;
 	}
 
-<<<<<<< HEAD
-	public String toString() {
-		return "\nTEAM NAME: "+ this.teamName+"\nBALANCE: "+this.balance+"\nPLAYERS: "+this.athletes;
-=======
+
+
 	public void printInventory() {
 		for (Item item : inventory) {
 			System.out.println(item);
 		}
->>>>>>> 187e6e2fe7fb9255ee91e0e0a26858745127e3f2
+
 	}
 	
 }
