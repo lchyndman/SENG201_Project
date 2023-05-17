@@ -80,13 +80,6 @@ public class PlayerTeam extends Team {
 	}
 
 
-<<<<<<< HEAD
-=======
-	public String toString() {
-		return "\nTEAM NAME: "+ this.teamName+"\nBALANCE: "+this.balance+"\nPLAYERS: "+this.athletes;
-	}
->>>>>>> 7aa11ce263b1466f37a4169e32c5ec3bf0f66e40
-
 	public void printInventory() {
 		for (Item item : inventory) {
 			System.out.println(item);

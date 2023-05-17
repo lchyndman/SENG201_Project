@@ -189,6 +189,9 @@ public class Athlete {
 	public int getStamina() {
 		return this.stamina;
 	}
+	public int getCurrentStamina() {
+		return this.currentStamina;
+	}
 	public boolean isInjured() {
 		return isInjured;
 	}
@@ -231,6 +234,11 @@ public class Athlete {
 
 	public void setStarting(boolean starting) {
 		this.starting = starting;
+	}
+
+	public void setCurrentStamina(int stamina) {
+		this.currentStamina = stamina;
+		
 	}
 
 }
