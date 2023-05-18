@@ -1,6 +1,12 @@
-package game;
+package gui;
 
+import java.awt.EventQueue;
 import java.util.Scanner;
+
+import game.Generator;
+import game.MarketPlace;
+import game.PlayerTeam;
+import game.Stadium;
 
 public class GameEnvironment {
 	private MarketPlace market = new MarketPlace();
@@ -18,6 +24,7 @@ public class GameEnvironment {
 	
 	
 	public void gameSetup() {
+		
 		System.out.println("Enter your team name: "); //text-box
 		String teamName = sc.nextLine();
 		while (teamName.length() < 2 || teamName.length() > 15) {
@@ -72,7 +79,7 @@ public class GameEnvironment {
 			System.out.println("Do you wish to buy a new item? (y/n)"); 
 			String buyStr = this.sc.nextLine();
 			if (buyStr.equals("y")) {
-				if (playerTeam.athletes.size() < 11 ) {
+				if (playerTeam.getAthletes().size() < 11 ) {
 					System.out.println("Are you sure you want to buy an item before you have a full team? (y/n)");
 					String confirm = this.sc.nextLine();
 					if (confirm == "y") {
@@ -127,6 +134,9 @@ public class GameEnvironment {
 	}
 	
 	public void goToClub() {
+		
+		ClubWindow screen = new ClubWindow(playerTeam);
+		
 //		displaying athletes
 		System.out.println(playerTeam);
 
@@ -142,12 +152,12 @@ public class GameEnvironment {
 			//Athlete Player1 
 			// get reserve athlete too 
 			
-			Athlete playerOne; //Initialize, player taken from starting
-			Athlete playerTwo; // Initialize, player added to starting
-			this.playerTeam.startingAthletes.remove(playerOne);
-			this.playerTeam.reserveAthletes.add(playerOne);
-			this.playerTeam.reserveAthletes.remove(playerTwo);
-			this.playerTeam.startingAthletes.add(playerTwo);
+//			Athlete playerOne; //Initialize, player taken from starting
+//			Athlete playerTwo; // Initialize, player added to starting
+//			this.playerTeam.startingAthletes.remove(playerOne);
+//			this.playerTeam.reserveAthletes.add(playerOne);
+//			this.playerTeam.reserveAthletes.remove(playerTwo);
+//			this.playerTeam.startingAthletes.add(playerTwo);
 			
 			this.playerTeam.sortBattingOrder();
 			this.playerTeam.sortBowlingOrder();
@@ -157,23 +167,34 @@ public class GameEnvironment {
 		System.out.println("Do you want to use any items? (y/n)");
 		String conf = this.sc.nextLine();
 		if (conf == "y") {
-			System.out.print(playerTeam.athletes);
+			System.out.print(playerTeam.getAthletes());
 			System.out.println("Pick a player (1-16)"); //dont have to worry about picking a number greater than then in the team as will be buttons
 			int playerIn = Integer.parseInt(sc.nextLine());
 			
 			playerTeam.printInventory();
 			System.out.println("Pick a item (int)"); // again button or drop down box?
 			int itemIn = Integer.parseInt(sc.nextLine());
-			playerTeam.athletes.get(itemIn).applyItem(playerTeam.getInventory().get(itemIn));
+			playerTeam.getAthletes().get(itemIn).applyItem(playerTeam.getInventory().get(itemIn));
 		}
 	}
 	
 	public static void main(String args[]) {
 		GameEnvironment game = new GameEnvironment();
-		Generator g = new Generator();
-		for (int i = 0; i<1000;i++) {
-			System.out.println(g.getRandomName());
-			
-		}
+//		Generator g = new Generator();
+//		for (int i = 0; i<1000;i++) {
+//			System.out.println(g.getRandomName());
+//			
+//		}
+		
+		game.gameSetup();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ClubWindow window = new ClubWindow(game.playerTeam);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
