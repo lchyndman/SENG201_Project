@@ -37,7 +37,7 @@ public class PlayerTeam extends Team {
 				System.out.println(a);
 			}
 		    Scanner myObj = new Scanner(System.in);
-		    System.out.println("Select one of the above players to sell(1-11)");
+		    System.out.println("Select one of the above players to sell(1-"+this.athletes.size()+")");
 		    String playerNum = myObj.nextLine();
 		    int n = (Integer.parseInt(playerNum)-1);
 		    this.addBalance(this.athletes.get(n).getPrice());
@@ -47,12 +47,21 @@ public class PlayerTeam extends Team {
 	
 	public void buyItem(Item e) {
 		if (e.getPrice() <= this.balance) {
+
 			this.inventory.add(e);
+
+			this.addItem(e);
+			this.balance -= e.getPrice();
+
 		}
 		else {
 			System.out.println("Insufficient funds for purchase");
 		}
 		
+	}
+	
+	public void addItem(Item e) {
+		this.inventory.add(e);
 	}
 	
 	public ArrayList<Item> getInventory() {
