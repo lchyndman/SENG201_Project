@@ -9,7 +9,7 @@ public class Team {
 	 */
 	protected String teamName; // name of team
 	protected int[] teamRatings = new int[5]; // array describing the average abilities of teams players
-	protected final int MAX_ATHLETES = 16; // maximum number of owned athletes
+	private final int MAX_ATHLETES = 16; // maximum number of owned athletes
 	protected ArrayList<Athlete> athletes = new ArrayList<Athlete>(); // list of athletes owned by the team
 	protected ArrayList<Athlete> startingAthletes = new ArrayList<Athlete>(); // lists of starting and reserved athletes
 	protected ArrayList<Athlete> reserveAthletes = new ArrayList<Athlete>(); //...
@@ -19,7 +19,7 @@ public class Team {
 	
 	public void addAthlete(Athlete a) {
 		/* add athlete a to list of owned athletes*/
-		if (this.athletes.size() < this.MAX_ATHLETES) { // check that adding a will not make len(athletes) > max athletes
+		if (this.athletes.size() < this.getMAX_ATHLETES()) { // check that adding a will not make len(athletes) > max athletes
 			this.athletes.add(a);
 			if (startingAthletes.size() < 12 ) {
 				startingAthletes.add(a);
@@ -220,6 +220,10 @@ public class Team {
 	
 	public String toString() {
 		return "\nTEAM NAME: "+ this.teamName+"\nSTARTING PLAYERS: "+this.startingAthletes+"\nRESERVE PLAYERS: "+this.reserveAthletes;
+	}
+
+	public int getMAX_ATHLETES() {
+		return MAX_ATHLETES;
 	}
 	
 }

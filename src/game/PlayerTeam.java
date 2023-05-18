@@ -16,7 +16,7 @@ public class PlayerTeam extends Team {
 	
 	public void buyAthlete(Athlete a) {
 			
-			if (a.getPrice() <= this.balance && this.athletes.size() < this.MAX_ATHLETES) {
+			if (a.getPrice() <= this.balance && this.athletes.size() < this.getMAX_ATHLETES()) {
 				this.addAthlete(a);
 				this.balance -= a.getPrice();
 			}

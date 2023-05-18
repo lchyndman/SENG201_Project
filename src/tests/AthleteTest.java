@@ -19,15 +19,17 @@ public class AthleteTest {
     @Test
     public void testUpdatePosition() {
         // Verify that the updatePosition method sets the correct position
+    	athlete.bowlingIncrement(30);
         athlete.updatePosition();
-        Assertions.assertEquals("Batsman", athlete.getPosition());
+        Assertions.assertEquals("Bowler", athlete.getPosition());
     }
 
     @Test
     public void testUpdatePrice() {
         // Verify that the updatePrice method sets the correct price
+        athlete.bowlingIncrement(30);
         athlete.updatePrice();
-        Assertions.assertEquals(3_964_000, athlete.getPrice());
+        Assertions.assertEquals(2728000, athlete.getPrice());
     }
 
     @Test
@@ -48,7 +50,7 @@ public class AthleteTest {
     public void testFieldOver() {
         // Verify that the fieldOver method decrements currentStamina correctly
         athlete.fieldOver();
-        Assertions.assertEquals(99, athlete.getCurrentStamina());
+         Assertions.assertEquals(99, athlete.getCurrentStamina());
     }
 
     @Test
@@ -70,12 +72,12 @@ public class AthleteTest {
     @Test
     public void testApplyItem() {
         // Verify that the applyItem method applies item buffs correctly
-        Item item = new Item("Shoes", 5, 0, 0, 0);
+        Item item = new Item("Shoes", 5, 5, 5, 5);
         athlete.applyItem(item);
 
         Assertions.assertEquals(85, athlete.getBatting());
-        Assertions.assertEquals(70, athlete.getBowling());
-        Assertions.assertEquals(60, athlete.getFielding());
+        Assertions.assertEquals(75, athlete.getBowling());
+        Assertions.assertEquals(65, athlete.getFielding());
         Assertions.assertEquals(100, athlete.getStamina());
     }
 }

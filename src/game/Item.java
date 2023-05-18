@@ -56,7 +56,7 @@ public class Item {
 	public String toString() {
 		return "\n	NAME: "+this.name+"\n	PRICE: "+this.price+"\n	BATTING: "+
 	this.batting+"\n	BOWLING: "+this.bowling+"\n	FIELDING: "+this.fielding+
-				"\n	STAMINA:"+this.stamina;
+				"\n	STAMINA: "+this.stamina;
 	}
 }
 

@@ -1,41 +1,42 @@
 package game;
 
 public class EnemyTeam extends Team{
-	private int difficulty;
+	private int difficulty; // between 1 and 3, determines ability of players
 	
 	public EnemyTeam(int difficulty) {
 		this.fillTeam();
 		this.sortBattingOrder();
 		this.sortBowlingOrder();
 		this.sortAthletes();
+		this.setPoints();
 	}
 	
-	private int worthPoints;
-	private int worthMoney;
+	private int winningPoints;
+	private int winningMoney;
 
 	public void fillTeam() {
 		Generator g = new Generator(this.difficulty);
-		for (int i = 0; i < this.MAX_ATHLETES; i++) {
+		for (int i = 0; i < this.getMAX_ATHLETES(); i++) {
 			this.athletes.add(g.generateAthlete());
 		}
 	}
 	
 	public void setPoints() {
-		worthPoints = 1000;
-//		make based on team stats
+		 this.winningPoints = (this.getAverageBatting()+this.getAverageBowling()+this.getAverageFielding()+this.getAverageStamina())/4;
 	}
 	
 	public void setMoney() {
-		worthMoney = 1000;
+		this.winningMoney = 10000*this.winningPoints;
 //		make based on team stats 
 	}
 	
 	public int getPoints() {
-		return worthPoints;
+		this.setMoney();
+		return this.winningPoints;
 	}
 	
 	public int getMoney() {
-		return worthMoney;
+		return this.winningMoney;
 	}
 
 	public String toString() {  // will this override the team toString?

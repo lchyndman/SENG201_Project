@@ -103,12 +103,12 @@ public class Generator {
 	
 	public int getRandomStat() {
 		/* return a random stat between min and max level */
-		return this.getRandomNumber(this.MIN_LEVEL, this.MAX_LEVEL);
+		return this.getRandomNumber(this.getMIN_LEVEL(), this.getMAX_LEVEL());
 	}
 
 	public int getRandomBuff() {
 		/* return a random buff between min and max buff */
-		return this.getRandomNumber(this.MIN_BUFF, this.MAX_BUFF);
+		return this.getRandomNumber(this.getMIN_BUFF(), this.getMAX_BUFF());
 	}
 	
 	public Athlete generateAthlete() {
@@ -149,6 +149,22 @@ public class Generator {
 			items.add(this.generateItem());
 		}
 		return items;
+	}
+
+	public int getMIN_LEVEL() {
+		return MIN_LEVEL;
+	}
+
+	public int getMAX_LEVEL() {
+		return MAX_LEVEL;
+	}
+
+	public int getMIN_BUFF() {
+		return MIN_BUFF;
+	}
+
+	public int getMAX_BUFF() {
+		return MAX_BUFF;
 	}
 	
 }
