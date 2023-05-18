@@ -12,7 +12,7 @@ public class GameEnvironment {
 	private MarketPlace market = new MarketPlace();
 	private int seasonLength;
 	private int currentWeek;
-	private int startingBalance = 1000 * 1000 * 11;
+	private int startingBalance = 1000 * 1000 * 11 + 100000000; //i added some more for testing -ken
 	private Generator generator = new Generator();
 	private Stadium stadium;
 	private PlayerTeam playerTeam;
@@ -74,7 +74,7 @@ public class GameEnvironment {
 		
 		do {
 			buy = false;
-//			sell = false;
+			sell = false;
 			this.market.printItems();
 			System.out.println("Do you wish to buy a new item? (y/n)"); 
 			String buyStr = this.sc.nextLine();
@@ -82,7 +82,7 @@ public class GameEnvironment {
 				if (playerTeam.getAthletes().size() < 11 ) {
 					System.out.println("Are you sure you want to buy an item before you have a full team? (y/n)");
 					String confirm = this.sc.nextLine();
-					if (confirm == "y") {
+					if (confirm.equals("y")) {
 						buy = true;
 						this.playerTeam = this.market.buyItem(playerTeam);
 					}
@@ -148,16 +148,7 @@ public class GameEnvironment {
 		String swap = this.sc.nextLine();
 		if (swap.equals("y")) {
 			System.out.println("Pick a player in the lineup to switch (1-11)");
-			// link to an athlete
-			//Athlete Player1 
-			// get reserve athlete too 
-			
-//			Athlete playerOne; //Initialize, player taken from starting
-//			Athlete playerTwo; // Initialize, player added to starting
-//			this.playerTeam.startingAthletes.remove(playerOne);
-//			this.playerTeam.reserveAthletes.add(playerOne);
-//			this.playerTeam.reserveAthletes.remove(playerTwo);
-//			this.playerTeam.startingAthletes.add(playerTwo);
+
 			
 			this.playerTeam.sortBattingOrder();
 			this.playerTeam.sortBowlingOrder();

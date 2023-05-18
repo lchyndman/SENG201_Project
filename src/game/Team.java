@@ -21,18 +21,18 @@ public class Team {
 		/* add athlete a to list of owned athletes*/
 		if (this.athletes.size() < this.getMAX_ATHLETES()) { // check that adding a will not make len(athletes) > max athletes
 			this.athletes.add(a);
-			if (startingAthletes.size() < 12 ) {
+			if (startingAthletes.size() < 11 ) {
 				startingAthletes.add(a);
 			}
 			else {      // (reserveAthletes.size() < 6)
 				reserveAthletes.add(a);
 			}
 		}
-		if (this.athletes.size() >= 11) {
-			this.sortAthletes();
-			this.sortBattingOrder();
-			this.sortBowlingOrder();
-		}
+//		if (this.athletes.size() >= 11) {
+//			this.sortAthletes();
+//			this.sortBattingOrder();
+//			this.sortBowlingOrder();
+//		}
 	}
 	
 	public void removeAthlete(int i) {
@@ -59,7 +59,7 @@ public class Team {
 	}
 	
 	public void sortBattingOrder() {
-        // Sort bowling order by athlete batting ablility
+        // Sort bowling order by athlete batting ability
         Athlete[] arr = this.athleteArray();
  
         // Outer loop

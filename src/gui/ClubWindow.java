@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
 import game.Athlete;
+import game.Item;
 import game.PlayerTeam;
 
 import javax.swing.DefaultListModel;
@@ -27,8 +28,11 @@ public class ClubWindow {
 	
 
 	private JFrame frame;
-	private DefaultListModel<String> listModelStarting;
-
+	private DefaultListModel<String> listModelStarting = new DefaultListModel<>();
+	private DefaultListModel<String> listModelReserves = new DefaultListModel<>();
+	private DefaultListModel<String> listModelItems = new DefaultListModel<>();
+	JLabel errorMessage;
+	
 
 
 	/**
@@ -48,6 +52,16 @@ public class ClubWindow {
 		for (Athlete athlete : playerTeam.getStartingAthletes()) {
 			listModelStarting.addElement(athlete.getPlayerName());
 		}
+		
+		for (Athlete athlete : playerTeam.getReserveAthletes()) {
+			listModelReserves.addElement(athlete.getPlayerName());
+		}
+		
+		for (Item item : playerTeam.getInventory()) {
+			listModelItems.addElement(item.getName());
+		}
+		
+		System.out.println(playerTeam.getInventory());
 	}
 	
 	/**
@@ -59,7 +73,7 @@ public class ClubWindow {
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrame().getContentPane().setLayout(null);
 		
-		JList itemList = new JList();
+		JList<String> itemList = new JList<String>(listModelItems);
 		itemList.setBounds(799, 115, 114, 333);
 		getFrame().getContentPane().add(itemList);
 		
@@ -68,14 +82,11 @@ public class ClubWindow {
 		lblNewLabel.setBounds(36, 43, 190, 62);
 		getFrame().getContentPane().add(lblNewLabel);
 		
-		JList reserveList = new JList();
+		JList<String> reserveList = new JList<String>(listModelReserves);
 		reserveList.setBounds(186, 155, 114, 170);
 		getFrame().getContentPane().add(reserveList);
 		
-//	---------------------------------------------------
-		
-		
-		listModelStarting = new DefaultListModel<>();	
+			
 		JList<String> startingList = new JList<String>(listModelStarting);
 		startingList.setBounds(25, 155, 114, 333);
 		getFrame().getContentPane().add(startingList);
@@ -117,6 +128,20 @@ public class ClubWindow {
 		JButton swapButton = new JButton("SWAP ATHLETES");
 		swapButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int player1 = startingList.getSelectedIndex();
+				int player2 = reserveList.getSelectedIndex();
+				Athlete athlete1 = playerTeam.getStartingAthletes().get(player1);
+				Athlete athlete2 = playerTeam.getReserveAthletes().get(player2);
+				playerTeam.getStartingAthletes().remove(athlete1);
+				playerTeam.getReserveAthletes().add(athlete1);
+				playerTeam.getReserveAthletes().remove(athlete2);
+				playerTeam.getStartingAthletes().add(athlete2);
+				
+				listModelStarting.addElement(athlete2.getPlayerName());
+				listModelStarting.remove(player1);
+				listModelReserves.addElement(athlete1.getPlayerName());
+				listModelReserves.remove(player2);
+				
 			}
 		});
 		swapButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -129,6 +154,30 @@ public class ClubWindow {
 		getFrame().getContentPane().add(txtrWillSwapThe);
 		
 		JButton applyItemButton = new JButton("APPLY ITEM");
+		applyItemButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int itemIn = itemList.getSelectedIndex();
+				Item item = playerTeam.getInventory().get(itemIn);
+				if (startingList.isSelectionEmpty() && reserveList.isSelectionEmpty()) {
+					errorMessage.setText("Please select an Athlete.");
+				}
+				else if (! startingList.isSelectionEmpty() && ! reserveList.isSelectionEmpty()) {
+					errorMessage.setText("Please select only one Athlete.");
+				}
+				else if (startingList.isSelectionEmpty()) {
+					int playerIn = reserveList.getSelectedIndex();
+					playerTeam.getReserveAthletes().get(playerIn).applyItem(item);
+					itemList.remove(itemIn);
+				}
+				else {
+					int playerIn = startingList.getSelectedIndex();
+					playerTeam.getStartingAthletes().get(playerIn).applyItem(item);
+					itemList.remove(itemIn);
+					
+				}
+				
+			}
+		});
 		applyItemButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		applyItemButton.setBounds(528, 400, 159, 34);
 		getFrame().getContentPane().add(applyItemButton);
@@ -138,7 +187,7 @@ public class ClubWindow {
 		txtrWillApplyAn.setBounds(506, 444, 205, 86);
 		getFrame().getContentPane().add(txtrWillApplyAn);
 		
-		JLabel errorMessage = new JLabel("Error: <error> (e.g please only select one athlete), have empty when nothing wrong.");
+		errorMessage = new JLabel("Error: <error> (e.g please only select one athlete), have empty when nothing wrong.");
 		errorMessage.setForeground(new Color(255, 0, 0));
 		errorMessage.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		errorMessage.setBounds(201, 357, 556, 23);

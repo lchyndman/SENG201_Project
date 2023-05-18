@@ -7,7 +7,7 @@ public class PlayerTeam extends Team {
 	/* subclass of team that represents the players team */
 	private int balance = 0; // stores how much cash team has for purchasing players and items
 	private int points = 0; // stores how many points the team has gained this season
-	private ArrayList<Item> inventory; // arraylist of items that can be applied to players
+	private ArrayList<Item> inventory = new ArrayList<Item>(); // arraylist of items that can be applied to players
 	
 	
 	public PlayerTeam(int balance) {
@@ -47,7 +47,7 @@ public class PlayerTeam extends Team {
 	
 	public void buyItem(Item e) {
 		if (e.getPrice() <= this.balance) {
-			inventory.add(e);
+			this.inventory.add(e);
 		}
 		else {
 			System.out.println("Insufficient funds for purchase");
