@@ -1,5 +1,6 @@
 package game;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Team {
@@ -37,16 +38,22 @@ public class Team {
 	
 	public void removeAthlete(int i) {
 		// remove an athlete at given index i
-		Athlete removed = this.athletes.get(i);
-	    this.athletes.remove(removed);
-	    if (removed.isStarting()) {
-	    	this.startingAthletes.remove(removed);
-	    	this.bowlingOrder[(removed.getBowlingOrderNumber() - 1)] = null;
-	    	this.battingOrder[(removed.getBattingOrderNumber() - 1)] = null;
-	    }
-	    else {
-	    	this.reserveAthletes.remove(removed);
-	    }
+		if (!this.athletes.isEmpty() && i >= 0 && i < this.athletes.size()) {
+			Athlete removed = this.athletes.get(i);
+		    this.athletes.remove(removed);
+		    if (removed.isStarting()) {
+		    	this.startingAthletes.remove(removed);
+		    	this.bowlingOrder[(removed.getBowlingOrderNumber() - 1)] = null;
+		    	this.battingOrder[(removed.getBattingOrderNumber() - 1)] = null;
+		    }
+		    else {
+		    	this.reserveAthletes.remove(removed);
+		    }
+		} else if (this.athletes.isEmpty()) {
+			System.out.println("Team has no athletes to be removed!");
+		}else {
+			System.out.println("Incorrect index supplied");
+		}
 	  }
 	
 	public Athlete[] athleteArray() {
@@ -58,9 +65,17 @@ public class Team {
 		return arr;
 	}
 	
+	public Athlete[] startingArray() {
+		Athlete[] arr = new Athlete[this.startingAthletes.size()];
+		for (int i = 0; i<arr.length; i++) {
+			arr[i] = this.startingAthletes.get(i);
+		}
+		return arr;
+	}
+	
 	public void sortBattingOrder() {
         // Sort bowling order by athlete batting ability
-        Athlete[] arr = this.athleteArray();
+        Athlete[] arr = this.startingArray();
  
         // Outer loop
         for (int i = 0; i < this.startingAthletes.size(); i++) {
@@ -106,29 +121,32 @@ public class Team {
 	
 	public void sortAthletes() {
 	 // Sort starting and reserve athletes based on price
-        Athlete[] arr = this.athleteArray();
+		this.startingAthletes.clear();
+		this.reserveAthletes.clear();
+        Athlete[] athletes = this.athleteArray();
         int n = 0;
         // Outer loop
         for (int i = 0; i < this.bowlingOrder.length; i++) {
             // Inner nested loop pointing 1 index ahead
-            for (int j = i + 1; j < arr.length; j++) {
+            for (int j = i + 1; j < athletes.length; j++) {
                 // Checking elements
                 Athlete temp;
-                if (( arr[j]).getPrice() > arr[i].getPrice()) {
+                if (( athletes[j]).getPrice() > athletes[i].getPrice()) {
                     // Swapping
-                    temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
+                    temp = athletes[i];
+                    athletes[i] = athletes[j];
+                    athletes[j] = temp;
                 }
             }
-
-            this.startingAthletes.add(arr[i]);
-            arr[i].setStarting(true);
+            
+            this.startingAthletes.add(athletes[i]);
+            athletes[i].setStarting(true);
             n = i;
         }
-        for (int k = n + 1; k <arr.length; k++) {
-        	this.reserveAthletes.add(arr[k]);
-        	arr[k].setStarting(false);
+        for (int k = n + 1; k < athletes.length; k++) {
+        	this.reserveAthletes.add(athletes[k]);
+        	athletes[k].setStarting(false);
+        	Collections.reverse(reserveAthletes);
         
 		}
 	}

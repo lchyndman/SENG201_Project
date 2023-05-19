@@ -8,7 +8,7 @@ public class Athlete {
 	 * if stamina drops too low athlete becomes injured
 	 */
 	// Fields
-	private String playerName;
+	private String name;
 	private String position; // self assigned position based on stats
 	private int price; // self assigned price based on stats
 	private boolean starting;
@@ -33,7 +33,7 @@ public class Athlete {
 	
 	public Athlete(String name, int batting, int bowling, int fielding, int stamina) {
 	/* Constructor sets fields to params and calls methods to set self-defined values */
-		this.playerName = name;
+		this.name = name;
 		this.batting = batting;
 		this.bowling = bowling;
 		this.fielding = fielding;
@@ -157,13 +157,13 @@ public class Athlete {
 		this.stamina = this.checkGreaterThanMax(this.stamina);
 	}
 
-	public void setPlayerName(String name){
-		/* lone setter for playerName as athlete can be nicknamed by player */
-		this.playerName = name;
+	public void setName(String name){
+		/* lone setter for name as athlete can be nicknamed by player */
+		this.name = name;
 	}
 	
-	public String getPlayerName() {
-		return this.playerName;
+	public String getName() {
+		return this.name;
 	}
 
 	public String getPosition() {
@@ -206,10 +206,11 @@ public class Athlete {
 	
 	public String toString() {
 		/* returns a string representation of all of athletes attributes and applied items */
-		return "\nNAME: "+this.playerName+"\n    POSITION: "+this.position+"\n    PRICE: "+this.price+
+		return "\nNAME: "+this.name+"\n    POSITION: "+this.position+"\n    PRICE: $"+this.price+
 				"\n    BATTING: "+this.batting+"\n    BOWLING: "+this.bowling+"\n    FIELDING: "+this.fielding+
-				"\n    STAMINA:"+this.stamina+"\n    CURRENT STAMINA: "+this.currentStamina+"\n    INJURED: "+this.isInjured+
-				"\n    ITEMS: "+this.itemsString;
+				"\n    STAMINA:"+this.stamina+"\n    CURRENT STAMINA: "+this.currentStamina+"\n    STARTING: "+this.starting+
+				"\n    INJURED: "+this.isInjured;
+				
 	}
 
 	public int getBowlingOrderNumber() {

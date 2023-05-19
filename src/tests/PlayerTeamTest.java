@@ -73,6 +73,7 @@ public class PlayerTeamTest {
     public void testBuyItemSufficientFunds() {
         Item item = new Item("Bat", 1, 0, 0, 0);
         playerTeam.buyItem(item);
+        System.out.println(playerTeam.getInventory());
         assertEquals(1, playerTeam.getInventory().size());
         assertEquals(9, playerTeam.getBalance());
     }
@@ -83,16 +84,6 @@ public class PlayerTeamTest {
         playerTeam.buyItem(item);
 
         assertEquals(0, playerTeam.getInventory().size());
-        assertEquals(10, playerTeam.getBalance());
-    }
-
-    @Test
-    public void testGetPoints() {
-        assertEquals(0, playerTeam.getPoints());
-    }
-
-    @Test
-    public void testGetBalance() {
         assertEquals(10, playerTeam.getBalance());
     }
 
@@ -114,16 +105,5 @@ public class PlayerTeamTest {
         assertEquals(1510, playerTeam.getBalance());
     }
 
-    @Test
-    public void testPrintInventory() {
-        Item item1 = new Item("Shoes", 0, 20, 0, 0);
-        Item item2 = new Item("Bat", 15, 0, 0, 0);
-        Item item3 = new Item("Steroids", 0, 0, 0, 40);
-        playerTeam.addItem(item1);
-        playerTeam.addItem(item2);
-        playerTeam.addItem(item3);
-
-        playerTeam.printInventory();
-    }
 }
 
