@@ -29,11 +29,10 @@ public class Team {
 				reserveAthletes.add(a);
 			}
 		}
-//		if (this.athletes.size() >= 11) {
-//			this.sortAthletes();
-//			this.sortBattingOrder();
-//			this.sortBowlingOrder();
-//		}
+
+			this.sortAthletes();
+			this.sortBattingOrder();
+			this.sortBowlingOrder();
 	}
 	
 	public void removeAthlete(int i) {

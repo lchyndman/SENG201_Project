@@ -63,6 +63,11 @@ public class PlayerTeam extends Team {
 	public void buyItem(Item e) {
 		if (e.getPrice() <= this.balance) {
 
+<<<<<<< HEAD
+=======
+//			this.inventory.add(e);
+
+>>>>>>> bbe611e4e30aa81565314ae5251bb8c7a6a26689
 			this.addItem(e);
 			this.balance -= e.getPrice();
 			System.out.println(e.getName()+" bought for $"+e.getPrice()+"\nNew Balance: $"+this.getBalance());
