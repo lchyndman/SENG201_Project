@@ -48,7 +48,7 @@ public class PlayerTeam extends Team {
 	public void buyItem(Item e) {
 		if (e.getPrice() <= this.balance) {
 
-			this.inventory.add(e);
+//			this.inventory.add(e);
 
 			this.addItem(e);
 			this.balance -= e.getPrice();

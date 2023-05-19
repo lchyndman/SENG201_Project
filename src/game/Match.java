@@ -15,10 +15,17 @@ public class Match {
 	public Match(PlayerTeam P, EnemyTeam M) {
 		playerTeam = P;
 		opponentTeam = M;
-		
-		
 	}
 	
+	public boolean allInjured(Team team) {
+		Boolean playersAllInjured = true;
+		for (Athlete player : team.getStartingAthletes()) {
+			if (! player.isInjured()) {
+				playersAllInjured = false;
+			}
+		}	
+		return playersAllInjured;
+	}
 	
 	public void playMatch() {
 		
@@ -27,27 +34,16 @@ public class Match {
 		
 		playerFinalScore = playHalf(playerTeam, opponentTeam);
 		
-		Boolean playersAllInjured = true;
-		for (Athlete player : playerTeam.getStartingAthletes()) {
-			if (! player.isInjured()) {
-				playersAllInjured = false;
-			}
-		}	
-		Boolean opponentsAllInjured = true;
-		for (Athlete player : opponentTeam.getStartingAthletes()) {
-			if (! player.isInjured()) {
-				opponentsAllInjured = false;
-			}
-		}
-		
-		if (playersAllInjured) {
+		if (allInjured(playerTeam)) {
 			winner = "Opponent wins";
 		}
-		else if (opponentsAllInjured) {
+		else if (allInjured(opponentTeam)) {
 			winner = "Player team wins";
 		}
 		else {
 			opponentFinalScore = playHalf(opponentTeam,playerTeam);
+			
+			
 			if (playerFinalScore > opponentFinalScore) {
 				winner = "Player team wins";
 			}

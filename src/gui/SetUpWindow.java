@@ -12,13 +12,22 @@ import javax.swing.JSlider;
 import javax.swing.JProgressBar;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+
+import game.PlayerTeam;
+
 import java.awt.Color;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SetUpWindow {
 
 	private JFrame frame;
 	private JTextField teamNameField;
+	private JLabel errorMessage;
+	private ButtonGroup group;
 
 	/**
 	 * Launch the application.
@@ -39,14 +48,15 @@ public class SetUpWindow {
 	/**
 	 * Create the application.
 	 */
-	public SetUpWindow() {
-		initialize();
+	public SetUpWindow(GameEnvironment game) {
+		initialize(game);
+		frame.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(GameEnvironment game) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 601, 539);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,6 +93,7 @@ public class SetUpWindow {
 		easyButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		easyButton.setBounds(197, 277, 68, 21);
 		frame.getContentPane().add(easyButton);
+
 		
 		JRadioButton mediumButton = new JRadioButton("Medium");
 		mediumButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -93,6 +104,11 @@ public class SetUpWindow {
 		hardButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		hardButton.setBounds(385, 279, 103, 21);
 		frame.getContentPane().add(hardButton);
+		
+		group = new ButtonGroup();
+		group.add(easyButton);
+		group.add(mediumButton);
+		group.add(hardButton);
 		
 		JLabel lblNewLabel_3 = new JLabel("Choose Season Length:");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -116,8 +132,39 @@ public class SetUpWindow {
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		JButton btnNewButton = new JButton("Start Game!");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String string = teamNameField.getText();
+				if  (string.length() < 3 || string.length() > 15) { // add something for special characters
+					errorMessage.setText("Team name must be between 3 and 15 characters"); }
+				
+				else if (group.getSelection() == null) {
+					errorMessage.setText("Please select a difficulty");
+				}
+				else {
+					game.playerTeam.setTeamName(string);
+					game.seasonLength = lengthSlider.getValue();
+					if (easyButton.isSelected()) {
+						game.difficulty = 1;
+					}
+					if (mediumButton.isSelected()) {
+						game.difficulty = 2;
+					}
+					if (hardButton.isSelected()) {
+						game.difficulty = 3;
+					}
+				}
+				// should shut setup window and open main window
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton.setBounds(197, 396, 178, 38);
 		frame.getContentPane().add(btnNewButton);
+		
+		errorMessage = new JLabel("");
+		errorMessage.setForeground(new Color(255, 0, 0));
+		errorMessage.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		errorMessage.setBounds(88, 358, 301, 28);
+		frame.getContentPane().add(errorMessage);
 	}
 }

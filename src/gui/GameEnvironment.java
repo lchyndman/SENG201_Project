@@ -10,14 +10,14 @@ import game.Stadium;
 
 public class GameEnvironment {
 	private MarketPlace market = new MarketPlace();
-	private int seasonLength;
+	protected int seasonLength;
 	private int currentWeek;
 	private int startingBalance = 1000 * 1000 * 11 + 100000000; //i added some more for testing -ken
 	private Generator generator = new Generator();
 	private Stadium stadium;
-	private PlayerTeam playerTeam;
+	protected PlayerTeam playerTeam;
 	private Scanner sc = new Scanner(System.in);
-	private int difficulty;
+	protected int difficulty;
 	
 	
 	
@@ -177,15 +177,28 @@ public class GameEnvironment {
 //			
 //		}
 		
+		
 		game.gameSetup();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClubWindow window = new ClubWindow(game.playerTeam);
+					SetUpWindow setUp = new SetUpWindow(game);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
+//		game.gameSetup();
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ClubWindow window = new ClubWindow(game.playerTeam);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
 	}
 }
