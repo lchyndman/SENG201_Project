@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import game.Generator;
@@ -46,6 +47,7 @@ public class GameEnvironment {
 		this.currentWeek = 1;
 		this.goToMarket();
 		System.out.print(this.playerTeam);
+		
 	}
 	
 	public void goToMarket() {
@@ -178,7 +180,7 @@ public class GameEnvironment {
 //		}
 		
 		
-		game.gameSetup();
+//		game.gameSetup();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -190,7 +192,7 @@ public class GameEnvironment {
 			}
 		});
 		
-//		game.gameSetup();
+		game.gameSetup();
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
 //				try {

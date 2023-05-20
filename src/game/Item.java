@@ -54,15 +54,9 @@ public class Item {
 	}
 	
 	public String toString() {
-<<<<<<< HEAD
 		return "\n	NAME: "+this.name+"\n	PRICE: $"+this.price+"\n	BATTING: "+
 	this.batting+"\n	BOWLING: "+this.bowling+"\n	FIELDING: "+this.fielding+
 				"\n	STAMINA: "+this.stamina;
-=======
-		return "\nNAME: "+this.name+"\n    PRICE: "+this.price+"\n    BATTING: "+
-	this.batting+"\n    BOWLING: "+this.bowling+"\n    FIELDING: "+this.fielding+
-				"\n    STAMINA: "+this.stamina;
->>>>>>> bbe611e4e30aa81565314ae5251bb8c7a6a26689
 	}
 }
 

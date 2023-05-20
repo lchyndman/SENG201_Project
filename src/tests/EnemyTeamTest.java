@@ -52,7 +52,7 @@ public class EnemyTeamTest {
         enemyTeam.setMoney();
         String expectedString = "\nOpponent team:\nAVERAGE BATTING: " + enemyTeam.getAverageBatting() +
                 "\nAVERAGE BOWLING: " + enemyTeam.getAverageBowling() +
-                "\nAVERAGE FEILDING: " + enemyTeam.getAverageFielding() +
+                "\nAVERAGE FIELDING: " + enemyTeam.getAverageFielding() +
                 "\nWINNING POINTS: " + enemyTeam.getPoints() +
                 "\nWINNING MONEY: " + enemyTeam.getMoney() +
                 "\n";

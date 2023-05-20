@@ -91,7 +91,7 @@ public class Team {
             }
             // Printing sorted array elements
             this.battingOrder[i] = arr[i];
-            arr[i].setBattingOrderNumbber(i+1);
+            arr[i].setBattingOrderNumber(i+1);
         }
     }
 
@@ -120,34 +120,40 @@ public class Team {
 	
 	public void sortAthletes() {
 	 // Sort starting and reserve athletes based on price
-		this.startingAthletes.clear();
-		this.reserveAthletes.clear();
-        Athlete[] athletes = this.athleteArray();
-        int n = 0;
-        // Outer loop
-        for (int i = 0; i < this.bowlingOrder.length; i++) {
-            // Inner nested loop pointing 1 index ahead
-            for (int j = i + 1; j < athletes.length; j++) {
-                // Checking elements
-                Athlete temp;
-                if (( athletes[j]).getPrice() > athletes[i].getPrice()) {
-                    // Swapping
-                    temp = athletes[i];
-                    athletes[i] = athletes[j];
-                    athletes[j] = temp;
-                }
-            }
-            
-            this.startingAthletes.add(athletes[i]);
-            athletes[i].setStarting(true);
-            n = i;
-        }
-        for (int k = n + 1; k < athletes.length; k++) {
-        	this.reserveAthletes.add(athletes[k]);
-        	athletes[k].setStarting(false);
-        	Collections.reverse(reserveAthletes);
-        
+		if (this.athletes.size() > 1) {
+			this.startingAthletes.clear();
+			this.reserveAthletes.clear();
+	        Athlete[] athletes = this.athleteArray();
+	        int n = 0;
+	        // Outer loop
+	        for (int i = 0; i < this.athletes.size(); i++) {
+	            // Inner nested loop pointing 1 index ahead
+	        	if (i == this.bowlingOrder.length) {
+	        		break;
+	        	}
+	            for (int j = i + 1; j < athletes.length; j++) {
+	                // Checking elements
+	                Athlete temp;
+	                if (( athletes[j]).getPrice() > athletes[i].getPrice()) {
+	                    // Swapping
+	                    temp = athletes[i];
+	                    athletes[i] = athletes[j];
+	                    athletes[j] = temp;
+	                }
+	            }
+	            
+	            this.startingAthletes.add(athletes[i]);
+	            athletes[i].setStarting(true);
+	            n = i;
+	        }
+	        for (int k = n + 1; k < athletes.length; k++) {
+	        	this.reserveAthletes.add(athletes[k]);
+	        	athletes[k].setStarting(false);
+	        	Collections.reverse(reserveAthletes);
+	        
+			}
 		}
+		
 	}
 	
 	public int getAverageBatting() {

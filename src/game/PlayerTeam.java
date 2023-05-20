@@ -3,6 +3,10 @@ package game;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author lchyn
+ *
+ */
 public class PlayerTeam extends Team {
 	/* subclass of team that represents the players team */
 	private int balance = 0; // stores how much cash team has for purchasing players and items
@@ -63,11 +67,6 @@ public class PlayerTeam extends Team {
 	public void buyItem(Item e) {
 		if (e.getPrice() <= this.balance) {
 
-<<<<<<< HEAD
-=======
-//			this.inventory.add(e);
-
->>>>>>> bbe611e4e30aa81565314ae5251bb8c7a6a26689
 			this.addItem(e);
 			this.balance -= e.getPrice();
 			System.out.println(e.getName()+" bought for $"+e.getPrice()+"\nNew Balance: $"+this.getBalance());
@@ -79,9 +78,11 @@ public class PlayerTeam extends Team {
 		
 	}
 	
+
+
 	public void sellItem() {
 		/*
-		 * Method to sell an athlete from the team
+		 * Method to sell an item from the team's inventory
 		 * check
 		 */
 		if (this.inventory.size() != 0) {
