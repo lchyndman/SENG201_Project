@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import game.Generator;
@@ -42,8 +43,13 @@ public class GameEnvironment {
 		this.currentWeek = 1;
 		
 		this.goToMarket();
+<<<<<<< HEAD
 		
 //		System.out.print(this.playerTeam);
+=======
+		System.out.print(this.playerTeam);
+		
+>>>>>>> 809c5e1f33e211137ceec015dc11a930ff3dc9f4
 	}
 	
 	public void goToMarket() {
@@ -178,6 +184,31 @@ public class GameEnvironment {
 //		}
 		
 		
+<<<<<<< HEAD
 
+=======
+//		game.gameSetup();
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SetUpWindow setUp = new SetUpWindow(game);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		game.gameSetup();
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ClubWindow window = new ClubWindow(game.playerTeam);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+>>>>>>> 809c5e1f33e211137ceec015dc11a930ff3dc9f4
 	}
 }

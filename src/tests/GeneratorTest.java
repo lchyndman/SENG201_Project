@@ -54,7 +54,7 @@ public class GeneratorTest {
     public void testGenerateAthlete() {
         Athlete athlete = generator.generateAthlete();
         assertNotNull(athlete);
-        assertNotNull(athlete.getPlayerName());
+        assertNotNull(athlete.getName());
         assertTrue(athlete.getBatting() >= generator.getMIN_LEVEL() && athlete.getBatting() <= generator.getMAX_LEVEL());
         assertTrue(athlete.getBowling() >= generator.getMIN_LEVEL() && athlete.getBowling() <= generator.getMAX_LEVEL());
         assertTrue(athlete.getFielding() >= generator.getMIN_LEVEL() && athlete.getFielding() <= generator.getMAX_LEVEL());
