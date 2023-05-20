@@ -153,6 +153,10 @@ public class SetUpWindow {
 					if (hardButton.isSelected()) {
 						game.difficulty = 3;
 					}
+					
+					System.out.println(game.playerTeam.getTeamName());
+					System.out.println(game.difficulty);
+					System.out.println(game.seasonLength);
 				}
 				// should shut setup window and open main window
 			}

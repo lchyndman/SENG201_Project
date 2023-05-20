@@ -23,29 +23,27 @@ public class GameEnvironment {
 	
 	
 	
-	public void gameSetup() {
+	public void gameSetup(GameEnvironment game) {
 		
-		System.out.println("Enter your team name: "); //text-box
-		String teamName = sc.nextLine();
-		while (teamName.length() < 2 || teamName.length() > 15) {
-			System.out.println("Team name must be between 3 and 15 characters.");
-			teamName = sc.nextLine();
-		}
+
+
+		game.playerTeam = new PlayerTeam(this.startingBalance); 
 		
-		System.out.println("Choose your difficulty."); //will be buttons so no need to add something check input
-		difficulty = Integer.parseInt(sc.nextLine());
-				
-		this.playerTeam = new PlayerTeam(this.startingBalance);  //change due to chosen difficulty?
-		this.playerTeam.setTeamName(teamName);
-		System.out.println("How many weeks will the season be?"); // make into slider
-		this.seasonLength = Integer.parseInt(sc.nextLine());
-		while (seasonLength < 5 || seasonLength > 15) {
-			System.out.println("Season length must be between 5 and 15 weeks.");
-			seasonLength = Integer.parseInt(sc.nextLine());
-		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SetUpWindow setUp = new SetUpWindow(game);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+//		
 		this.currentWeek = 1;
+		
 		this.goToMarket();
-		System.out.print(this.playerTeam);
+		
+//		System.out.print(this.playerTeam);
 	}
 	
 	public void goToMarket() {
@@ -171,6 +169,8 @@ public class GameEnvironment {
 	
 	public static void main(String args[]) {
 		GameEnvironment game = new GameEnvironment();
+		game.gameSetup(game);
+
 //		Generator g = new Generator();
 //		for (int i = 0; i<1000;i++) {
 //			System.out.println(g.getRandomName());
@@ -178,27 +178,6 @@ public class GameEnvironment {
 //		}
 		
 		
-		game.gameSetup();
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SetUpWindow setUp = new SetUpWindow(game);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-//		game.gameSetup();
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ClubWindow window = new ClubWindow(game.playerTeam);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
+
 	}
 }

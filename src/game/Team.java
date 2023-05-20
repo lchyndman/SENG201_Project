@@ -33,7 +33,7 @@ public class Team {
 			this.sortBattingOrder();
 			this.sortBowlingOrder();
 	}
-	
+	 
 	public void removeAthlete(int i) {
 		// remove an athlete at given index i
 		Athlete removed = this.athletes.get(i);

@@ -43,15 +43,23 @@ public class Match {
 		else {
 			opponentFinalScore = playHalf(opponentTeam,playerTeam);
 			
-			
-			if (playerFinalScore > opponentFinalScore) {
-				winner = "Player team wins";
-			}
-			if (playerFinalScore < opponentFinalScore) {
+			if (allInjured(playerTeam)) {
 				winner = "Opponent wins";
 			}
+			else if (allInjured(opponentTeam)) {
+				winner = "Player team wins";
+			}
+			
 			else {
-				winner = "It was a draw";
+				if (playerFinalScore > opponentFinalScore) {
+					winner = "Player team wins";
+				}
+				if (playerFinalScore < opponentFinalScore) {
+					winner = "Opponent wins";
+				}
+				else {
+					winner = "It was a draw";
+				}
 			}
 		}	
 	}
@@ -96,7 +104,7 @@ public class Match {
 				int points = faceOff(currentBatter, currentBowler);
 				
 				boolean batterfreakinjury = false;
-				int risk = currentBatter.getStamina();
+				int risk = 100 - currentBatter.getStamina();
 				int random = getRandomNumber(0,1000);
 				if (random < risk) {
 					batterfreakinjury = true;
@@ -104,7 +112,7 @@ public class Match {
 				}
 				
 				boolean bowlerfreakinjury = false;
-				int risk1 = currentBowler.getStamina();
+				int risk1 = 100 -currentBowler.getStamina();
 				int random1 = getRandomNumber(0,1000);
 				if (random1 < risk1) {
 					bowlerfreakinjury = true;
@@ -139,41 +147,63 @@ public class Match {
 					while (currentBatter.isInjured()) {
 						batIn += 1;
 						currentBatter = battingOrder[batIn];
+						if (batIn >= lenBat) {
+							break;
+						}
 						}
 					}
 				else {
-					currentScore += points;
+					currentScore += points; 
 					}
 				
 				
 				if (bowlerfreakinjury)  {
 					bowlIn += 1;
 					currentBowler = bowlingOrder[bowlIn];
+					int counter = 0;
 					while (currentBowler.isInjured()) {
 						bowlIn += 1;
-						currentBowler = bowlingOrder[batIn];
+						counter+=1;
+						if (bowlIn >= lenBowl) {
+							bowlIn =0;
 						}
+						currentBowler = bowlingOrder[batIn];
+						if (counter >= lenBowl) { // stop looping as all bowlers are injured 
+							break;
+						}
+					}
+					if (counter >= lenBowl) {  // stop half as all bowlers are injured
+						break;
+					}
 					bowlerThree = 0;
 				}
-//				else {
-//					bowlerThree += 1;
-//					if (bowlerThree % 3 ==0) {
-//						bowlIn += 1;
-//						currentBowler = bowlingOrder[bowlIn]; 
-//						while (currentBowler.isInjured()) {
-//							bowlIn += 1;
-//							currentBowler = bowlingOrder[batIn];
-//							}
-//						bowlerThree = 0;
-//						}
-//					}
-//				if (bowlIn >= lenBowl) {
-//					bowlIn = 0;
-//				}
+				else {
+					bowlerThree += 1;  // do we want the bowlers to rotate?
+					if (bowlerThree % 3 ==0) {
+						bowlIn += 1;
+						currentBowler = bowlingOrder[bowlIn]; 
+						int counter1 = 0;
+						while (currentBowler.isInjured()) {
+							bowlIn += 1;
+							counter1+=1;
+							if (bowlIn >= lenBowl) {
+								bowlIn =0;
+							}
+							currentBowler = bowlingOrder[batIn];
+							if (counter1 >= lenBowl) { // stop looping as all bowlers are injured 
+								break;
+							}
+						bowlerThree = 0;
+						}
+					}
+				if (bowlIn >= lenBowl) {
+					bowlIn = 0;
+				}
 			}
 		}
-		
+		}
 		return currentScore;
+
 	}
 				
 			
@@ -244,11 +274,17 @@ public class Match {
 	}
 	
 	public static void main(String args[]) {
-		Team team = new PlayerTeam(1000000);
+		PlayerTeam team = new PlayerTeam(1000000);
+		EnemyTeam team1 = new EnemyTeam(1);
 		Generator g = new Generator();
 		for (int i=0; i < 11; i++) {
 			team.addAthlete(g.generateAthlete());
 		}
+		for (int i=0; i < 11; i++) {
+			team1.addAthlete(g.generateAthlete());
+		}
+		Match match = new Match(team,team1);
+		match.playMatch();
 	}
 
 
