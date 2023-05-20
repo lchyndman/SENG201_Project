@@ -56,8 +56,9 @@ public class ItemTest {
     @Test
     public void testToString() {
         Item item = new Item("Power Boost", 10, 5, 8, 15);
-        String expectedString = "\n	NAME: Power Boost\n	PRICE: " + item.getPrice() +
-                "\n	BATTING: 10\n	BOWLING: 5\n	FIELDING: 8\n	STAMINA: 15";
+        String expectedString = "\n NAME: " +item.getName() + "\n    PRICE: $" + item.getPrice() + "\n    BATTING: " +
+                item.getBatting() + "\n    BOWLING: " + item.getBowling() + "\n    FIELDING: " + item.getFielding() +
+                "\n    STAMINA: " + item.getStamina();
         assertEquals(expectedString, item.toString());
     }
 }

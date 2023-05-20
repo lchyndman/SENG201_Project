@@ -1,27 +1,28 @@
 package game;
 
-import java.util.ArrayList;
-
 /**
- * Represents an enemy team in the game.
+ * Represents an enemy team of athletes.
+ * @author Luke Hyndman
+ * @version 1.0
+ * @since 20/5/23
  */
 public class EnemyTeam extends Team {
 
-    private int difficulty; // between 1 and 3, determines ability of players
-    private int winningPoints;
-    private int winningMoney;
+    private int difficulty; // Between 1 and 3, determines ability of players.
+    private int winningPoints; // Points gained for beating the team.
+    private int winningMoney; // Money earned for beating this team.
 
     /**
      * Constructs a new EnemyTeam object with the specified difficulty level.
      *
-     * @param difficultyThe difficulty level of the enemy team.
+     * @param difficulty The difficulty level of the enemy team.
      */
     public EnemyTeam(int difficulty) {
         this.difficulty = difficulty;
         this.fillTeam();
+        this.sortAthletes();
         this.sortBattingOrder();
         this.sortBowlingOrder();
-        this.sortAthletes();
         this.setPoints();
         this.setMoney();
     }
@@ -61,9 +62,9 @@ public class EnemyTeam extends Team {
     }
 
     /**
-     * Retrieves the winning money of the enemy team.
+     * Retrieves the winning money for beating the team.
      *
-     * @return The winning money of the enemy team.
+     * @return winningMoney for beating the team
      */
     public int getMoney() {
         return this.winningMoney;
