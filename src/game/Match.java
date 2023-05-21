@@ -112,7 +112,7 @@ public class Match {
 					currentBowler.setInjured(batterfreakinjury);
 				}
 				
-				boolean bowlerfreakinjury = false;  // random chance that the current bowler experiances a freak injury
+				boolean bowlerfreakinjury = false;  // random chance that the current bowler experiences a freak injury
 				int risk1 = 100 -currentBowler.getStamina();
 				int random1 = getRandomNumber(0,1000);
 				if (random1 < risk1) {

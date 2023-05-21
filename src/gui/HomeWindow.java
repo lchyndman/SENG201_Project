@@ -14,27 +14,14 @@ import java.awt.event.ActionEvent;
 public class HomeWindow {
 
 	private JFrame frame;
+//	private GameEnvironment game;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					HomeWindow window = new HomeWindow();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the application.
 	 */
 	public HomeWindow(GameEnvironment game) {
+//		this.game = game;
 		initialize(game);
 		frame.setVisible(true);
 	}
@@ -48,32 +35,13 @@ public class HomeWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JTextArea boxStadium = new JTextArea();
-		boxStadium.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		boxStadium.setText("STADIUM");
-		boxStadium.setBounds(382, 316, 213, 131);
-		boxStadium.setEditable(false);
-		frame.getContentPane().add(boxStadium);
-		
-		JTextArea boxMarket = new JTextArea();
-		boxMarket.setText("MARKET");
-		boxMarket.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		boxMarket.setBounds(673, 316, 213, 131);
-		boxMarket.setEditable(false);
-		frame.getContentPane().add(boxMarket);
-		
-		JTextArea boxClub = new JTextArea();
-		boxClub.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		boxClub.setText("CLUB");
-		boxClub.setBounds(88, 316, 213, 131);
-		boxClub.setEditable(false);
-		frame.getContentPane().add(boxClub);
-		
 		JButton goToClubButton = new JButton("Go to Club");
+		goToClubButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		goToClubButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				EventQueue.invokeLater(new Runnable() {
+
 					public void run() {
 						try {
 							ClubWindow club = new ClubWindow(game);
@@ -84,20 +52,26 @@ public class HomeWindow {
 				});
 			}
 		});
-		goToClubButton.setBounds(144, 481, 110, 33);
+		goToClubButton.setBounds(80, 367, 193, 105);
 		frame.getContentPane().add(goToClubButton);
 		
 		JButton goToStadiumButton = new JButton("Go to Stadium");
-		goToStadiumButton.setBounds(420, 481, 152, 33);
+		goToStadiumButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		goToStadiumButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		goToStadiumButton.setBounds(387, 367, 187, 105);
 		frame.getContentPane().add(goToStadiumButton);
 		
 		JButton goToMarketButton = new JButton("Go to Market");
-		goToMarketButton.setBounds(729, 481, 110, 33);
+		goToMarketButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		goToMarketButton.setBounds(683, 367, 187, 105);
 		frame.getContentPane().add(goToMarketButton);
 		
 		JTextArea mainBalancePoints = new JTextArea();
-		mainBalancePoints.setText("BALANCE:\r\n\r\nPOINTS:");
-		mainBalancePoints.setBounds(683, 45, 227, 122);
+		mainBalancePoints.setText("BALANCE:    "+game.getPlayerTeam().getBalance()+"\r\n\r\nPOINTS:    "+game.getPlayerTeam().getPoints()+"\r\n\r\nCURRENT WEEK:    "+game.getCurrentWeek()+"\r\n\r\nWEEKS REMAINING:    "+game.getWeeksRemaining());
+		mainBalancePoints.setBounds(683, 45, 227, 162);
 		mainBalancePoints.setEditable(false);
 		frame.getContentPane().add(mainBalancePoints);
 		

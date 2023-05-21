@@ -128,21 +128,21 @@ public class SetUpWindow {
 					errorMessage.setText("Please select a difficulty");
 				}
 				else {
-					game.playerTeam.setTeamName(string);
-					game.seasonLength = lengthSlider.getValue();
+					game.getPlayerTeam().setTeamName(string);
+					game.setSeasonLength(lengthSlider.getValue());
 					if (easyButton.isSelected()) {
-						game.difficulty = 1;
+						game.setDifficulty(1);
 					}
 					if (mediumButton.isSelected()) {
-						game.difficulty = 2;
+						game.setDifficulty(2);
 					}
 					if (hardButton.isSelected()) {
-						game.difficulty = 3;
+						game.setDifficulty(3);
 					}
 					
-					System.out.println(game.playerTeam.getTeamName());
-					System.out.println(game.difficulty);
-					System.out.println(game.seasonLength);
+					System.out.println(game.getPlayerTeam().getTeamName());
+					System.out.println(game.getDifficulty());
+					System.out.println(game.getSeasonLength());
 				}
 				// should shut setup window and open main window
 				frame.dispose();

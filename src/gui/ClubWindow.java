@@ -53,15 +53,15 @@ public class ClubWindow {
 	
 	private void fillTeam(GameEnvironment game) {
 		
-		for (Athlete athlete : game.playerTeam.getStartingAthletes()) {
+		for (Athlete athlete : game.getPlayerTeam().getStartingAthletes()) {
 			listModelStarting.addElement(athlete.getName());
 		}
 		
-		for (Athlete athlete : game.playerTeam.getReserveAthletes()) {
+		for (Athlete athlete : game.getPlayerTeam().getReserveAthletes()) {
 			listModelReserves.addElement(athlete.getName());
 		}
 		
-		for (Item item : game.playerTeam.getInventory()) {
+		for (Item item : game.getPlayerTeam().getInventory()) {
 			listModelItems.addElement(item.getName());
 		}
 		
@@ -138,12 +138,12 @@ public class ClubWindow {
 				try {
 				int player1 = startingList.getSelectedIndex();
 				int player2 = reserveList.getSelectedIndex();
-				Athlete athlete1 = game.playerTeam.getStartingAthletes().get(player1);
-				Athlete athlete2 = game.playerTeam.getReserveAthletes().get(player2);
-				game.playerTeam.getStartingAthletes().remove(athlete1);
-				game.playerTeam.getReserveAthletes().add(athlete1);
-				game.playerTeam.getReserveAthletes().remove(athlete2);
-				game.playerTeam.getStartingAthletes().add(athlete2);
+				Athlete athlete1 = game.getPlayerTeam().getStartingAthletes().get(player1);
+				Athlete athlete2 = game.getPlayerTeam().getReserveAthletes().get(player2);
+				game.getPlayerTeam().getStartingAthletes().remove(athlete1);
+				game.getPlayerTeam().getReserveAthletes().add(athlete1);
+				game.getPlayerTeam().getReserveAthletes().remove(athlete2);
+				game.getPlayerTeam().getStartingAthletes().add(athlete2);
 				
 				listModelStarting.addElement(athlete2.getName());
 				listModelStarting.remove(player1);
@@ -170,7 +170,7 @@ public class ClubWindow {
 				try {
 					
 				int itemIn = itemList.getSelectedIndex();
-				Item item = game.playerTeam.getInventory().get(itemIn);
+				Item item = game.getPlayerTeam().getInventory().get(itemIn);
 				if (startingList.isSelectionEmpty() && reserveList.isSelectionEmpty()) {
 					errorMessage.setText("Please select an Athlete.");
 				}
@@ -179,15 +179,15 @@ public class ClubWindow {
 				}
 				else if (startingList.isSelectionEmpty()) {
 					int playerIn = reserveList.getSelectedIndex();
-					game.playerTeam.getReserveAthletes().get(playerIn).applyItem(item);
+					game.getPlayerTeam().getReserveAthletes().get(playerIn).applyItem(item);
 					listModelItems.remove(itemIn);
-					game.playerTeam.getInventory().remove(itemIn);
+					game.getPlayerTeam().getInventory().remove(itemIn);
 				}
 				else {
 					int playerIn = startingList.getSelectedIndex();
-					game.playerTeam.getStartingAthletes().get(playerIn).applyItem(item);
+					game.getPlayerTeam().getStartingAthletes().get(playerIn).applyItem(item);
 					listModelItems.remove(itemIn);
-					game.playerTeam.getInventory().remove(itemIn);
+					game.getPlayerTeam().getInventory().remove(itemIn);
 				}
 				}
 				catch(IndexOutOfBoundsException d){
@@ -219,7 +219,7 @@ public class ClubWindow {
 				}
 				else {
 					int startIn = startingList.getSelectedIndex();
-					playerInfoBox.setText(game.playerTeam.getStartingAthletes().get(startIn).toString());
+					playerInfoBox.setText(game.getPlayerTeam().getStartingAthletes().get(startIn).toString());
 				}
 			}
 		});
@@ -240,7 +240,7 @@ public class ClubWindow {
 				}
 				else {
 					int startIn = reserveList.getSelectedIndex();
-					playerInfoBox.setText(game.playerTeam.getReserveAthletes().get(startIn).toString());
+					playerInfoBox.setText(game.getPlayerTeam().getReserveAthletes().get(startIn).toString());
 				}
 			}
 		});
@@ -255,7 +255,7 @@ public class ClubWindow {
 				}
 				else {
 					int startIn = itemList.getSelectedIndex();
-					itemInfoBox.setText(game.playerTeam.getInventory().get(startIn).toString());
+					itemInfoBox.setText(game.getPlayerTeam().getInventory().get(startIn).toString());
 				}
 			}
 		});

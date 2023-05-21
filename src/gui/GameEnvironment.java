@@ -11,46 +11,24 @@ import game.Stadium;
 
 public class GameEnvironment {
 	private MarketPlace market = new MarketPlace();
-	protected int seasonLength;
-	private int currentWeek;
+	private int seasonLength;
+	private int currentWeek = 1;
 	private int startingBalance = 1000 * 1000 * 11 + 100000000; //i added some more for testing -ken
 	private Generator generator = new Generator();
 	private Stadium stadium;
-	protected PlayerTeam playerTeam;
+	private PlayerTeam playerTeam;
 	private Scanner sc = new Scanner(System.in);
-	protected int difficulty;
+	private int difficulty;
 	
 	
 	
-	
-	
-	public void gameSetup(GameEnvironment game) {
-		
-
-
-		game.playerTeam = new PlayerTeam(this.startingBalance); 
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SetUpWindow setUp = new SetUpWindow(game);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-//		
-		this.currentWeek = 1;
-		
-
-		}
-//		System.out.print(this.playerTeam);
-
-		
+	public GameEnvironment() {
+		playerTeam = new PlayerTeam(startingBalance);
+	}		
 
 	
 	public void goToMarket() {
-		System.out.print(this.playerTeam.getBalance());
+		System.out.print(this.getPlayerTeam().getBalance());
 		boolean buy;
 		boolean sell;
 		do {
@@ -61,13 +39,13 @@ public class GameEnvironment {
 			String buyStr = this.sc.nextLine();
 			if (buyStr.equals("y")) {
 				buy = true;
-				this.playerTeam = this.market.buyAthlete(playerTeam);
+				this.setPlayerTeam(this.market.buyAthlete(getPlayerTeam()));
 			}
 			System.out.println("Do you wish to sell a player? (y/n)");
 			String sellStr = this.sc.nextLine();
 			if (sellStr.equals("y")) {
 				sell = true;
-				this.playerTeam.sellAthlete();
+				this.getPlayerTeam().sellAthlete();
 			}
 			
 		} while (buy == true || sell == true);
@@ -80,17 +58,17 @@ public class GameEnvironment {
 			System.out.println("Do you wish to buy a new item? (y/n)"); 
 			String buyStr = this.sc.nextLine();
 			if (buyStr.equals("y")) {
-				if (playerTeam.getAthletes().size() < 11 ) {
+				if (getPlayerTeam().getAthletes().size() < 11 ) {
 					System.out.println("Are you sure you want to buy an item before you have a full team? (y/n)");
 					String confirm = this.sc.nextLine();
 					if (confirm.equals("y")) {
 						buy = true;
-						this.playerTeam = this.market.buyItem(playerTeam);
+						this.setPlayerTeam(this.market.buyItem(getPlayerTeam()));
 					}
 				}
 				else {
 					buy = true;
-					this.playerTeam = this.market.buyItem(playerTeam);
+					this.setPlayerTeam(this.market.buyItem(getPlayerTeam()));
 				}
 			}
 //			System.out.println("Do you wish to sell an item? (y/n)");
@@ -104,34 +82,70 @@ public class GameEnvironment {
 	}
 	
 	public void basicDisplay() {
-		int balance = playerTeam.getBalance();
-		int points = playerTeam.getPoints();
-		int remainingWeeks = seasonLength - currentWeek;
+		int balance = getPlayerTeam().getBalance();
+		int points = getPlayerTeam().getPoints();
+		int remainingWeeks = getSeasonLength() - getCurrentWeek();
 		System.out.println("Balance:	"+balance+"\nPoints:		"+points+"\nRemaining Weeks:	"+remainingWeeks);
 		
 	}
 	
 	public void goToStadium() {
-		this.stadium.generateOpponents(difficulty);
+		this.stadium.generateOpponents(getDifficulty());
 		this.stadium.printOpponents();
 //		choose opponent or bye
 		System.out.println("Would you like to bye this week? (y/n)");
 		String bye = this.sc.nextLine();
 		if (bye == "y") {
 			this.stadium.chooseToBye();
-			this.currentWeek += 1;
+			this.setCurrentWeek(this.getCurrentWeek() + 1);
 		}
 		else {
-			if (playerTeam.getStartingAthletes().size() == 11) {
+			if (getPlayerTeam().getStartingAthletes().size() == 11) {
 				this.stadium.chooseOpponent();
-				this.stadium.playMatch(playerTeam);
+				this.stadium.playMatch(getPlayerTeam());
 				//show out come of game in gui somewhere
-				this.currentWeek += 1;
+				this.setCurrentWeek(this.getCurrentWeek() + 1);
 			}
 			else {
 				System.out.println("You cannot play a match without a full team.");
 			}
 		}
+	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public int getSeasonLength() {
+		return seasonLength;
+	}
+
+	public void setSeasonLength(int seasonLength) {
+		this.seasonLength = seasonLength;
+	}
+
+	public PlayerTeam getPlayerTeam() {
+		return playerTeam;
+	}
+
+	public void setPlayerTeam(PlayerTeam playerTeam) {
+		this.playerTeam = playerTeam;
+	}
+
+	public int getCurrentWeek() {
+		return currentWeek;
+	}
+
+	public void setCurrentWeek(int currentWeek) {
+		this.currentWeek = currentWeek;
+	}
+
+	public int getWeeksRemaining() {
+		return this.seasonLength - this.currentWeek;
 	}
 	
 //	public void goToClub() {
@@ -170,15 +184,15 @@ public class GameEnvironment {
 //		}
 //	}
 	
-	public static void main(String args[]) {
-		GameEnvironment game = new GameEnvironment();
-		game.gameSetup(game);
-
-//		Generator g = new Generator();
-//		for (int i = 0; i<1000;i++) {
-//			System.out.println(g.getRandomName());
-//			
-//		}
-		
-	}
+//	public static void main(String args[]) {
+//		GameEnvironment game = new GameEnvironment();
+//		game.gameSetup(game);
+//
+////		Generator g = new Generator();
+////		for (int i = 0; i<1000;i++) {
+////			System.out.println(g.getRandomName());
+////			
+////		}
+//		
+//	}
 }
