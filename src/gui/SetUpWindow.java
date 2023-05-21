@@ -29,21 +29,7 @@ public class SetUpWindow {
 	private JLabel errorMessage;
 	private ButtonGroup group;
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					SetUpWindow window = new SetUpWindow();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+
 
 	/**
 	 * Create the application.
@@ -159,8 +145,21 @@ public class SetUpWindow {
 					System.out.println(game.seasonLength);
 				}
 				// should shut setup window and open main window
+				frame.dispose();
+				// open main menu window
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							HomeWindow main = new HomeWindow(game);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
+		
+		
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton.setBounds(197, 396, 178, 38);
 		frame.getContentPane().add(btnNewButton);
@@ -171,4 +170,6 @@ public class SetUpWindow {
 		errorMessage.setBounds(88, 358, 301, 28);
 		frame.getContentPane().add(errorMessage);
 	}
+	
+	
 }

@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class HomeWindow {
 
@@ -32,43 +34,61 @@ public class HomeWindow {
 	/**
 	 * Create the application.
 	 */
-	public HomeWindow() {
-		initialize();
+	public HomeWindow(GameEnvironment game) {
+		initialize(game);
+		frame.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(GameEnvironment game) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JTextArea txtrStadium = new JTextArea();
-		txtrStadium.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		txtrStadium.setText("STADIUM");
-		txtrStadium.setBounds(382, 316, 213, 131);
-		frame.getContentPane().add(txtrStadium);
+		JTextArea boxStadium = new JTextArea();
+		boxStadium.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		boxStadium.setText("STADIUM");
+		boxStadium.setBounds(382, 316, 213, 131);
+		boxStadium.setEditable(false);
+		frame.getContentPane().add(boxStadium);
 		
-		JTextArea txtrMarket = new JTextArea();
-		txtrMarket.setText("MARKET");
-		txtrMarket.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		txtrMarket.setBounds(673, 316, 213, 131);
-		frame.getContentPane().add(txtrMarket);
+		JTextArea boxMarket = new JTextArea();
+		boxMarket.setText("MARKET");
+		boxMarket.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		boxMarket.setBounds(673, 316, 213, 131);
+		boxMarket.setEditable(false);
+		frame.getContentPane().add(boxMarket);
 		
-		JTextArea txtrClub = new JTextArea();
-		txtrClub.setFont(new Font("Monospaced", Font.PLAIN, 20));
-		txtrClub.setText("CLUB");
-		txtrClub.setBounds(88, 316, 213, 131);
-		frame.getContentPane().add(txtrClub);
+		JTextArea boxClub = new JTextArea();
+		boxClub.setFont(new Font("Monospaced", Font.PLAIN, 20));
+		boxClub.setText("CLUB");
+		boxClub.setBounds(88, 316, 213, 131);
+		boxClub.setEditable(false);
+		frame.getContentPane().add(boxClub);
 		
 		JButton goToClubButton = new JButton("Go to Club");
+		goToClubButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							ClubWindow club = new ClubWindow(game);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		goToClubButton.setBounds(144, 481, 110, 33);
 		frame.getContentPane().add(goToClubButton);
 		
 		JButton goToStadiumButton = new JButton("Go to Stadium");
-		goToStadiumButton.setBounds(437, 481, 110, 33);
+		goToStadiumButton.setBounds(420, 481, 152, 33);
 		frame.getContentPane().add(goToStadiumButton);
 		
 		JButton goToMarketButton = new JButton("Go to Market");
@@ -78,6 +98,7 @@ public class HomeWindow {
 		JTextArea mainBalancePoints = new JTextArea();
 		mainBalancePoints.setText("BALANCE:\r\n\r\nPOINTS:");
 		mainBalancePoints.setBounds(683, 45, 227, 122);
+		mainBalancePoints.setEditable(false);
 		frame.getContentPane().add(mainBalancePoints);
 		
 		JLabel lblNewLabel = new JLabel("");

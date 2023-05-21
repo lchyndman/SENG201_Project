@@ -42,15 +42,12 @@ public class GameEnvironment {
 //		
 		this.currentWeek = 1;
 		
-		this.goToMarket();
-<<<<<<< HEAD
-		
+
+		}
 //		System.out.print(this.playerTeam);
-=======
-		System.out.print(this.playerTeam);
+
 		
->>>>>>> 809c5e1f33e211137ceec015dc11a930ff3dc9f4
-	}
+
 	
 	public void goToMarket() {
 		System.out.print(this.playerTeam.getBalance());
@@ -137,41 +134,41 @@ public class GameEnvironment {
 		}
 	}
 	
-	public void goToClub() {
-		
-		ClubWindow screen = new ClubWindow(playerTeam);
-		
-//		displaying athletes
-		System.out.println(playerTeam);
-
-// 		displaying inventory
-		playerTeam.printInventory();
-		
-//		swapping players
-		System.out.println("Do you wish to swap two players? (y/n)");
-		String swap = this.sc.nextLine();
-		if (swap.equals("y")) {
-			System.out.println("Pick a player in the lineup to switch (1-11)");
-
-			
-			this.playerTeam.sortBattingOrder();
-			this.playerTeam.sortBowlingOrder();
-		}
-		
-//		applying items
-		System.out.println("Do you want to use any items? (y/n)");
-		String conf = this.sc.nextLine();
-		if (conf == "y") {
-			System.out.print(playerTeam.getAthletes());
-			System.out.println("Pick a player (1-16)"); //dont have to worry about picking a number greater than then in the team as will be buttons
-			int playerIn = Integer.parseInt(sc.nextLine());
-			
-			playerTeam.printInventory();
-			System.out.println("Pick a item (int)"); // again button or drop down box?
-			int itemIn = Integer.parseInt(sc.nextLine());
-			playerTeam.getAthletes().get(itemIn).applyItem(playerTeam.getInventory().get(itemIn));
-		}
-	}
+//	public void goToClub() {
+//		
+//		ClubWindow screen = new ClubWindow(game);
+//		
+////		displaying athletes
+//		System.out.println(playerTeam);
+//
+//// 		displaying inventory
+//		playerTeam.printInventory();
+//		
+////		swapping players
+//		System.out.println("Do you wish to swap two players? (y/n)");
+//		String swap = this.sc.nextLine();
+//		if (swap.equals("y")) {
+//			System.out.println("Pick a player in the lineup to switch (1-11)");
+//
+//			
+//			this.playerTeam.sortBattingOrder();
+//			this.playerTeam.sortBowlingOrder();
+//		}
+//		
+////		applying items
+//		System.out.println("Do you want to use any items? (y/n)");
+//		String conf = this.sc.nextLine();
+//		if (conf == "y") {
+//			System.out.print(playerTeam.getAthletes());
+//			System.out.println("Pick a player (1-16)"); //dont have to worry about picking a number greater than then in the team as will be buttons
+//			int playerIn = Integer.parseInt(sc.nextLine());
+//			
+//			playerTeam.printInventory();
+//			System.out.println("Pick a item (int)"); // again button or drop down box?
+//			int itemIn = Integer.parseInt(sc.nextLine());
+//			playerTeam.getAthletes().get(itemIn).applyItem(playerTeam.getInventory().get(itemIn));
+//		}
+//	}
 	
 	public static void main(String args[]) {
 		GameEnvironment game = new GameEnvironment();
@@ -183,32 +180,5 @@ public class GameEnvironment {
 //			
 //		}
 		
-		
-<<<<<<< HEAD
-
-=======
-//		game.gameSetup();
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SetUpWindow setUp = new SetUpWindow(game);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		
-		game.gameSetup();
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ClubWindow window = new ClubWindow(game.playerTeam);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
->>>>>>> 809c5e1f33e211137ceec015dc11a930ff3dc9f4
 	}
 }

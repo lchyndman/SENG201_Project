@@ -19,9 +19,9 @@ public class EnemyTeam extends Team {
     public EnemyTeam(int difficulty) {
         this.difficulty = difficulty;
         this.fillTeam();
+        this.sortAthletes();
         this.sortBattingOrder();
         this.sortBowlingOrder();
-        this.sortAthletes();
         this.setPoints();
         this.setMoney();
     }
