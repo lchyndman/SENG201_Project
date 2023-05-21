@@ -15,6 +15,11 @@ public class MarketPlace {
 		this.items = this.generator.generateItems(4);
 	}
 	
+	public void resetMarket() {
+		this.athletes = this.generator.generateAthletes(6);
+		this.items = this.generator.generateItems(4);
+	}
+	
 	public PlayerTeam buyAthlete(PlayerTeam team) {
 		System.out.println("Choose which player you wish to purchase (1-6)");
 		int playerInt = Integer.parseInt(sc.nextLine()) - 1;
