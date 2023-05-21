@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
 import game.Athlete;
+import game.GameEnvironment;
 import game.Item;
 import game.PlayerTeam;
 

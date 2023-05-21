@@ -13,6 +13,7 @@ import javax.swing.JProgressBar;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 
+import game.GameEnvironment;
 import game.PlayerTeam;
 
 import java.awt.Color;

@@ -15,13 +15,17 @@ public class Stadium {
 	private EnemyTeam[] enemyOptions;
 	private EnemyTeam enemyTeam;
 	private Scanner sc = new Scanner(System.in);
+	private EnemyTeam[] opponents;
+	private int difficulty;
+	
+	public Stadium(int difficulty) {
+		this.difficulty = difficulty;
+		this.generateOpponents();
+	}
 	
 
 	
-
-	
-
-	public EnemyTeam[] generateOpponents(int difficulty) {
+	public void generateOpponents() {
 //		return an array of possible matches (3-5)
 //		needs to show the money and points gained by winning this match
 		EnemyTeam e1 = new EnemyTeam(difficulty);
@@ -30,8 +34,13 @@ public class Stadium {
 		EnemyTeam e4 = new EnemyTeam(difficulty);
 		EnemyTeam e5 = new EnemyTeam(difficulty);
 		EnemyTeam[] enemyOptions = {e1, e2, e3, e4, e5};
-		return enemyOptions;
+		this.opponents = enemyOptions;
 	}
+	
+	public EnemyTeam[] getOpponents() {
+		return this.opponents;
+	}
+	
 	
 	public void chooseOpponent() {
 		System.out.println("Which opponent would you like to play? (1-5");

@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.EventQueue;
 
+import game.GameEnvironment;
 import game.PlayerTeam;
 
 public class WindowManager {

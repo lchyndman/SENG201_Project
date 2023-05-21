@@ -12,7 +12,7 @@ public class PlayerTeam extends Team {
 	private int balance = 0; // stores how much cash team has for purchasing players and items
 	private int points = 0; // stores how many points the team has gained this season
 	private ArrayList<Item> inventory = new ArrayList<Item>(); // arraylist of items that can be applied to players
-	
+	private boolean readyToPlay;
 	
 	public PlayerTeam(int balance) {
 		/* init playerteam with starting balance */
@@ -36,6 +36,23 @@ public class PlayerTeam extends Team {
 		else {
 			System.out.println("Team full, sell an athlete to make room!");
 		}
+	}
+	
+	public void checkReadyToPlay() {
+		if (this.startingAthletes.size() == 11) {
+			this.readyToPlay = true;
+			for (Athlete a : this.startingAthletes) {
+				if (a.isInjured()) {
+					this.readyToPlay = false;
+				}
+			}
+		}else {
+			this.readyToPlay = false;
+		}
+	}
+	
+	public boolean getReadyToPlay() {
+		return this.readyToPlay;
 	}
 	
 	public void sellAthlete() {

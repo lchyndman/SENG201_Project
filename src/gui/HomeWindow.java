@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+
+import game.GameEnvironment;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -14,22 +17,21 @@ import java.awt.event.ActionEvent;
 public class HomeWindow {
 
 	private JFrame frame;
-//	private GameEnvironment game;
-
+	private GameEnvironment game;
 
 	/**
 	 * Create the application.
 	 */
 	public HomeWindow(GameEnvironment game) {
-//		this.game = game;
-		initialize(game);
+		this.game = game;
+		initialize();
 		frame.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(GameEnvironment game) {
+	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +43,6 @@ public class HomeWindow {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				EventQueue.invokeLater(new Runnable() {
-
 					public void run() {
 						try {
 							ClubWindow club = new ClubWindow(game);
@@ -58,6 +59,11 @@ public class HomeWindow {
 		JButton goToStadiumButton = new JButton("Go to Stadium");
 		goToStadiumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Close the HomeWindow
+				frame.dispose();
+				
+				// Open the StadiumWindow
+				StadiumWindow stadiumWindow = new StadiumWindow(game);
 			}
 		});
 		goToStadiumButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
