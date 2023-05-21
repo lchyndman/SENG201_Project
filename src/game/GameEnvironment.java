@@ -10,9 +10,10 @@ public class GameEnvironment {
 	private PlayerTeam playerTeam;
 	private int difficulty;
 	
-	
 	public GameEnvironment() {
 		playerTeam = new PlayerTeam(startingBalance);
+		this.playerTeam.setAthletes(this.generator.generateAthletes(16));
+		this.playerTeam.sortAthletes();
 	}		
 
 	public void nextWeek() {
@@ -66,27 +67,17 @@ public class GameEnvironment {
 		this.market = market;
 	}
 
-
 	public Generator getGenerator() {
 		return generator;
 	}
-
-
-
 
 	public void setGenerator(Generator generator) {
 		this.generator = generator;
 	}
 
-
-
-
 	public Stadium getStadium() {
 		return stadium;
 	}
-
-
-
 
 	public void setStadium(Stadium stadium) {
 		this.stadium = stadium;

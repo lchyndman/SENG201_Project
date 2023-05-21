@@ -11,6 +11,7 @@ public class EnemyTeam extends Team {
     private int difficulty; // Between 1 and 3, determines ability of players.
     private int winningPoints; // Points gained for beating the team.
     private int winningMoney; // Money earned for beating this team.
+    private Generator g;;
 
     /**
      * Constructs a new EnemyTeam object with the specified difficulty level.
@@ -19,6 +20,8 @@ public class EnemyTeam extends Team {
      */
     public EnemyTeam(int difficulty) {
         this.difficulty = difficulty;
+        this.g = new Generator(this.difficulty);
+        this.teamName = g.getRandomTeamName();
         this.fillTeam();
         this.sortAthletes();
         this.sortBattingOrder();
@@ -31,10 +34,10 @@ public class EnemyTeam extends Team {
      * Fills the team with randomly generated athletes based on the difficulty level.
      */
     public void fillTeam() {
-        Generator g = new Generator(this.difficulty);
         for (int i = 0; i < this.getMAX_ATHLETES(); i++) {
             this.athletes.add(g.generateAthlete());
         }
+        
     }
 
     /**
