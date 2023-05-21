@@ -12,8 +12,13 @@ import java.io.IOException;
 
 /**
  * The Generator class generates unique items, athletes, and numbers for the game.
+ * 
+ * @author Luke Hyndman
+ * @version 1.0
+ * @since 20/5/23
  */
 public class Generator {
+	
     private Random random = new Random();
     private final int MAX_LEVEL = 100;
     private final int MIN_LEVEL;
@@ -49,6 +54,7 @@ public class Generator {
 
     /**
      * Fills the firstNames and lastNames lists with names from text files.
+     * Checks for special chars in each name.
      */
     public void fillNames() {
         BufferedReader reader;
@@ -90,7 +96,7 @@ public class Generator {
     /**
      * Generates a random name by combining a random first name and last name.
      *
-     * @return The generated random name.
+     * @return name The generated random name.
      */
     public String getRandomName() {
         int firstIndex = this.getRandomNumber(0, this.firstNames.size() - 1);
@@ -104,7 +110,7 @@ public class Generator {
      *
      * @param min The minimum value.
      * @param max The maximum value.
-     * @return The generated random number.
+     * @return randomNumber The generated random number.
      */
     public int getRandomNumber(int min, int max) {
         int randomNumber = random.nextInt(max + 1 - min) + min;

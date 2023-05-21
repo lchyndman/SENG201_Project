@@ -3,12 +3,13 @@ import java.util.ArrayList;
 
 /**
  * Represents an Athlete, specifically a cricketer, with their name, stats, position, and price.
- * Stamina is decreased by different types of play and is replenished by recovering.
- * If stamina drops too low, the athlete becomes injured.
+ *
+ * @author Luke Hyndman
+ * @version 1.0
+ * @since 20/5/23
  */
 public class Athlete {
 	
-	// Fields
 	private String name;
 	private String position; // self-assigned position based on stats
 	private int price; // self-assigned price based on stats
@@ -22,7 +23,6 @@ public class Athlete {
 	
 	private int stamina; // athlete's maximum stamina
 	private int currentStamina; // athlete's current stamina
-	private final int MINSTAMINA = 1;
 	private boolean isInjured = false; // athlete is injured (yes/no), defaults to no on initialization
 	
 	private ArrayList<Item> appliedItems = new ArrayList<Item>(); // list of items applied to athlete
