@@ -1,78 +1,73 @@
 package game;
 
-import java.util.Scanner;
-
+/**
+ * Represents a stadium where matches take place between player teams and enemy teams.
+ * 
+ * @author Kendra Van Loon
+ * @version 1.0
+ * @since 23/5/23
+ */
 public class Stadium {
-// a wonderful class
-	
-//	display opponents
-//	chooses opponent or choose to bye
-// plays a match, player vs opponent 
-//	match outcome 
-	
-	
-	private boolean allInjured = true;
-	private EnemyTeam[] enemyOptions;
-//	private EnemyTeam enemyTeam;
-//	private Scanner sc = new Scanner(System.in);
-	private EnemyTeam[] opponents;
-	private int difficulty;
-	private Match match1;
-	
-	public Stadium(int difficulty) {
-		this.difficulty = difficulty;
-		this.generateOpponents();
-	}
-	
+    private EnemyTeam[] opponents; // Array of available enemy teams
+    private int difficulty; // Difficulty level of the stadium
+    private Match match; // The current match being played in the stadium
 
-	
-	public void generateOpponents() {
-//		return an array of possible matches (3-5)
-//		needs to show the money and points gained by winning this match
-		EnemyTeam e1 = new EnemyTeam(difficulty);
-		EnemyTeam e2 = new EnemyTeam(difficulty);
-		EnemyTeam e3 = new EnemyTeam(difficulty);
-		EnemyTeam e4 = new EnemyTeam(difficulty);
-		EnemyTeam e5 = new EnemyTeam(difficulty);
-		EnemyTeam[] enemyOptions = {e1, e2, e3, e4, e5};
-		this.opponents = enemyOptions;
-	}
-	
-	public EnemyTeam[] getOpponents() {
-		return this.opponents;
-	}
-	
-	
-//	public void chooseOpponent() {
-//		System.out.println("Which opponent would you like to play? (1-5");
-//		int enemyNum = Integer.parseInt(sc.nextLine()) - 1;
-//		enemyTeam = enemyOptions[enemyNum-1];
-//		
-//	}
-	
-//	public void chooseToBye() {
-//		// pick a player to train 
-//	}
-	
-	
-	public void playMatch(PlayerTeam playerTeam, EnemyTeam opponentTeam) {
-		
-		setMatch1(new Match(playerTeam, opponentTeam));
-		}
-	
-	
-//	public void printOpponents() { // these aren't numbered
-//		for (EnemyTeam opponent : this.enemyOptions) {
-//			System.out.println(opponent);
-//		}
-//	}
+    /**
+     * Initializes a stadium with the specified difficulty level.
+     *
+     * @param difficulty the difficulty level of the stadium
+     */
+    public Stadium(int difficulty) {
+        this.difficulty = difficulty;
+        this.generateOpponents();
+    }
 
-	public Match getMatch1() {
-		return match1;
-	}
+    /**
+     * Generates the available enemy teams for the stadium.
+     * Creates enemy teams based on the difficulty level and assigns them to the opponents array.
+     */
+    public void generateOpponents() {
+        EnemyTeam e1 = new EnemyTeam(difficulty);
+        EnemyTeam e2 = new EnemyTeam(difficulty);
+        EnemyTeam e3 = new EnemyTeam(difficulty);
+        EnemyTeam[] enemyOptions = {e1, e2, e3};
+        this.opponents = enemyOptions;
+    }
 
-	public void setMatch1(Match match1) {
-		this.match1 = match1;
-	}
+    /**
+     * Returns the array of available enemy teams.
+     *
+     * @return the array of available enemy teams
+     */
+    public EnemyTeam[] getOpponents() {
+        return this.opponents;
+    }
+
+    /**
+     * Starts a match between a player team and an enemy team in the stadium.
+     *
+     * @param playerTeam   the player team participating in the match
+     * @param opponentTeam the enemy team participating in the match
+     */
+    public void playMatch(PlayerTeam playerTeam, EnemyTeam opponentTeam) {
+        setMatch(new Match(playerTeam, opponentTeam));
+    }
+
+    /**
+     * Returns the current match being played in the stadium.
+     *
+     * @return the current match
+     */
+    public Match getMatch() {
+        return match;
+    }
+
+    /**
+     * Sets the current match being played in the stadium.
+     *
+     * @param match the match to set
+     */
+    public void setMatch(Match match) {
+        this.match = match;
+    }
 }
-

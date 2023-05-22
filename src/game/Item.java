@@ -5,7 +5,7 @@ package game;
  * Each item has a name, price, and attribute buffs for stamina, batting, bowling, and fielding.
  * Items can be purchased and sold in a marketplace.
  *
- * @author lchyn Luke Hyndman
+ * @author Luke Hyndman
  * @version 1.0
  * @since 20/5/23
  */
@@ -18,6 +18,7 @@ public class Item {
     private int bowling; // Bowling attribute buff
     private int fielding; // Fielding attribute buff
 
+    
     /**
      * Constructs a new item with the given name and attribute buffs.
      * The price of the item is automatically updated based on the attributes.
@@ -34,9 +35,10 @@ public class Item {
         this.bowling = bowling;
         this.fielding = fielding;
         this.stamina = stamina;
-        this.updatePrice();
+        this.updatePrice(); // calls function to set price based on buffs
     }
 
+    
     /**
      * Updates the price of the item based on the attribute buffs.
      * The price is calculated as the sum of the cubes of the attribute buffs.
@@ -45,6 +47,7 @@ public class Item {
         this.price = (int) (Math.pow(this.batting, 3) + Math.pow(this.bowling, 3) + Math.pow(this.fielding, 3) + Math.pow(this.stamina, 3));
     }
 
+    
     /**
      * Returns the price of the item.
      *
@@ -54,6 +57,7 @@ public class Item {
         return this.price;
     }
 
+    
     /**
      * Returns the stamina attribute buff of the item.
      *
@@ -63,6 +67,7 @@ public class Item {
         return stamina;
     }
 
+    
     /**
      * Returns the batting attribute buff of the item.
      *
@@ -72,6 +77,7 @@ public class Item {
         return batting;
     }
 
+    
     /**
      * Returns the bowling attribute buff of the item.
      *
@@ -81,6 +87,7 @@ public class Item {
         return bowling;
     }
 
+    
     /**
      * Returns the fielding attribute buff of the item.
      *
@@ -90,6 +97,7 @@ public class Item {
         return fielding;
     }
 
+    
     /**
      * Returns the name of the item.
      *
@@ -99,6 +107,7 @@ public class Item {
         return name;
     }
 
+    
     /**
      * Returns a string representation of the item, including its name, price, and attribute buffs.
      *

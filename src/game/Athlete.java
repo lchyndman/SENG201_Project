@@ -28,8 +28,10 @@ public class Athlete {
 	private ArrayList<Item> appliedItems = new ArrayList<Item>(); // list of items applied to athlete
 	private String itemsString = ""; // string representation of items applied to athlete
 	
-	private int battingOrderNumber;
-	private int bowlingOrderNumber;
+	private int battingOrderNumber; // order of athlete in batting order
+	private int bowlingOrderNumber; // order of athlete in bowling order
+	
+	
 	/**
 	 * Constructs an Athlete with the specified name, batting, bowling, fielding, and stamina.
 	 *
@@ -50,6 +52,7 @@ public class Athlete {
 		this.updatePrice();
 	}
 	
+	
 	/**
 	 * Updates the athlete's position based on their batting and bowling stats.
 	 */
@@ -63,12 +66,14 @@ public class Athlete {
 		}
 	}
 	
+	
 	/**
 	 * Updates the athlete's price based on their stats.
 	 */
 	public void updatePrice() {
 		this.price = (int) (Math.pow(this.batting, 3) + Math.pow(this.bowling, 3) + Math.pow(this.fielding, 3) + Math.pow(this.stamina, 3));
 	}
+	
 	
 	/**
 	 * Decreases the athlete's stamina based on batting for one over.
@@ -80,6 +85,7 @@ public class Athlete {
 		this.checkStamina();
 	}
 	
+	
 	/**
 	 * Decreases the athlete's stamina based on bowling for one over.
 	 */
@@ -88,6 +94,7 @@ public class Athlete {
 		this.checkStamina();
 	}
 	
+	
 	/**
 	 * Decreases the athlete's stamina based on fielding for one over.
 	 */
@@ -95,6 +102,7 @@ public class Athlete {
 		this.currentStamina -= 1;
 		this.checkStamina();
 	}
+	
 	
 	/**
 	 * Recovers one week of stamina.
@@ -107,6 +115,7 @@ public class Athlete {
 		}
 	}
 	
+	
 	/**
 	 * Checks if the athlete's stamina is at zero and sets isInjured accordingly.
 	 */
@@ -118,6 +127,7 @@ public class Athlete {
 			this.isInjured = false;
 		}
 	}
+	
 	
 	/**
 	 * Applies the buffs of the given item to the athlete's stats.
@@ -139,12 +149,20 @@ public class Athlete {
 		this.itemsString += ("    " + item.toString() + "\n");
 	}
 	
+	
+	/**
+	 * Internal method to ensure a given level doesn't pass MAX_LEVEL
+	 * 
+	 * @param level the level being checked
+	 * @return the level adjusted depending on if it is greater than max
+	 */
 	private int checkGreaterThanMax(int level) {
 		if (level > this.MAXLEVEL) {
 			return this.MAXLEVEL;
 		}
 		return level;
 	}
+	
 	
 	/**
 	 * Increments the batting ability by the given amount.
@@ -156,6 +174,7 @@ public class Athlete {
 		this.batting = this.checkGreaterThanMax(this.batting);
 	}
 	
+	
 	/**
 	 * Increments the bowling ability by the given amount.
 	 *
@@ -165,6 +184,7 @@ public class Athlete {
 		this.bowling += bowling;
 		this.bowling = this.checkGreaterThanMax(this.bowling);
 	}
+	
 	
 	/**
 	 * Increments the fielding ability by the given amount.
@@ -176,6 +196,7 @@ public class Athlete {
 		this.fielding = this.checkGreaterThanMax(this.fielding);
 	}
 	
+	
 	/**
 	 * Increments the stamina by the given amount.
 	 *
@@ -186,6 +207,7 @@ public class Athlete {
 		this.stamina = this.checkGreaterThanMax(this.stamina);
 	}
 	
+	
 	/**
 	 * Sets the name of the athlete.
 	 *
@@ -194,6 +216,7 @@ public class Athlete {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	
 	/**
 	 * Retrieves the name of the athlete.
@@ -204,6 +227,7 @@ public class Athlete {
 		return this.name;
 	}
 	
+	
 	/**
 	 * Retrieves the position of the athlete.
 	 *
@@ -212,6 +236,7 @@ public class Athlete {
 	public String getPosition() {
 		return position;
 	}
+	
 	
 	/**
 	 * Retrieves the price of the athlete.
@@ -222,6 +247,7 @@ public class Athlete {
 		return price;
 	}
 	
+	
 	/**
 	 * Retrieves the batting ability of the athlete.
 	 *
@@ -230,6 +256,7 @@ public class Athlete {
 	public int getBatting() {
 		return this.batting;
 	}
+	
 	
 	/**
 	 * Retrieves the bowling ability of the athlete.
@@ -240,6 +267,7 @@ public class Athlete {
 		return this.bowling;
 	}
 	
+	
 	/**
 	 * Retrieves the fielding ability of the athlete.
 	 *
@@ -249,6 +277,7 @@ public class Athlete {
 		return this.fielding;
 	}
 	
+	
 	/**
 	 * Retrieves the maximum stamina of the athlete.
 	 *
@@ -257,6 +286,7 @@ public class Athlete {
 	public int getStamina() {
 		return this.stamina;
 	}
+	
 	
 	/**
 	 * Retrieves the current stamina of the athlete.
@@ -276,6 +306,7 @@ public class Athlete {
 		return isInjured;
 	}
 	
+	
 	/**
 	 * Sets the injured status of the athlete.
 	 *
@@ -284,6 +315,7 @@ public class Athlete {
 	public void setInjured(boolean booleanB) {
 		isInjured = booleanB;
 	}
+	
 	
 	/**
 	 * Retrieves the list of applied items to the athlete.
@@ -294,6 +326,7 @@ public class Athlete {
 		return appliedItems;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "\nNAME: " + this.name + "\n    POSITION: " + this.position + "\n    PRICE: $" + this.price +
@@ -301,6 +334,7 @@ public class Athlete {
 				"\n    STAMINA:" + this.stamina + "\n    CURRENT STAMINA: " + this.currentStamina + "\n    STARTING: " + this.starting +
 				"\n    INJURED: " + this.isInjured;
 	}
+	
 	
 	/**
 	 * Checks if the athlete is starting.
@@ -310,6 +344,7 @@ public class Athlete {
 	public boolean isStarting() {
 		return starting;
 	}
+	
 	
 	/**
 	 * Sets the starting status of the athlete.
@@ -329,6 +364,7 @@ public class Athlete {
 		this.currentStamina = currentStamina;
 	}
 	
+	
 	/**
 	 * Retrieves the string representation of the items applied to the athlete.
 	 *
@@ -338,20 +374,40 @@ public class Athlete {
 		return itemsString;
 	}
 
+	/**
+	 * 
+	 * @return the batting order number of the athlete
+	 */
 	public int getBattingOrderNumber() {
 		return battingOrderNumber;
 	}
 
+	
+	/**
+	 * 
+	 * @param battingOrderNumber set the batting order number of the athlete.
+	 */
 	public void setBattingOrderNumber(int battingOrderNumber) {
 		this.battingOrderNumber = battingOrderNumber;
 	}
 
+	
+	/**
+	 * 
+	 * @return the bowling order number of the athlete
+	 */
 	public int getBowlingOrderNumber() {
 		return bowlingOrderNumber;
 	}
 
+	
+	/**
+	 * 
+	 * @param bowlingOrderNumber set the bowling order number of the athlete.
+	 */
 	public void setBowlingOrderNumber(int bowlingOrderNumber) {
 		this.bowlingOrderNumber = bowlingOrderNumber;
 	}
+	
 	
 }

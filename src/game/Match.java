@@ -1,22 +1,41 @@
 package game;
 
-import java.util.Random;
-import java.util.ArrayList;
-
+/**
+ * The Match class represents a cricket match between a player team and an opponent team.
+ * It simulates the gameplay, keeps track of scores, and determines the winner.
+ * 
+ * The class includes methods to check if all players in a team are injured,
+ * play the match, play a half of the match, perform a face-off between a batter and bowler,
+ * and retrieve the winner and final scores of the match.
+ * 
+ * It uses a Generator object to generate random numbers during gameplay.
+ * 
+ * @author [Your Name]
+ * @version 1.0
+ * @since [Date]
+ */
 public class Match {
 	
+	private Generator generator = new Generator();
 	private int maxOvers = 20;
 	private int currentOver = 0;
 	private PlayerTeam playerTeam;
 	private EnemyTeam opponentTeam;
-	private int winner;  // playerTeam=1, opponent=2, draw = 3
+	private int winner; // 1: playerTeam, 2: opponentTeam, 3: draw
 	
 	private int opponentFinalScore = 0;
 	private int playerFinalScore = 0;
 	
-	public Match(PlayerTeam P, EnemyTeam M) { //creates an instance match
-		playerTeam = P;
-		opponentTeam = M;
+	/**
+	 * Constructs a Match object with the player team and opponent team.
+	 * It initializes the teams' batting and bowling orders and plays the match.
+	 * 
+	 * @param playerTeam The player's team.
+	 * @param opponentTeam The opponent team.
+	 */
+	public Match(PlayerTeam playerTeam, EnemyTeam opponentTeam) {
+		this.playerTeam = playerTeam;
+		this.opponentTeam = opponentTeam;
 		playerTeam.sortBattingOrder();
 		playerTeam.sortBowlingOrder();
 		opponentTeam.sortAthletes();
@@ -25,65 +44,64 @@ public class Match {
 		playMatch();
 	}
 	
-	public boolean allInjured(Team team) { // checks if all players in a given team are injured
-		Boolean playersAllInjured = true;
+	/**
+	 * Checks if all players in a given team are injured.
+	 * 
+	 * @param team The team to check.
+	 * @return true if all players in the team are injured, false otherwise.
+	 */
+	public boolean allInjured(Team team) {
 		for (Athlete player : team.getStartingAthletes()) {
-			if (! player.isInjured()) {
-				playersAllInjured = false;
+			if (!player.isInjured()) {
+				return false;
 			}
 		}	
-		return playersAllInjured;
+		return true;
 	}
 	
-	public void playMatch() { //plays a match
-		
-		playerFinalScore = playHalf(playerTeam, opponentTeam); // plays the first half of the game, players team is batting
-		
-		if (allInjured(playerTeam)) {  // if all the payers of a team are injured, that team automatically loses.
-			winner = 2;
-		}
-		else if (allInjured(getOpponentTeam())) {
-			winner = 1;
-		}
-		else {
-			opponentFinalScore = playHalf(opponentTeam ,playerTeam); // plays the second half of the game, the opponent team is batting
+	/**
+	 * Plays the match between the player team and the opponent team.
+	 * It plays the first half of the match with the player team batting,
+	 * and then plays the second half with the opponent team batting.
+	 * The winner and final scores are determined at the end.
+	 */
+	public void playMatch() {
+		playerFinalScore = playHalf(playerTeam, opponentTeam);
 
-			if (allInjured(playerTeam)) { // if all the payers of a team are injured, that team automatically loses, other team wins.
+		if (allInjured(playerTeam)) {
+			winner = 2;
+		} else if (allInjured(opponentTeam)) {
+			winner = 1;
+		} else {
+			opponentFinalScore = playHalf(opponentTeam, playerTeam);
+
+			if (allInjured(playerTeam)) {
 				winner = 2;
-			}
-			else if (allInjured(getOpponentTeam())) {
+			} else if (allInjured(opponentTeam)) {
 				winner = 1;
-			}
-			
-			else {  											// if both teams aren't all injured compares scores and spits out the winner
+			} else {
 				if (playerFinalScore > opponentFinalScore) {
 					winner = 1;
-				}
-				else if (playerFinalScore < opponentFinalScore) {
+				} else if (playerFinalScore < opponentFinalScore) {
 					winner = 2;
-				}
-				else {
+				} else {
 					winner = 3;
 				}
 			}
 		}	
 	}
 	
-	public int playHalf(Team battingTeam, Team bowlingTeam) {
-		
-//		faces off each athlete on players playTeam with the corresponding athlete on 
-//		opponents playTeam. then visa versa (batter vs bowler)
-//		uses faceOff method
-//		goes while numovers <= maxovers 
-//		small chance of being caught by fielder
-//		collects total scores
-//		returns the name of winning playTeam
-		
-		
-//		player bats first, due to injuries, this is an advantage
-		
-		
 	
+	/**
+	 * Plays a half of the match with the given batting and bowling teams.
+	 * It simulates the gameplay by facing off each batter with the corresponding bowler,
+	 * tracking scores, checking for injuries, and rotating players.
+	 * 
+	 * @param battingTeam The team batting in the half.
+	 * @param bowlingTeam The team bowling in the half.
+	 * @return The final score of the batting team in the half.
+	 */
+	public int playHalf(Team battingTeam, Team bowlingTeam) {
 		Athlete[] battingOrder = battingTeam.getBattingOrder();
 		Athlete[] bowlingOrder = bowlingTeam.getBowlingOrder();
 		
@@ -94,259 +112,206 @@ public class Match {
 		int lenBowl = bowlingOrder.length;
 		int bowlIn = 0;
 		Athlete currentBowler = bowlingOrder[bowlIn];
-
+		
 		int bowlerThree = 0;
-	
+		
 		int currentScore = 0;
-
-		for (currentOver=0; currentOver < maxOvers; currentOver += 1) { // plays the set amount of overs
+		
+		for (currentOver = 0; currentOver < maxOvers; currentOver += 1) {
 			
-			while (batIn < lenBat) {    // stops count if all batters out before end of overs
-			
+			while (batIn < lenBat) {
 				boolean batterOut = false;
 				
-				int points = faceOff(currentBatter, currentBowler); // the current bowler and batter face off, one bowl and the response 
+				int points = faceOff(currentBatter, currentBowler);
 				
-				boolean batterfreakinjury = false;  // random chance that the current batter experiences a freak injury
+				boolean batterFreakInjury = false;
 				int risk = 100 - currentBatter.getStamina();
-				int random = getRandomNumber(0,1000);
+				int random = generator.getRandomNumber(0, 1000);
 				if (random < risk) {
-					batterfreakinjury = true;
-					currentBowler.setInjured(batterfreakinjury);
+					batterFreakInjury = true;
+					currentBowler.setInjured(batterFreakInjury);
 				}
 				
-				boolean bowlerfreakinjury = false;  // random chance that the current bowler experiences a freak injury
-				int risk1 = 100 -currentBowler.getStamina();
-				int random1 = getRandomNumber(0,1000);
+				boolean bowlerFreakInjury = false;
+				int risk1 = 100 - currentBowler.getStamina();
+				int random1 = generator.getRandomNumber(0, 1000);
 				if (random1 < risk1) {
-					bowlerfreakinjury = true;
+					bowlerFreakInjury = true;
 					currentBowler.setInjured(true);
 				}
-				
 				
 				int field = bowlingTeam.getAverageFielding();
 				int fieldStat = field / 10;
 				
-				if (points < 0) {   //				batter out on wicket
+				if (points < 0) {
 					batterOut = true;
 				}
-				if (0 <= points && points <= 4) {		// random chance that if the batter hits the ball with 1-4 that they get caught out
-					int number = getRandomNumber(0,100);
+				if (0 <= points && points <= 4) {
+					int number = generator.getRandomNumber(0, 100);
 					if (number <= fieldStat) {
 						batterOut = true;
-						}
+					}
 				}
 				
-					
-				if (batterOut || batterfreakinjury ) {  // if the batter got out or got injured the next batter is up
+				if (batterOut || batterFreakInjury) {
 					batIn += 1;
 					currentBatter.batOver(5);
-					if (batIn >= lenBat){   // if all batters have been, end the half
+					if (batIn >= lenBat) {
 						break;
 					}
 					currentBatter = battingOrder[batIn];
-					while (currentBatter.isInjured()) {  // if the next batter in the line up is injured, go to the next
+					while (currentBatter.isInjured()) {
 						batIn += 1;
-						if (batIn >= lenBat) { // if all the batters are injured, ends the half
-							//System.out.println("all batters injured/out");
+						if (batIn >= lenBat) {
 							break;
 						}
 						currentBatter = battingOrder[batIn];
-						
-						}
 					}
-				else {       // everything goes well, points are added to the score
-					currentScore += points; 
-					}
+				} else {
+					currentScore += points;
+				}
 				
-				
-				if (bowlerfreakinjury)  {  // if the bowler got injured, the next bowler in the line up goes
+				if (bowlerFreakInjury) {
 					bowlIn += 1;
 					if (bowlIn >= lenBowl) {
-						bowlIn =0;
+						bowlIn = 0;
 					}
 					currentBowler = bowlingOrder[bowlIn];
 					int counter = 0;
-					while (currentBowler.isInjured()) {  // if the next bowler in the line up is injured, moves to the next one
+					while (currentBowler.isInjured()) {
 						bowlIn += 1;
-						counter+=1; // counts the length of the loop, if it cycles through all the athletes, they're all injured and the half will end
-						if (bowlIn >= lenBowl) { // if all  bowlers have been, goes to the start of the order
-							bowlIn =0;
+						counter += 1;
+						if (bowlIn >= lenBowl) {
+							bowlIn = 0;
 						}
 						currentBowler = bowlingOrder[bowlIn];
-						if (counter >= lenBowl) { // all bowlers are injured 
+						if (counter >= lenBowl) {
 							break;
 						}
 					}
-					if (counter >= lenBowl) {  // stop half as all bowlers are injured
-						//System.out.println("all bowlers injured");
+					if (counter >= lenBowl) {
 						break;
 					}
 					bowlerThree = 0;
-				}
-				else {
-					bowlerThree += 1;  // do we want the bowlers to rotate?
-					if (bowlerThree % 3 ==0) {
+				} else {
+					bowlerThree += 1;
+					if (bowlerThree % 3 == 0) {
 						bowlIn += 1;
 						if (bowlIn >= lenBowl) {
-							bowlIn =0;
+							bowlIn = 0;
 						}
-						currentBowler = bowlingOrder[bowlIn]; 
+						currentBowler = bowlingOrder[bowlIn];
 						int counter1 = 0;
 						while (currentBowler.isInjured()) {
 							bowlIn += 1;
-							counter1+=1;
+							counter1 += 1;
 							if (bowlIn >= lenBowl) {
 								bowlIn = 0;
 							}
 							currentBowler = bowlingOrder[bowlIn];
-							if (counter1 >= lenBowl) { // stop looping as all bowlers are injured 
+							if (counter1 >= lenBowl) {
 								break;
 							}
-						bowlerThree = 0;
+							bowlerThree = 0;
 						}
 					}
-				if (bowlIn >= lenBowl) {
-					bowlIn = 0;
+					if (bowlIn >= lenBowl) {
+						bowlIn = 0;
+					}
 				}
 			}
 		}
-		}
+		
 		return currentScore;
-
 	}
-				
-			
-			
 
 	
+	/**
+	 * Simulates a face-off between a batter and a bowler and returns the score of the batter.
+	 *
+	 * @param batter the batter to face off against the bowler
+	 * @param bowler the bowler to face off against the batter
+	 * @return the score of the batter based on the face-off result
+	 */
 	public int faceOff(Athlete batter, Athlete bowler) {
-//		returns the score of the batter using our awesome face-off idea
-//		uses random num generator
-		bowler.bowlOver();
-		
-		
-		
-		int base_result = 500;
-		int batting = batter.getBatting();
-		int bowling = bowler.getBowling();
-		int batnum = 1/2 * this.getRandomNumber(1, 20);
-		int bowlnum = 1/2 * this.getRandomNumber(1, 5);
-		
-		int batterStat = batnum*batting;
-		int bowlerStat = bowlnum*bowling;
-		
-		int num = base_result + batterStat - bowlerStat;
-		
-		switch (( num <= 71 ) ? -1 :     // the brackets for different points, out, runs, and outa the park 
-			    (72 <= num && num <= 344) ? 0 : 
-			    (345 <= num && num <= 683) ? 1 :
-			    (684 <= num && num <= 752) ? 2 :
-			    (753 <= num && num <= 754) ? 3 :
-			    (755 <= num && num <= 890) ? 4 : 6 ) {
-		
-		
-		case -1:     //			ball hit wicket, out
-			batter.batOver(2);
-			return -1;		
-		case 0:
-			batter.batOver(2);
-			return 0;
-		case 1:
-			batter.batOver(1);
-			return 1;
-		case 2:
-			batter.batOver(2);
-			return 2;
-		case 3:
-			batter.batOver(3);
-			return 3;
-		case 4:
-			batter.batOver(1);
-			return 4;
-		case 6:
-			batter.batOver(0);
-			return 6;
-		
-						
-		}		
-		return -2;
-
-	}
-	
-	
-	public int getRandomNumber(int min, int max) {
-//		returns a random number between the given range, inclusive
-		Random random = new Random();
-		return random.nextInt((max+1)-min) + min;
-//		code from https://www.baeldung.com/java-generating-random-numbers-in-range
-//		min is inclusive however max is exclusive, hence +1
-	}
-	
-	public static void main(String args[]) {
-		
-//		PlayerTeam team = new PlayerTeam(1000000);
-//		EnemyTeam battingTeam = new EnemyTeam(1);
-////		Generator g = new Generator();
-////		for (int i=0; i < 11; i++) {
-////			team.addAthlete(g.generateAthlete());
-////		}
-//	    battingTeam.fillTeam();
-//		
-//	    for (Athlete player : battingTeam.getStartingAthletes()) {
-//	    	team.addAthlete(player);
-//	    }
-//	    
-//		int opponentWins = 0;
-//		int playerWins = 0;
-//		int draw = 0;
-//		for (int i=0; i < 1000000; i += 1) {
-//			
-//
-//		Match match = new Match(team,battingTeam);
-//		String thing = match.playMatch();
-//		
-//		for (Athlete player : team.getStartingAthletes()) {
-//			player.setCurrentStamina(player.getStamina());
-//			player.setInjured(false);
-//		}
-//		
-//		for (Athlete player : battingTeam.getStartingAthletes()) {
-//			player.setCurrentStamina(player.getStamina());
-//			player.setInjured(false);
-//		}
-//		
-//		if (thing == "Player team wins") {
-//			playerWins+= 1;
-//		}
-//		if (thing == "Opponent wins") {
-//			opponentWins+= 1;
-//		}
-//		if (thing == "It was a draw") {
-//			draw+= 1;
-//		}
-//		
-//		}
-//		System.out.println("players: "+playerWins+"\n oppoent: "+opponentWins+"\n draw: "+draw);
+	    bowler.bowlOver();
+	    
+	    int base_result = 500;
+	    int batting = batter.getBatting();
+	    int bowling = bowler.getBowling();
+	    int batnum = 1/2 * this.generator.getRandomNumber(1, 20);
+	    int bowlnum = 1/2 * this.generator.getRandomNumber(1, 5);
+	    
+	    int batterStat = batnum * batting;
+	    int bowlerStat = bowlnum * bowling;
+	    
+	    int num = base_result + batterStat - bowlerStat;
+	    
+	    switch ((num <= 71) ? -1 :
+	            (72 <= num && num <= 344) ? 0 :
+	            (345 <= num && num <= 683) ? 1 :
+	            (684 <= num && num <= 752) ? 2 :
+	            (753 <= num && num <= 754) ? 3 :
+	            (755 <= num && num <= 890) ? 4 : 6) {
+	        case -1:
+	            batter.batOver(2);
+	            return -1;
+	        case 0:
+	            batter.batOver(2);
+	            return 0;
+	        case 1:
+	            batter.batOver(1);
+	            return 1;
+	        case 2:
+	            batter.batOver(2);
+	            return 2;
+	        case 3:
+	            batter.batOver(3);
+	            return 3;
+	        case 4:
+	            batter.batOver(1);
+	            return 4;
+	        case 6:
+	            batter.batOver(0);
+	            return 6;
+	    }
+	    
+	    return -2;
 	}
 
-
+	/**
+	 * Returns the winner of the game.
+	 *
+	 * @return the winner of the game
+	 */
 	public int getWinner() {
-		return winner;
+	    return winner;
 	}
-	
+
+	/**
+	 * Returns the final score of the player.
+	 *
+	 * @return the final score of the player
+	 */
 	public int getPlayerFinalScore() {
-		return playerFinalScore;
+	    return playerFinalScore;
 	}
-	
+
+	/**
+	 * Returns the final score of the opponent.
+	 *
+	 * @return the final score of the opponent
+	 */
 	public int getOpponentFinalScore() {
-		return opponentFinalScore;
+	    return opponentFinalScore;
 	}
 
+	/**
+	 * Returns the opponent team.
+	 *
+	 * @return the opponent team
+	 */
 	public EnemyTeam getOpponentTeam() {
-		return opponentTeam;
+	    return opponentTeam;
 	}
-
-	
-	
 }

@@ -11,8 +11,9 @@ public class EnemyTeam extends Team {
     private int difficulty; // Between 1 and 3, determines ability of players.
     private int winningPoints; // Points gained for beating the team.
     private int winningMoney; // Money earned for beating this team.
-    private Generator g;;
+    private Generator g;
 
+    
     /**
      * Constructs a new EnemyTeam object with the specified difficulty level.
      *
@@ -21,15 +22,16 @@ public class EnemyTeam extends Team {
     public EnemyTeam(int difficulty) {
         this.difficulty = difficulty;
         this.g = new Generator(this.difficulty);
-        this.teamName = g.getRandomTeamName();
-        this.fillTeam();
-        this.sortAthletes();
-        this.sortBattingOrder();
-        this.sortBowlingOrder();
-        this.setPoints();
+        this.teamName = g.getRandomTeamName(); 
+        this.fillTeam(); // fill team with players
+        this.sortAthletes(); // sort into starting and reserves by general ability
+        this.sortBattingOrder(); // sort batting order
+        this.sortBowlingOrder(); // sort bowling order
+        this.setPoints(); // determine points and reward for beating the team
         this.setMoney();
     }
 
+    
     /**
      * Fills the team with randomly generated athletes based on the difficulty level.
      */
@@ -40,6 +42,7 @@ public class EnemyTeam extends Team {
         
     }
 
+    
     /**
      * Calculates and sets the winning points for the enemy team based on the average stats of its athletes.
      */
@@ -47,14 +50,16 @@ public class EnemyTeam extends Team {
         this.winningPoints = (this.getAverageBatting() + this.getAverageBowling() + this.getAverageFielding() + this.getAverageStamina()) / 4;
     }
 
+    
     /**
      * Sets the winning money for the team based on the winning points.
      */
     public void setMoney() {
-        this.winningMoney = 10000 * this.winningPoints;
+        this.winningMoney = 500000 * this.winningPoints;
         // Calculate based on team stats
     }
 
+    
     /**
      * Retrieves the winning points for beating the team.
      *
@@ -64,6 +69,7 @@ public class EnemyTeam extends Team {
         return this.winningPoints;
     }
 
+    
     /**
      * Retrieves the winning money for beating the team.
      *
@@ -73,6 +79,7 @@ public class EnemyTeam extends Team {
         return this.winningMoney;
     }
 
+    
     @Override
     public String toString() {
         return "\nOpponent team:\nAVERAGE BATTING: " + this.getAverageBatting() + "\nAVERAGE BOWLING: " + this.getAverageBowling() +
