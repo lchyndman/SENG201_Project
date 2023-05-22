@@ -29,6 +29,9 @@ public class MatchWindow {
 	private Match match1;
 	private JTextArea athleteStats;
 	private JLabel errorMessage;
+	
+	private int winningAdd = 3;
+	private int drawAdd = 1;
 
 	/**
 	 * Create the application.
@@ -40,6 +43,7 @@ public class MatchWindow {
 
 		
 		initialize(game);
+		frame.setVisible(true);
 		
 		
 		
@@ -49,6 +53,12 @@ public class MatchWindow {
 		if (match1.getWinner() == 1) {
 			game.getPlayerTeam().addBalance(match1.getOpponentTeam().getMoney());
 			game.getPlayerTeam().addPoints(match1.getOpponentTeam().getPoints());
+			for (Athlete athlete : game.getPlayerTeam().getStartingAthletes()) {
+				athlete.battingIncrement(winningAdd);
+				athlete.bowlingIncrement(winningAdd);
+				athlete.fieldingIncrement(winningAdd+1);
+				athlete.staminaIncrement(winningAdd+2);
+			}
 		}
 		else if (match1.getWinner() == 2) {
 			game.getPlayerTeam().addBalance((match1.getOpponentTeam().getMoney())/5);
@@ -57,6 +67,12 @@ public class MatchWindow {
 		else {
 			game.getPlayerTeam().addBalance((match1.getOpponentTeam().getMoney())/2);
 			game.getPlayerTeam().addPoints((match1.getOpponentTeam().getPoints())/2);
+			for (Athlete athlete : game.getPlayerTeam().getStartingAthletes()) {
+				athlete.battingIncrement(drawAdd);
+				athlete.bowlingIncrement(drawAdd);
+				athlete.fieldingIncrement(drawAdd);
+				athlete.staminaIncrement(drawAdd+1);
+			}
 		}
 	}
 	
@@ -137,8 +153,7 @@ public class MatchWindow {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int oldWeek = game.getCurrentWeek();
-				game.setCurrentWeek(oldWeek+=1);
+				game.nextWeek();
 				
 				if (game.getCurrentWeek() > game.getSeasonLength()) {
 				frame.dispose();
@@ -172,7 +187,20 @@ public class MatchWindow {
 		frame.getContentPane().add(btnNewButton);
 		
 		JTextArea gameWinnings = new JTextArea();
-		gameWinnings.setText("You made .. by ...\r\nand got .. Experiance Points\r\nStarting players Stats increased by the following amount:\r\n\r\nBATTING:\r\nBOWLING:\r\nFIELDING:\r\nSTAMINA:\r\n\r\nNote, your players Stats cannot increase over 100.");
+		String string;
+		if (match1.getWinner() == 1) {
+			string = "winning";
+			gameWinnings.setText("You made "+match1.getOpponentTeam().getMoney()+" by "+string+".\r\nand got "+match1.getOpponentTeam().getPoints()+" Experiance Points\r\nStarting players Stats increased by the following amount:\r\n\r\nBATTING:  "+winningAdd+"\r\nBOWLING:  "+winningAdd+"\r\nFIELDING:  "+(winningAdd+=1)+"\r\nSTAMINA:  "+(winningAdd+=2)+"\r\n\r\nNote, your players Stats cannot increase over 100.");
+		}
+		else if (match1.getWinner() == 2) {
+			string = "losing";
+			gameWinnings.setText("You made "+(match1.getOpponentTeam().getMoney())/5+" by "+string+".\r\nand got "+(match1.getOpponentTeam().getPoints())/5+" Experiance Points\r\nStarting players Stats increased by the following amount:\r\n\r\nBATTING:  0\r\nBOWLING:  0\r\nFIELDING:  0\r\nSTAMINA:  0\r\n\r\nNote, your players Stats cannot increase over 100.");
+		}
+		else {
+			string = "drawing";
+			gameWinnings.setText("You made "+(match1.getOpponentTeam().getMoney()/2)+" by "+string+".\r\nand got "+(match1.getOpponentTeam().getPoints())/2+" Experiance Points\r\nStarting players Stats increased by the following amount:\r\n\r\nBATTING:  "+drawAdd+"\r\nBOWLING:  "+drawAdd+"\r\nFIELDING:  "+drawAdd+"\r\nSTAMINA:  "+(drawAdd+=1)+"\r\n\r\nNote, your players Stats cannot increase over 100.");
+		}
+		
 		gameWinnings.setBounds(42, 304, 484, 184);
 		frame.getContentPane().add(gameWinnings);
 		

@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.EventQueue;
 
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -28,7 +27,6 @@ public class ClubWindow {
 	
 	private DefaultListModel<String> listModelStarting = new DefaultListModel<>();
 	
-	private DefaultListModel<String> listModelAthletes = new DefaultListModel<>();
 	private DefaultListModel<String> listModelBatting = new DefaultListModel<>();
 	private DefaultListModel<String> listModelBowling = new DefaultListModel<>();
 	
@@ -41,40 +39,46 @@ public class ClubWindow {
 	JTextArea reserveInfoBox;
 	JList<String> startingList;
 	
+	boolean sortByBatting = false;
+	boolean sortByBowling = false;
 	
-
-
+	GameEnvironment game;
+	PlayerTeam playerTeam;
+    
 	/**
 	 * Create the application.
 	 */
 	public ClubWindow(GameEnvironment game) {
-		
-		initialize(game);
-		fillTeam(game);
+		this.game = game;
+		this.playerTeam = game.getPlayerTeam();
+		this.playerTeam.sortAthletes();
+		this.playerTeam.sortBattingOrder();
+		this.playerTeam.sortBowlingOrder();
+		initialize();
+		fillTeam();
 		frame.setVisible(true);
 	}
 
 	
-	private void fillTeam(GameEnvironment game) {
+	private void fillTeam() {
 		
-		for (Athlete athlete : game.getPlayerTeam().getStartingAthletes()) {
-			listModelAthletes.addElement(athlete.getName());
+		for (Athlete athlete : playerTeam.getStartingAthletes()) {
+			listModelStarting.addElement(athlete.getName());
 		}
 		
-		for (Athlete athlete : game.getPlayerTeam().getReserveAthletes()) {
+		for (Athlete athlete : playerTeam.getReserveAthletes()) {
 			listModelReserves.addElement(athlete.getName());
 		}
 		
-		for (Item item : game.getPlayerTeam().getInventory()) {
+		for (Item item : playerTeam.getInventory()) {
 			listModelItems.addElement(item.getName());
 		}
-		game.getPlayerTeam().sortBattingOrder();
-		for (Athlete athlete : game.getPlayerTeam().getBattingOrder()) {
-			listModelBatting.addElement(athlete.getName());
+		
+		for (Athlete athlete : playerTeam.getBattingOrder()) {
+			System.out.println(athlete);
 		}
 		
-		game.getPlayerTeam().sortBowlingOrder();
-		for (Athlete athlete : game.getPlayerTeam().getBowlingOrder()) {
+		for (Athlete athlete : playerTeam.getBowlingOrder()) {
 			listModelBowling.addElement(athlete.getName());
 		}
 	}
@@ -82,9 +86,8 @@ public class ClubWindow {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(GameEnvironment game) {
-		
-		
+	private void initialize() {
+
 		setFrame(new JFrame());
 		getFrame().setBounds(100, 100, 1000, 600);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,20 +156,54 @@ public class ClubWindow {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
+					
 				int player1 = startingList.getSelectedIndex();
+				Athlete athlete1;
+				if (sortByBatting) {
+					athlete1 = playerTeam.getBattingOrder()[player1];
+				}
+				else if (sortByBowling) {
+					athlete1 = playerTeam.getBowlingOrder()[player1];
+				}
+				else {
+					athlete1 = playerTeam.getStartingAthletes().get(player1);
+				}
+				
 				int player2 = reserveList.getSelectedIndex();
-				Athlete athlete1 = game.getPlayerTeam().getStartingAthletes().get(player1);
-				Athlete athlete2 = game.getPlayerTeam().getReserveAthletes().get(player2);
-				game.getPlayerTeam().getStartingAthletes().remove(athlete1);
-				game.getPlayerTeam().getReserveAthletes().add(athlete1);
-				game.getPlayerTeam().getReserveAthletes().remove(athlete2);
-				game.getPlayerTeam().getStartingAthletes().add(athlete2);
+				Athlete athlete2 = playerTeam.getReserveAthletes().get(player2);
 				
 				athlete1.setStarting(false);
 				athlete2.setStarting(true);
 				
-				listModelStarting.addElement(athlete2.getName());
+				playerTeam.getReserveAthletes().add(athlete1);
+				playerTeam.getReserveAthletes().remove(athlete2);
+				
+				playerTeam.getStartingAthletes().remove(athlete1);
+				playerTeam.getStartingAthletes().add(athlete2);
+				
+				if (sortByBatting) {
+					listModelBatting = new DefaultListModel<String>();
+					playerTeam.sortBattingOrder();
+					for (Athlete athlete : playerTeam.getBattingOrder()) {
+						listModelBatting.addElement(athlete.getName());
+					}
+					startingList.setModel(listModelBatting);
+				}
+				
+				else if (sortByBowling) {
+					listModelBowling = new DefaultListModel<String>();
+					playerTeam.sortBowlingOrder();
+					for (Athlete athlete : playerTeam.getBowlingOrder()) {
+						listModelBowling.addElement(athlete.getName());
+					}
+					startingList.setModel(listModelBowling);
+				}
+				else {
+			
+    			listModelStarting.addElement(athlete2.getName());
 				listModelStarting.remove(player1);
+				}
+				
 				listModelReserves.addElement(athlete1.getName());
 				listModelReserves.remove(player2);
 				errorMessage.setText("");
@@ -191,7 +228,7 @@ public class ClubWindow {
 				try {
 					
 				int itemIn = itemList.getSelectedIndex();
-				Item item = game.getPlayerTeam().getInventory().get(itemIn);
+				Item item = playerTeam.getInventory().get(itemIn);
 				if (startingList.isSelectionEmpty() && reserveList.isSelectionEmpty()) {
 					errorMessage.setText("Please select an Athlete.");
 				}
@@ -200,16 +237,24 @@ public class ClubWindow {
 				}
 				else if (startingList.isSelectionEmpty()) {
 					int playerIn = reserveList.getSelectedIndex();
-					game.getPlayerTeam().getReserveAthletes().get(playerIn).applyItem(item);
+					playerTeam.getReserveAthletes().get(playerIn).applyItem(item);
 					listModelItems.remove(itemIn);
-					game.getPlayerTeam().getInventory().remove(itemIn);
+					playerTeam.getInventory().remove(itemIn);
 					errorMessage.setText("");
 				}
 				else {
 					int playerIn = startingList.getSelectedIndex();
-					game.getPlayerTeam().getStartingAthletes().get(playerIn).applyItem(item);
+					if (sortByBatting) {
+						playerTeam.getBattingOrder()[playerIn].applyItem(item);
+					}
+					else if (sortByBowling) {
+						playerTeam.getBowlingOrder()[playerIn].applyItem(item);
+					}
+					else {
+						playerTeam.getStartingAthletes().get(playerIn).applyItem(item);
+					}
 					listModelItems.remove(itemIn);
-					game.getPlayerTeam().getInventory().remove(itemIn);
+					playerTeam.getInventory().remove(itemIn);
 					errorMessage.setText("");
 				}
 				}
@@ -242,7 +287,15 @@ public class ClubWindow {
 				}
 				else {
 					int startIn = startingList.getSelectedIndex();
-					startingInfoBox.setText(game.getPlayerTeam().getStartingAthletes().get(startIn).toString());
+					if (sortByBatting) {
+						startingInfoBox.setText(playerTeam.getBattingOrder()[startIn].toString());
+					}
+					else if (sortByBowling){
+						startingInfoBox.setText(playerTeam.getBowlingOrder()[startIn].toString());
+					}
+					else {
+						startingInfoBox.setText(playerTeam.getStartingAthletes().get(startIn).toString());
+					}
 					errorMessage.setText("");
 				}
 			}
@@ -264,7 +317,7 @@ public class ClubWindow {
 				}
 				else {
 					int startIn = reserveList.getSelectedIndex();
-					reserveInfoBox.setText(game.getPlayerTeam().getReserveAthletes().get(startIn).toString());
+					reserveInfoBox.setText(playerTeam.getReserveAthletes().get(startIn).toString());
 					errorMessage.setText("");
 				}
 			}
@@ -280,7 +333,7 @@ public class ClubWindow {
 				}
 				else {
 					int startIn = itemList.getSelectedIndex();
-					itemInfoBox.setText(game.getPlayerTeam().getInventory().get(startIn).toString());
+					itemInfoBox.setText(playerTeam.getInventory().get(startIn).toString());
 					errorMessage.setText("");
 				}
 			}
@@ -324,7 +377,15 @@ public class ClubWindow {
 		JButton sortBowling = new JButton("Sort by Bowling");
 		sortBowling.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				sortByBowling = true;
+				sortByBatting = false;
 				
+				listModelBowling = new DefaultListModel<String>();
+				playerTeam.sortBowlingOrder();
+				for (Athlete athlete : playerTeam.getBowlingOrder()) {
+					listModelBowling.addElement(athlete.getName());
+				}
+				startingList.setModel(listModelBowling);
 			}
 		});
 		sortBowling.setBounds(21, 152, 114, 21);
@@ -333,7 +394,14 @@ public class ClubWindow {
 		JButton sortBatting = new JButton("Sort by Batting");
 		sortBatting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				sortByBatting = true;
+				sortByBowling = false;
+				listModelBatting = new DefaultListModel<String>();
+				playerTeam.sortBattingOrder();
+				for (Athlete athlete : playerTeam.getBattingOrder()) {
+					listModelBatting.addElement(athlete.getName());
+				}
+				startingList.setModel(listModelBatting);
 			}
 		});
 		sortBatting.setBounds(21, 124, 116, 21);

@@ -111,7 +111,7 @@ public class Generator {
     }
 
     public String getRandomTeamName() {
-    	int index = this.getRandomNumber(0, this.teamNames.size());
+    	int index = this.getRandomNumber(0, this.teamNames.size()-1);
     	return this.teamNames.get(index);
     }
     
