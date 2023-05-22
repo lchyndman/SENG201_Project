@@ -174,11 +174,15 @@ public class Team {
      * @return The average batting ability
      */
     public int getAverageBatting() {
-        int total = 0;
-        for (Athlete a : this.athletes) {
-            total += a.getBatting();
-        }
-        return (total / this.athletes.size());
+    	if (this.athletes.size() > 0) {
+	        int total = 0;
+	        for (Athlete a : this.athletes) {
+	            total += a.getBatting();
+	        }
+	        return (total / this.athletes.size());
+    	} else {
+    		return 0;
+    	}
     }
 
     /**
@@ -187,11 +191,15 @@ public class Team {
      * @return The average bowling ability
      */
     public int getAverageBowling() {
-        int total = 0;
-        for (Athlete a : this.athletes) {
-            total += a.getBowling();
-        }
-        return (total / this.athletes.size());
+    	if (this.athletes.size() > 0) {
+	        int total = 0;
+	        for (Athlete a : this.athletes) {
+	            total += a.getBowling();
+	        }
+	        return (total / this.athletes.size());
+    	} else {
+    		return 0;
+    	}
     }
 
     /**
@@ -200,11 +208,15 @@ public class Team {
      * @return The average fielding ability
      */
     public int getAverageFielding() {
-        int total = 0;
-        for (Athlete a : this.athletes) {
-            total += a.getFielding();
-        }
-        return (total / this.athletes.size());
+    	if (this.athletes.size() > 0) {
+	        int total = 0;
+	        for (Athlete a : this.athletes) {
+	            total += a.getFielding();
+	        }
+	        return (total / this.athletes.size());
+    	} else {
+    		return 0;
+    	}
     }
 
     /**
@@ -213,11 +225,15 @@ public class Team {
      * @return The average stamina
      */
     public int getAverageStamina() {
-        int total = 0;
-        for (Athlete a : this.athletes) {
-            total += a.getStamina();
-        }
-        return (total / this.athletes.size());
+    	if (this.athletes.size() > 0) {
+	        int total = 0;
+	        for (Athlete a : this.athletes) {
+	            total += a.getStamina();
+	        }
+	        return (total / this.athletes.size());
+    	} else {
+    		return 0;
+    	}
     }
 
     /**

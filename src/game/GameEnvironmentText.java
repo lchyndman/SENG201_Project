@@ -2,8 +2,6 @@ package game;
 
 import java.util.Scanner;
 
-import gui.GameEnvironment;
-
 //    ##NOT THE GUI##
 
 public class GameEnvironmentText {

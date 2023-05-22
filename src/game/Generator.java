@@ -26,6 +26,7 @@ public class Generator {
     private final int MIN_BUFF = 10;
     private ArrayList<String> firstNames = new ArrayList<String>();
     private ArrayList<String> lastNames = new ArrayList<String>();
+    private ArrayList<String> teamNames = new ArrayList<String>();
     private String[] itemTypes = { "Shoes", "Bat", "Steroids", "Blue V" };
 
     /**
@@ -91,8 +92,29 @@ public class Generator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+       try {
+            reader = new BufferedReader(new FileReader("Names/team_names.txt"));
+            String line = reader.readLine();
+
+            while (line != null) {
+                Matcher m = p.matcher(line);
+                if (!m.find()) {
+                    this.teamNames.add(line);
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    public String getRandomTeamName() {
+    	int index = this.getRandomNumber(0, this.teamNames.size());
+    	return this.teamNames.get(index);
+    }
+    
     /**
      * Generates a random name by combining a random first name and last name.
      *

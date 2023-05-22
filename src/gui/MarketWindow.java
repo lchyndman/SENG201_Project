@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import game.Athlete;
+import game.GameEnvironment;
 import game.Item;
 import game.PlayerTeam;
 
