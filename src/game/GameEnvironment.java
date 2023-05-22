@@ -9,6 +9,9 @@ public class GameEnvironment {
 	private Stadium stadium;
 	private PlayerTeam playerTeam;
 	private int difficulty;
+	private int gamesWon;
+	private int gamesLost;
+	private int gamesDrew;
 	
 	public GameEnvironment() {
 		playerTeam = new PlayerTeam(startingBalance);
@@ -80,6 +83,29 @@ public class GameEnvironment {
 
 	public void setStadium(Stadium stadium) {
 		this.stadium = stadium;
+	}
+
+	public int getGamesWon() {
+		return gamesWon;
+	}
+	
+	public void addGameWon() {
+		gamesWon+=1;
+	}
+
+	public int getGamesLost() {
+		return gamesLost;
+	}
+	
+	public void addGameLost() {
+		gamesLost+=1;
+	}
+
+	public int getGamesDrew() {
+		return gamesDrew;
+	}
+	public void addGameDrew() {
+		gamesDrew+=1;
 	}
 	
 

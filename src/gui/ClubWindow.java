@@ -21,7 +21,10 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class ClubWindow {
 	
@@ -44,6 +47,7 @@ public class ClubWindow {
 	
 	GameEnvironment game;
 	PlayerTeam playerTeam;
+	private JTextField nicknameField;
     
 	/**
 	 * Create the application.
@@ -218,13 +222,14 @@ public class ClubWindow {
 			}
 		});
 		swapButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		swapButton.setBounds(222, 420, 159, 34);
+		swapButton.setBounds(364, 420, 159, 34);
 		getFrame().getContentPane().add(swapButton);
 		
 		JTextArea txtrWillSwapThe = new JTextArea();
 		txtrWillSwapThe.setText("Will swap the selected \r\nathlete in starting with \r\nthe selected athlete in\r\nreserves.");
-		txtrWillSwapThe.setBounds(201, 464, 205, 86);
+		txtrWillSwapThe.setBounds(350, 464, 205, 86);
 		getFrame().getContentPane().add(txtrWillSwapThe);
+		txtrWillSwapThe.setEditable(false);
 		
 		JButton applyItemButton = new JButton("APPLY ITEM");
 		applyItemButton.addActionListener(new ActionListener() {
@@ -276,6 +281,7 @@ public class ClubWindow {
 		txtrWillApplyAn.setText("Will apply the selected \r\nitem to the selected \r\nathlete. Please only\r\nselect one athlete.");
 		txtrWillApplyAn.setBounds(563, 456, 205, 86);
 		getFrame().getContentPane().add(txtrWillApplyAn);
+		txtrWillApplyAn.setEditable(false);
 		
 		errorMessage = new JLabel("");
 		errorMessage.setForeground(new Color(255, 0, 0));
@@ -312,6 +318,7 @@ public class ClubWindow {
 		txtrShowsTheSelected.setText("Shows the selected Athletes Stats");
 		txtrShowsTheSelected.setBounds(10, 528, 166, 22);
 		frame.getContentPane().add(txtrShowsTheSelected);
+		txtrShowsTheSelected.setEditable(false);
 		
 		JButton showReserveStat = new JButton("Stats");
 		showReserveStat.addActionListener(new ActionListener() {
@@ -350,6 +357,7 @@ public class ClubWindow {
 		txtrShowsTheSelected_2.setFont(new Font("Arial", Font.PLAIN, 10));
 		txtrShowsTheSelected_2.setBounds(777, 495, 166, 22);
 		frame.getContentPane().add(txtrShowsTheSelected_2);
+		txtrShowsTheSelected_2.setEditable(false);
 		
 		JButton backButton = new JButton("Back");
 		backButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -418,6 +426,86 @@ public class ClubWindow {
 		});
 		sortBatting.setBounds(21, 124, 116, 21);
 		frame.getContentPane().add(sortBatting);
+		
+		nicknameField = new JTextField();
+		nicknameField.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		nicknameField.setBounds(163, 414, 157, 23);
+		frame.getContentPane().add(nicknameField);
+		nicknameField.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Choose nickname:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNewLabel_2.setBounds(147, 386, 113, 24);
+		frame.getContentPane().add(lblNewLabel_2);
+		
+		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+		
+		JButton nicknameButton = new JButton("Set nickname");
+		nicknameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nickname = nicknameField.getText();
+				Matcher m = p.matcher(nickname);
+				if (nickname == ""){
+					errorMessage.setText("You have not input a name");
+				}
+				else if (m.find()) {
+					errorMessage.setText("Please only use letters and/or numbers in your name");
+				}
+				
+				else if (listModelStarting.contains(nickname) || listModelReserves.contains(nickname)) {
+					errorMessage.setText("You already have an athlete under this name.");
+				}
+				
+				else if (startingList.isSelectionEmpty() && reserveList.isSelectionEmpty()) {
+					errorMessage.setText("Please select an Athlete.");
+				}
+				else if (! startingList.isSelectionEmpty() && ! reserveList.isSelectionEmpty()) {
+					errorMessage.setText("Please select only one Athlete, you can deselect an athlete by Ctrl clicking");
+				}
+				else if (startingList.isSelectionEmpty()) {
+					int playerIn = reserveList.getSelectedIndex();
+					playerTeam.getReserveAthletes().get(playerIn).setName(nickname);
+				}
+				else {
+					int playerIn = startingList.getSelectedIndex();
+					if (sortByBatting) {
+						playerTeam.getBattingOrder()[playerIn].setName(nickname);
+						listModelBatting = new DefaultListModel<String>();
+						playerTeam.sortBattingOrder();
+						for (Athlete athlete : playerTeam.getBattingOrder()) {
+							listModelBatting.addElement(athlete.getName());
+						}
+						startingList.setModel(listModelBatting);
+					}
+					else if (sortByBowling) {
+						playerTeam.getBowlingOrder()[playerIn].setName(nickname);
+						listModelBowling = new DefaultListModel<String>();
+						playerTeam.sortBowlingOrder();
+						for (Athlete athlete : playerTeam.getBowlingOrder()) {
+							listModelBowling.addElement(athlete.getName());
+						}
+						startingList.setModel(listModelBowling);
+					}
+					else {
+						playerTeam.getStartingAthletes().get(playerIn).setName(nickname);
+						listModelStarting = new DefaultListModel<String>();
+						for (Athlete athlete : playerTeam.getStartingAthletes()) {
+							listModelStarting.addElement(athlete.getName());
+						}
+						startingList.setModel(listModelStarting);
+					}
+				}
+			}
+		});
+		nicknameButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		nicknameButton.setBounds(167, 447, 114, 21);
+		frame.getContentPane().add(nicknameButton);
+		
+		JTextArea txtrSetsTheName = new JTextArea();
+		txtrSetsTheName.setText("Sets the name\r\nof the selected\r\nathlete.");
+		txtrSetsTheName.setBounds(180, 465, 140, 62);
+		txtrSetsTheName.setEditable(false);
+		frame.getContentPane().add(txtrSetsTheName);
 	}
 
 	public JFrame getFrame() {

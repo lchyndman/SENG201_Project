@@ -51,6 +51,7 @@ public class MatchWindow {
 
 	private void giveRewards(GameEnvironment game) {
 		if (match1.getWinner() == 1) {
+			game.addGameWon();
 			game.getPlayerTeam().addBalance(match1.getOpponentTeam().getMoney());
 			game.getPlayerTeam().addPoints(match1.getOpponentTeam().getPoints());
 			for (Athlete athlete : game.getPlayerTeam().getStartingAthletes()) {
@@ -61,10 +62,12 @@ public class MatchWindow {
 			}
 		}
 		else if (match1.getWinner() == 2) {
+			game.addGameLost();
 			game.getPlayerTeam().addBalance((match1.getOpponentTeam().getMoney())/5);
 			game.getPlayerTeam().addPoints((match1.getOpponentTeam().getPoints())/5);
 		}
 		else {
+			game.addGameDrew();
 			game.getPlayerTeam().addBalance((match1.getOpponentTeam().getMoney())/2);
 			game.getPlayerTeam().addPoints((match1.getOpponentTeam().getPoints())/2);
 			for (Athlete athlete : game.getPlayerTeam().getStartingAthletes()) {
@@ -214,5 +217,7 @@ public class MatchWindow {
 		errorMessage.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		errorMessage.setBounds(42, 118, 469, 24);
 		frame.getContentPane().add(errorMessage);
+		
+		
 	}
 }

@@ -21,6 +21,8 @@ import java.awt.Color;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class SetUpWindow {
@@ -44,6 +46,8 @@ public class SetUpWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(GameEnvironment game) {
+	
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 601, 539);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,12 +123,19 @@ public class SetUpWindow {
 		lblNewLabel_4.setBounds(473, 225, 111, 13);
 		frame.getContentPane().add(lblNewLabel_4);
 		
+		Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+		
 		JButton startGame = new JButton("Start Game!");
 		startGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String string = teamNameField.getText();
+				Matcher m = p.matcher(string);
 				if  (string.length() < 3 || string.length() > 15) { // add something for special characters
 					errorMessage.setText("Team name must be between 3 and 15 characters"); }
+				
+				else if (m.find()) {
+					errorMessage.setText("Please do not include any special characters, only letters and numbers.");
+				}
 				
 				else if (group.getSelection() == null) {
 					errorMessage.setText("Please select a difficulty");

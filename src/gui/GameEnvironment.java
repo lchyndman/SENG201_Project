@@ -14,6 +14,9 @@ public class GameEnvironment {
 	private Stadium stadium;
 	private PlayerTeam playerTeam = new PlayerTeam(startingBalance);
 	private int difficulty;
+	private int gamesWon=0;
+	private int gamesLost=0;
+	private int gamesDrew=0;
 			
 
 
@@ -81,6 +84,29 @@ public class GameEnvironment {
 
 	public void setGenerator(Generator generator) {
 		this.generator = generator;
+	}
+
+	public int getGamesWon() {
+		return gamesWon;
+	}
+	
+	public void addGameWon() {
+		gamesWon+=1;
+	}
+
+	public int getGamesLost() {
+		return gamesLost;
+	}
+	
+	public void addGameLost() {
+		gamesLost+=1;
+	}
+
+	public int getGamesDrew() {
+		return gamesDrew;
+	}
+	public void addGameDrew() {
+		gamesDrew+=1;
 	}
 	
 

@@ -368,5 +368,6 @@ public class MarketWindow {
 		balanceBox.setText("BALANCE:  "+game.getPlayerTeam().getBalance());
 		balanceBox.setBounds(280, 48, 181, 37);
 		frame.getContentPane().add(balanceBox);
+		balanceBox.setEditable(false);
 	}
 }
