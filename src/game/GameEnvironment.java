@@ -17,6 +17,7 @@ public class GameEnvironment {
 	public void nextWeek() {
 		this.market.resetMarket();
 		this.stadium.generateOpponents();
+		this.playerTeam.restAllAthletes();
 		this.currentWeek += 1;
 	}
 	
