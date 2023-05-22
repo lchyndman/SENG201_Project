@@ -25,43 +25,41 @@ public class PlayerTeam extends Team {
 		 * Adds athlete to roster and subtracts price from balance if can be afforded
 		 * Else, lets player know they cannot afford the athlete
 		 */
-		if (a.getPrice() <= this.balance && this.athletes.size() < this.getMAX_ATHLETES()) {
+		
 			this.addAthlete(a);
 			this.balance -= a.getPrice();
-			System.out.println(a.getName()+" bought for $"+a.getPrice()+"\nNew Balance: $"+this.getBalance());
+//			System.out.println(a.getName()+" bought for $"+a.getPrice()+"\nNew Balance: $"+this.getBalance());
 		}
-		else if (a.getPrice() > this.balance) {
-			System.out.println("Insufficient funds for purchase!\n(Price: $"+a.getPrice()+", Balance: $"+this.balance+")");
+	
+	public boolean canAfford(int n) {
+		if (n <= this.getBalance()) {
+			return true;
 		}
 		else {
-			System.out.println("Team full, sell an athlete to make room!");
+			return false;
 		}
 	}
 	
-	public void sellAthlete() {
+
+	
+	public boolean canFit() {
+		if (this.athletes.size() < this.getMAX_ATHLETES()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public void sellAthlete(int n) { 
 		/*
 		 * Method to sell an athlete from the team
 		 * check
 		 */
-		if (this.athletes.size() != 0) {
-			int i = 0;
-			for (Athlete a: this.athletes) {
-				i++;
-				System.out.print(i);
-				System.out.println(a);
-			}
-		    Scanner myObj = new Scanner(System.in);
-		    System.out.println("Select one of the above athletes to sell(1-"+this.athletes.size()+")");
-		    String playerNum = myObj.nextLine();
-		    int n = (Integer.parseInt(playerNum)-1);
-		    Athlete a = this.athletes.get(n);
-		    this.addBalance(a.getPrice());
-		    this.removeAthlete(n);
-		    System.out.println(a.getName()+" has been sold for $"+a.getPrice()+"\nNew Balance: $"+this.getBalance());
+		    Athlete athlete = this.athletes.get(n);
 		    
-		} else {
-			System.out.println("Team has no athletes to sell!");
-		}
+		    this.addBalance(athlete.getPrice());
+		    this.removeAthlete(n);	
 	}
 	
 	public void buyItem(Item e) {
@@ -80,30 +78,15 @@ public class PlayerTeam extends Team {
 	
 
 
-	public void sellItem() {
+	public void sellItem(int n) {
 		/*
 		 * Method to sell an item from the team's inventory
 		 * check
 		 */
-		if (this.inventory.size() != 0) {
-			int i = 0;
-			for (Item e: this.inventory) {
-				i++;
-				System.out.print(i);
-				System.out.println(e);
-			}
-		    Scanner myObj = new Scanner(System.in);
-		    System.out.println("Select one of the above items to sell(1-"+this.inventory.size()+")");
-		    String itemNum = myObj.nextLine();
-		    int n = (Integer.parseInt(itemNum)-1);
 		    Item e = this.inventory.get(n);
 		    this.addBalance(e.getPrice());
 		    this.removeItem(n);
-		    System.out.println(e.getName()+" has been sold for $"+e.getPrice()+"\nNew Balance: $"+this.getBalance());
-		    
-		} else {
-			System.out.println("Team has no items to sell!");
-		}
+		   
 	}
 	
 	public void addItem(Item e) {
@@ -127,7 +110,7 @@ public class PlayerTeam extends Team {
 	}
 	
 	public int getBalance() {
-		return this.balance;
+		return balance;
 	}
 	
 	public void addPoints(int points){

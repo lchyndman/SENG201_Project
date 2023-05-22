@@ -10,9 +10,11 @@ public class MarketPlace {
 	private ArrayList<Item> items = new ArrayList<Item>();
 	private Scanner sc = new Scanner(System.in);
 	
+	
 	public MarketPlace() {
 		this.athletes = this.generator.generateAthletes(6);
 		this.items = this.generator.generateItems(4);
+		
 	}
 	
 	public void resetMarket() {
@@ -20,22 +22,22 @@ public class MarketPlace {
 		this.items = this.generator.generateItems(4);
 	}
 	
-	public PlayerTeam buyAthlete(PlayerTeam team) {
-		System.out.println("Choose which player you wish to purchase (1-6)");
-		int playerInt = Integer.parseInt(sc.nextLine()) - 1;
-		team.buyAthlete(this.athletes.get(playerInt));
-		this.athletes.remove(playerInt);
+	public void buyAthlete(PlayerTeam team, int n) {
+//		System.out.println("Choose which player you wish to purchase (1-6)");
+//		int playerInt = Integer.parseInt(sc.nextLine()) - 1;
+		team.buyAthlete(this.athletes.get(n));
+		this.athletes.remove(n);
 		this.athletes.add(this.generator.generateAthlete());
-		return team;
+//		return team;
 	}
 	
-	public PlayerTeam buyItem(PlayerTeam team) {
-		System.out.println("Choose which item you wish to purchase (1-4)");
-		int itemInt = Integer.parseInt(sc.nextLine()) - 1;
-		team.buyItem(this.items.get(itemInt));
-		this.items.remove(itemInt);
+	public void buyItem(PlayerTeam team, int n) {
+//		System.out.println("Choose which item you wish to purchase (1-4)");
+//		int itemInt = Integer.parseInt(sc.nextLine()) - 1;
+		team.buyItem(this.items.get(n));
+		this.items.remove(n);
 		this.items.add(this.generator.generateItem());
-		return team;
+//		return team;
 	}
 	
 	public void printAthletes() {
@@ -48,6 +50,14 @@ public class MarketPlace {
 		for (int i = 0; i < this.items.size(); i++) {
 			System.out.println((i+1)+") "+this.items.get(i));
 		}
+	}
+	
+	public ArrayList<Athlete> getAthletes() {
+		return athletes;
+	}
+	
+	public ArrayList<Item> getItems(){ 
+		return items;
 	}
 }
 

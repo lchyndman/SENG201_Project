@@ -28,8 +28,10 @@ public class Team {
             this.athletes.add(a);
             if (startingAthletes.size() < 11) {
                 startingAthletes.add(a);
+                a.setStarting(true);
             } else {
                 reserveAthletes.add(a);
+                a.setStarting(false);
             }
         }
 
@@ -45,7 +47,7 @@ public class Team {
      * @param i The index of the athlete to be removed
      */
     public void removeAthlete(int i) {
-        if (!this.athletes.isEmpty() && i >= 0 && i < this.athletes.size()) {
+        if (!this.athletes.isEmpty() && i >= 0 && i < this.athletes.size()) { // Don't think we need this as the gui restricts input?
             Athlete removed = this.athletes.get(i);
             this.athletes.remove(removed);
             if (removed.isStarting()) {

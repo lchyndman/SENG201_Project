@@ -15,7 +15,7 @@ public class StadiumWindow {
 	/**
 	 * Create the application.
 	 */
-	public StadiumWindow() {
+	public StadiumWindow(GameEnvironment game) {
 		initialize();
 	}
 

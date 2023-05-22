@@ -58,6 +58,17 @@ public class HomeWindow {
 		JButton goToStadiumButton = new JButton("Go to Stadium");
 		goToStadiumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				EventQueue.invokeLater(new Runnable() {
+
+					public void run() {
+						try {
+							StadiumWindow club = new StadiumWindow(game);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
 		goToStadiumButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -65,6 +76,21 @@ public class HomeWindow {
 		frame.getContentPane().add(goToStadiumButton);
 		
 		JButton goToMarketButton = new JButton("Go to Market");
+		goToMarketButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				EventQueue.invokeLater(new Runnable() {
+
+					public void run() {
+						try {
+							MarketWindow market = new MarketWindow(game);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		goToMarketButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		goToMarketButton.setBounds(683, 367, 187, 105);
 		frame.getContentPane().add(goToMarketButton);
