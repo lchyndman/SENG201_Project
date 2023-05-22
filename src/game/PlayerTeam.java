@@ -53,10 +53,10 @@ public class PlayerTeam extends Team {
 
 	public void checkReadyToPlay() {
 		if (this.startingAthletes.size() == 11) {
-			this.readyToPlay = true;
+			this.readyToPlay = false;
 			for (Athlete a : this.startingAthletes) {
-				if (a.isInjured()) {
-					this.readyToPlay = false;
+				if (! a.isInjured()) {
+					this.readyToPlay = true;
 				}
 			}
 		}else {

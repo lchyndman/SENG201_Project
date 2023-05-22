@@ -75,7 +75,12 @@ public class StadiumWindow {
         textAreaPlayer.setFont(new Font("Monospaced", Font.BOLD, 16));
         contentPane.add(textAreaPlayer);
         textAreaPlayer.setEditable(false);
+<<<<<<< HEAD
         textAreaPlayer.setBounds(20, 120, 225, 220);
+=======
+        textAreaPlayer.setBounds(20, 40, 225, 220);
+
+>>>>>>> 519bb59b6916262366f16ff419c8f13418ae1eab
         textAreaPlayer.append("Batting Avg: " + this.playerTeam.getAverageBattingStarting());
         textAreaPlayer.append("\nBowling Avg: " + this.playerTeam.getAverageBowlingStarting());
         textAreaPlayer.append("\nFielding Avg: " + this.playerTeam.getAverageFieldingStarting());
@@ -101,7 +106,13 @@ public class StadiumWindow {
             }
         });
         contentPane.add(btnOptimize);
+<<<<<<< HEAD
              
+=======
+        
+
+        
+>>>>>>> 519bb59b6916262366f16ff419c8f13418ae1eab
         JLabel lblEnemyTeam1 = new JLabel(this.enemyTeam1.getTeamName());
         lblEnemyTeam1.setHorizontalAlignment(SwingConstants.CENTER);
         lblEnemyTeam1.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -217,7 +228,23 @@ public class StadiumWindow {
         			selectedEnemy();
         		}
         		else {
+<<<<<<< HEAD
         			playerTeam.restReserves();
+=======
+        			gameEnvironment.getStadium().playMatch(gameEnvironment.getPlayerTeam(), selectedTeam);
+        			frame.dispose();
+    				// open Match window
+        			
+    				EventQueue.invokeLater(new Runnable() {
+    					public void run() {
+    						try {
+    							MatchWindow matchWindow = new MatchWindow(gameEnvironment);
+    						} catch (Exception e) {
+    							e.printStackTrace();
+    						}
+    					}
+    				});
+>>>>>>> 519bb59b6916262366f16ff419c8f13418ae1eab
         		}
         	}
         });
