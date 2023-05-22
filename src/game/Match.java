@@ -16,7 +16,12 @@ public class Match {
 	
 	public Match(PlayerTeam P, EnemyTeam M) { //creates an instance match
 		playerTeam = P;
-		setOpponentTeam(M);
+		opponentTeam = M;
+		playerTeam.sortBattingOrder();
+		playerTeam.sortBowlingOrder();
+		opponentTeam.sortAthletes();
+		opponentTeam.sortBattingOrder();
+		opponentTeam.sortBowlingOrder();
 		playMatch();
 	}
 	
@@ -32,7 +37,7 @@ public class Match {
 	
 	public void playMatch() { //plays a match
 		
-		playerFinalScore = playHalf(playerTeam, getOpponentTeam()); // plays the first half of the game, players team is batting
+		playerFinalScore = playHalf(playerTeam, opponentTeam); // plays the first half of the game, players team is batting
 		
 		if (allInjured(playerTeam)) {  // if all the payers of a team are injured, that team automatically loses.
 			winner = 2;
@@ -41,7 +46,7 @@ public class Match {
 			winner = 1;
 		}
 		else {
-			opponentFinalScore = playHalf(getOpponentTeam(),playerTeam); // plays the second half of the game, the opponent team is batting
+			opponentFinalScore = playHalf(opponentTeam ,playerTeam); // plays the second half of the game, the opponent team is batting
 
 			if (allInjured(playerTeam)) { // if all the payers of a team are injured, that team automatically loses, other team wins.
 				winner = 2;
@@ -64,7 +69,7 @@ public class Match {
 		}	
 	}
 	
-	public int playHalf(Team team1, Team team2) {
+	public int playHalf(Team battingTeam, Team bowlingTeam) {
 		
 //		faces off each athlete on players playTeam with the corresponding athlete on 
 //		opponents playTeam. then visa versa (batter vs bowler)
@@ -76,11 +81,11 @@ public class Match {
 		
 		
 //		player bats first, due to injuries, this is an advantage
-		Team battingTeam = team1;
-		Team bowlingTeam = team2;
 		
+		
+	
 		Athlete[] battingOrder = battingTeam.getBattingOrder();
-		Athlete[] bowlingOrder = bowlingTeam.getBattingOrder();
+		Athlete[] bowlingOrder = bowlingTeam.getBowlingOrder();
 		
 		int lenBat = battingOrder.length;
 		int batIn = 0;
@@ -119,7 +124,7 @@ public class Match {
 				}
 				
 				
-				int field = team2.getAverageFielding();
+				int field = bowlingTeam.getAverageFielding();
 				int fieldStat = field / 10;
 				
 				if (points < 0) {   //				batter out on wicket
@@ -281,14 +286,14 @@ public class Match {
 	public static void main(String args[]) {
 		
 //		PlayerTeam team = new PlayerTeam(1000000);
-//		EnemyTeam team1 = new EnemyTeam(1);
+//		EnemyTeam battingTeam = new EnemyTeam(1);
 ////		Generator g = new Generator();
 ////		for (int i=0; i < 11; i++) {
 ////			team.addAthlete(g.generateAthlete());
 ////		}
-//	    team1.fillTeam();
+//	    battingTeam.fillTeam();
 //		
-//	    for (Athlete player : team1.getStartingAthletes()) {
+//	    for (Athlete player : battingTeam.getStartingAthletes()) {
 //	    	team.addAthlete(player);
 //	    }
 //	    
@@ -298,7 +303,7 @@ public class Match {
 //		for (int i=0; i < 1000000; i += 1) {
 //			
 //
-//		Match match = new Match(team,team1);
+//		Match match = new Match(team,battingTeam);
 //		String thing = match.playMatch();
 //		
 //		for (Athlete player : team.getStartingAthletes()) {
@@ -306,7 +311,7 @@ public class Match {
 //			player.setInjured(false);
 //		}
 //		
-//		for (Athlete player : team1.getStartingAthletes()) {
+//		for (Athlete player : battingTeam.getStartingAthletes()) {
 //			player.setCurrentStamina(player.getStamina());
 //			player.setInjured(false);
 //		}
@@ -342,9 +347,6 @@ public class Match {
 		return opponentTeam;
 	}
 
-	public void setOpponentTeam(EnemyTeam opponentTeam) {
-		this.opponentTeam = opponentTeam;
-	}
 	
 	
 }

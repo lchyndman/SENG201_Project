@@ -13,8 +13,8 @@ public class Stadium {
 	
 	private boolean allInjured = true;
 	private EnemyTeam[] enemyOptions;
-	private EnemyTeam enemyTeam;
-	private Scanner sc = new Scanner(System.in);
+//	private EnemyTeam enemyTeam;
+//	private Scanner sc = new Scanner(System.in);
 	private EnemyTeam[] opponents;
 	private int difficulty;
 	private Match match1;
@@ -43,21 +43,21 @@ public class Stadium {
 	}
 	
 	
-	public void chooseOpponent() {
-		System.out.println("Which opponent would you like to play? (1-5");
-		int enemyNum = Integer.parseInt(sc.nextLine()) - 1;
-		enemyTeam = enemyOptions[enemyNum-1];
+//	public void chooseOpponent() {
+//		System.out.println("Which opponent would you like to play? (1-5");
+//		int enemyNum = Integer.parseInt(sc.nextLine()) - 1;
+//		enemyTeam = enemyOptions[enemyNum-1];
+//		
+//	}
+	
+//	public void chooseToBye() {
+//		// pick a player to train 
+//	}
+	
+	
+	public void playMatch(PlayerTeam playerTeam, EnemyTeam opponentTeam) {
 		
-	}
-	
-	public void chooseToBye() {
-		// pick a player to train 
-	}
-	
-	
-	public void playMatch(PlayerTeam playerTeam, EnemyTeam opponent) {
-		
-		setMatch1(new Match(playerTeam, enemyTeam));
+		setMatch1(new Match(playerTeam, opponentTeam));
 		}
 	
 	
