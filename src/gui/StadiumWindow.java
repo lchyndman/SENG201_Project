@@ -68,6 +68,14 @@ public class StadiumWindow {
         contentPane.setLayout(null);
               
 
+<<<<<<< HEAD
+	/**
+	 * Create the application.
+	 */
+	public StadiumWindow(GameEnvironment game) {
+		initialize();
+	}
+=======
         JLabel lblPlayerTeam = new JLabel(this.playerTeam.getTeamName());
         lblPlayerTeam.setHorizontalAlignment(SwingConstants.CENTER);
         lblPlayerTeam.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -79,6 +87,7 @@ public class StadiumWindow {
         contentPane.add(textAreaPlayer);
         textAreaPlayer.setEditable(false);
         textAreaPlayer.setBounds(20, 40, 225, 220);
+<<<<<<< HEAD
         textAreaPlayer.append("Batting Avg: " + this.playerTeam.getAverageBattingStarting());
         textAreaPlayer.append("\nBowling Avg: " + this.playerTeam.getAverageBowlingStarting());
         textAreaPlayer.append("\nFielding Avg: " + this.playerTeam.getAverageFieldingStarting());
@@ -104,6 +113,14 @@ public class StadiumWindow {
         });
         contentPane.add(btnOptimize);
         
+=======
+        textAreaPlayer.append("Batting Avg: " + this.playerTeam.getAverageBatting());
+        textAreaPlayer.append("\nBowling Avg: " + this.playerTeam.getAverageBowling());
+        textAreaPlayer.append("\nFielding Avg: " + this.playerTeam.getAverageFielding());
+        textAreaPlayer.append("\nStamina Avg: " + this.playerTeam.getAverageStamina());
+>>>>>>> 1d518505bb5a38e29ade25221e7481bb4fe84530
+
+>>>>>>> b6e40228211ab8533a8ec7ffdf05e71253f338cb
         
         JLabel lblEnemyTeam1 = new JLabel(this.enemyTeam1.getTeamName());
         lblEnemyTeam1.setHorizontalAlignment(SwingConstants.CENTER);

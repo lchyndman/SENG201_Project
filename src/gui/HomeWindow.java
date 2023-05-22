@@ -17,21 +17,19 @@ import java.awt.event.ActionEvent;
 public class HomeWindow {
 
 	private JFrame frame;
-	private GameEnvironment game;
 
 	/**
 	 * Create the application.
 	 */
 	public HomeWindow(GameEnvironment game) {
-		this.game = game;
-		initialize();
+		initialize(game);
 		frame.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(GameEnvironment game) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,11 +57,20 @@ public class HomeWindow {
 		JButton goToStadiumButton = new JButton("Go to Stadium");
 		goToStadiumButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Close the HomeWindow
+
 				frame.dispose();
-				
-				// Open the StadiumWindow
-				StadiumWindow stadiumWindow = new StadiumWindow(game);
+				EventQueue.invokeLater(new Runnable() {
+
+					public void run() {
+						try {
+							StadiumWindow stadium = new StadiumWindow(game);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+
+
 			}
 		});
 		goToStadiumButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -71,6 +78,21 @@ public class HomeWindow {
 		frame.getContentPane().add(goToStadiumButton);
 		
 		JButton goToMarketButton = new JButton("Go to Market");
+		goToMarketButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				EventQueue.invokeLater(new Runnable() {
+
+					public void run() {
+						try {
+							MarketWindow market = new MarketWindow(game);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
 		goToMarketButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		goToMarketButton.setBounds(683, 367, 187, 105);
 		frame.getContentPane().add(goToMarketButton);

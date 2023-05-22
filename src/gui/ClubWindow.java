@@ -23,20 +23,24 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
-
 public class ClubWindow {
 	
-	
-
-	private JFrame frame;
 	private DefaultListModel<String> listModelStarting = new DefaultListModel<>();
+	
+	private DefaultListModel<String> listModelAthletes = new DefaultListModel<>();
+	private DefaultListModel<String> listModelBatting = new DefaultListModel<>();
+	private DefaultListModel<String> listModelBowling = new DefaultListModel<>();
+	
+	private JFrame frame;
 	private DefaultListModel<String> listModelReserves = new DefaultListModel<>();
 	private DefaultListModel<String> listModelItems = new DefaultListModel<>();
 	JLabel errorMessage;
 	JTextArea itemInfoBox;
-	JTextArea playerInfoBox;
+	JTextArea startingInfoBox;
+	JTextArea reserveInfoBox;
+	JList<String> startingList;
 	
+	ClubEnum listStatus;
 	
 
 
@@ -45,7 +49,7 @@ public class ClubWindow {
 	 */
 	public ClubWindow(GameEnvironment game) {
 		
-		
+		ClubEnum listStatus = ClubEnum.ATHLETES;
 		initialize(game);
 		fillTeam(game);
 		frame.setVisible(true);
@@ -55,7 +59,7 @@ public class ClubWindow {
 	private void fillTeam(GameEnvironment game) {
 		
 		for (Athlete athlete : game.getPlayerTeam().getStartingAthletes()) {
-			listModelStarting.addElement(athlete.getName());
+			listModelAthletes.addElement(athlete.getName());
 		}
 		
 		for (Athlete athlete : game.getPlayerTeam().getReserveAthletes()) {
@@ -66,12 +70,32 @@ public class ClubWindow {
 			listModelItems.addElement(item.getName());
 		}
 		
+		for (Athlete athlete : game.getPlayerTeam().getBattingOrder()) {
+			listModelBatting.addElement(athlete.getName());
+		}
+		
+		for (Athlete athlete : game.getPlayerTeam().getBowlingOrder()) {
+			listModelBowling.addElement(athlete.getName());
+		}
 	}
 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(GameEnvironment game) {
+		
+		// checks enum
+		switch (listStatus) {
+		case ATHLETES:
+			listModelStarting = listModelAthletes;
+		case BATTING:
+			listModelStarting = listModelBatting;
+		case BOWLING:
+			listModelStarting = listModelBowling;
+		}
+		
+//		listModelStrating = :""
+		
 		setFrame(new JFrame());
 		getFrame().setBounds(100, 100, 1000, 600);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,16 +107,16 @@ public class ClubWindow {
 		
 		JLabel lblNewLabel = new JLabel("CLUB");
 		lblNewLabel.setFont(new Font("Bookman Old Style", Font.BOLD, 51));
-		lblNewLabel.setBounds(36, 43, 190, 62);
+		lblNewLabel.setBounds(21, 23, 190, 62);
 		getFrame().getContentPane().add(lblNewLabel);
 		
 		JList<String> reserveList = new JList<String>(listModelReserves);
-		reserveList.setBounds(186, 155, 114, 170);
+		reserveList.setBounds(180, 155, 114, 170);
 		getFrame().getContentPane().add(reserveList);
 		
 			
-		JList<String> startingList = new JList<String>(listModelStarting);
-		startingList.setBounds(25, 155, 114, 333);
+		startingList = new JList<String>(listModelStarting);
+		startingList.setBounds(23, 183, 114, 304);
 		getFrame().getContentPane().add(startingList);
 
 
@@ -103,33 +127,36 @@ public class ClubWindow {
 		
 		JLabel lblNewLabel_1_1 = new JLabel("STARTING:");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1.setBounds(25, 126, 77, 23);
+		lblNewLabel_1_1.setBounds(21, 95, 77, 23);
 		getFrame().getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("RESERVES:");
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1_1.setBounds(186, 122, 77, 23);
+		lblNewLabel_1_1_1.setBounds(183, 122, 77, 23);
 		getFrame().getContentPane().add(lblNewLabel_1_1_1);
 		
-		playerInfoBox = new JTextArea();
-		playerInfoBox.setBounds(335, 108, 190, 269);
-		playerInfoBox.setEditable(false);
-		          
-		getFrame().getContentPane().add(playerInfoBox);
+		startingInfoBox = new JTextArea();
+		startingInfoBox.setText("Staring Athlete Stats:");
+		startingInfoBox.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		startingInfoBox.setBounds(330, 11, 205, 194);
+		startingInfoBox.setEditable(false);
+		getFrame().getContentPane().add(startingInfoBox);
 		
 		itemInfoBox = new JTextArea();
-		itemInfoBox.setBounds(567, 108, 190, 269);
+		itemInfoBox.setText("Item Information:");
+		itemInfoBox.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		itemInfoBox.setBounds(620, 159, 146, 201);
 		itemInfoBox.setEditable(false);
 		getFrame().getContentPane().add(itemInfoBox);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("ATHLETE INFO:");
 		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1_1_1.setBounds(335, 64, 104, 23);
+		lblNewLabel_1_1_1_1.setBounds(216, 23, 104, 23);
 		getFrame().getContentPane().add(lblNewLabel_1_1_1_1);
 		
 		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("ITEM INFO:");
 		lblNewLabel_1_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1_1_1_1.setBounds(567, 64, 104, 23);
+		lblNewLabel_1_1_1_1_1.setBounds(620, 126, 104, 23);
 		getFrame().getContentPane().add(lblNewLabel_1_1_1_1_1);
 		
 		JButton swapButton = new JButton("SWAP ATHLETES");
@@ -146,10 +173,14 @@ public class ClubWindow {
 				game.getPlayerTeam().getReserveAthletes().remove(athlete2);
 				game.getPlayerTeam().getStartingAthletes().add(athlete2);
 				
+				athlete1.setStarting(false);
+				athlete2.setStarting(true);
+				
 				listModelStarting.addElement(athlete2.getName());
 				listModelStarting.remove(player1);
 				listModelReserves.addElement(athlete1.getName());
 				listModelReserves.remove(player2);
+				errorMessage.setText("");
 				}
 				catch (IndexOutOfBoundsException a){
 					errorMessage.setText("Please select an Athlete in Starting and one from Reserves.");
@@ -183,12 +214,14 @@ public class ClubWindow {
 					game.getPlayerTeam().getReserveAthletes().get(playerIn).applyItem(item);
 					listModelItems.remove(itemIn);
 					game.getPlayerTeam().getInventory().remove(itemIn);
+					errorMessage.setText("");
 				}
 				else {
 					int playerIn = startingList.getSelectedIndex();
 					game.getPlayerTeam().getStartingAthletes().get(playerIn).applyItem(item);
 					listModelItems.remove(itemIn);
 					game.getPlayerTeam().getInventory().remove(itemIn);
+					errorMessage.setText("");
 				}
 				}
 				catch(IndexOutOfBoundsException d){
@@ -198,18 +231,18 @@ public class ClubWindow {
 				
 		});
 		applyItemButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		applyItemButton.setBounds(526, 420, 159, 34);
+		applyItemButton.setBounds(583, 414, 159, 34);
 		getFrame().getContentPane().add(applyItemButton);
 		
 		JTextArea txtrWillApplyAn = new JTextArea();
 		txtrWillApplyAn.setText("Will apply the selected \r\nitem to the selected \r\nathlete. Please only\r\nselect one athlete.");
-		txtrWillApplyAn.setBounds(501, 464, 205, 86);
+		txtrWillApplyAn.setBounds(563, 456, 205, 86);
 		getFrame().getContentPane().add(txtrWillApplyAn);
 		
 		errorMessage = new JLabel("");
 		errorMessage.setForeground(new Color(255, 0, 0));
 		errorMessage.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		errorMessage.setBounds(186, 387, 556, 23);
+		errorMessage.setBounds(545, 38, 431, 23);
 		getFrame().getContentPane().add(errorMessage);
 		
 		JButton showStartingStat = new JButton("Stats");
@@ -220,11 +253,12 @@ public class ClubWindow {
 				}
 				else {
 					int startIn = startingList.getSelectedIndex();
-					playerInfoBox.setText(game.getPlayerTeam().getStartingAthletes().get(startIn).toString());
+					startingInfoBox.setText(game.getPlayerTeam().getStartingAthletes().get(startIn).toString());
+					errorMessage.setText("");
 				}
 			}
 		});
-		showStartingStat.setBounds(36, 497, 85, 21);
+		showStartingStat.setBounds(31, 497, 85, 21);
 		frame.getContentPane().add(showStartingStat);
 		
 		JTextArea txtrShowsTheSelected = new JTextArea();
@@ -241,11 +275,12 @@ public class ClubWindow {
 				}
 				else {
 					int startIn = reserveList.getSelectedIndex();
-					playerInfoBox.setText(game.getPlayerTeam().getReserveAthletes().get(startIn).toString());
+					reserveInfoBox.setText(game.getPlayerTeam().getReserveAthletes().get(startIn).toString());
+					errorMessage.setText("");
 				}
 			}
 		});
-		showReserveStat.setBounds(196, 335, 85, 21);
+		showReserveStat.setBounds(190, 339, 85, 21);
 		frame.getContentPane().add(showReserveStat);
 		
 		JButton showItemEffect = new JButton("Effects");
@@ -257,10 +292,11 @@ public class ClubWindow {
 				else {
 					int startIn = itemList.getSelectedIndex();
 					itemInfoBox.setText(game.getPlayerTeam().getInventory().get(startIn).toString());
+					errorMessage.setText("");
 				}
 			}
 		});
-		showItemEffect.setBounds(809, 458, 85, 21);
+		showItemEffect.setBounds(819, 458, 85, 21);
 		frame.getContentPane().add(showItemEffect);
 		
 		JTextArea txtrShowsTheSelected_2 = new JTextArea();
@@ -286,8 +322,23 @@ public class ClubWindow {
 				});
 			}
 		});
-		backButton.setBounds(828, 30, 85, 21);
+		backButton.setBounds(891, 532, 85, 21);
 		frame.getContentPane().add(backButton);
+		
+		reserveInfoBox = new JTextArea();
+		reserveInfoBox.setText("Reserve Athlete Stats:");
+		reserveInfoBox.setFont(new Font("Monospaced", Font.PLAIN, 12));
+		reserveInfoBox.setEditable(false);
+		reserveInfoBox.setBounds(330, 216, 205, 194);
+		frame.getContentPane().add(reserveInfoBox);
+		
+		JButton sortBowling = new JButton("Sort by Bowling");
+		sortBowling.setBounds(21, 152, 114, 21);
+		frame.getContentPane().add(sortBowling);
+		
+		JButton sortBatting = new JButton("Sort by Batting");
+		sortBatting.setBounds(21, 124, 116, 21);
+		frame.getContentPane().add(sortBatting);
 	}
 
 	public JFrame getFrame() {

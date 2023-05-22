@@ -118,8 +118,8 @@ public class SetUpWindow {
 		lblNewLabel_4.setBounds(473, 225, 111, 13);
 		frame.getContentPane().add(lblNewLabel_4);
 		
-		JButton btnNewButton = new JButton("Start Game!");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton startGame = new JButton("Start Game!");
+		startGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String string = teamNameField.getText();
 				if  (string.length() < 3 || string.length() > 15) { // add something for special characters
@@ -144,31 +144,33 @@ public class SetUpWindow {
 					System.out.println(game.getPlayerTeam().getTeamName());
 					System.out.println(game.getDifficulty());
 					System.out.println(game.getSeasonLength());
-				}
-				// should shut setup window and open main window
-				frame.dispose();
-				// open main menu window
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							HomeWindow main = new HomeWindow(game);
-						} catch (Exception e) {
-							e.printStackTrace();
+					
+					frame.dispose();
+					// open main menu window
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								HomeWindow main = new HomeWindow(game);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
-					}
-				});
+					});
+				}
+				
+				
 			}
 		});
 		
 		
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnNewButton.setBounds(197, 396, 178, 38);
-		frame.getContentPane().add(btnNewButton);
+		startGame.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		startGame.setBounds(197, 396, 178, 38);
+		frame.getContentPane().add(startGame);
 		
 		errorMessage = new JLabel("");
 		errorMessage.setForeground(new Color(255, 0, 0));
 		errorMessage.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		errorMessage.setBounds(88, 358, 301, 28);
+		errorMessage.setBounds(56, 358, 480, 28);
 		frame.getContentPane().add(errorMessage);
 	}
 	
