@@ -17,6 +17,8 @@ import game.PlayerTeam;
 import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -229,6 +231,68 @@ public class MarketWindow {
 		});
 		sellItems.setBounds(581, 525, 109, 21);
 		frame.getContentPane().add(sellItems);
+		
+		
+		marketAthleteList.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		            try {
+		                int marketAthleteIn = marketAthleteList.getSelectedIndex();
+		                marketAthleteInfo.setText(game.getMarket().getAthletes().get(marketAthleteIn).toString());
+		                errorMessage.setText("");
+		            } catch (IndexOutOfBoundsException a) {
+		                // Handle IndexOutOfBoundsException
+		            }
+		        }
+		    }
+		});
+
+		marketItemList.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		            try {
+		                int marketItemIn = marketItemList.getSelectedIndex();
+		                marketItemInfo.setText(game.getMarket().getItems().get(marketItemIn).toString());
+		                errorMessage.setText("");
+		            } catch (IndexOutOfBoundsException a) {
+		                // Handle IndexOutOfBoundsException
+		            }
+		        }
+		    }
+		});
+
+		playerAthleteList.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		            try {
+		                int playerAthleteIn = playerAthleteList.getSelectedIndex();
+		                playerAthleteInfo.setText(game.getPlayerTeam().getAthletes().get(playerAthleteIn).toString());
+		                errorMessage.setText("");
+		            } catch (IndexOutOfBoundsException a) {
+		                // Handle IndexOutOfBoundsException
+		            }
+		        }
+		    }
+		});
+
+		playerItemList.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+		            try {
+		                int playerItemIn = playerItemList.getSelectedIndex();
+		                playerItemInfo.setText(game.getPlayerTeam().getInventory().get(playerItemIn).toString());
+		                errorMessage.setText("");
+		            } catch (IndexOutOfBoundsException a) {
+		                // Handle IndexOutOfBoundsException
+		            }
+		        }
+		    }
+		});
+
 		
 		JButton showStats = new JButton("Show stats");
 		showStats.addActionListener(new ActionListener() {

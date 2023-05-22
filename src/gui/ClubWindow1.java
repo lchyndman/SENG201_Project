@@ -49,6 +49,7 @@ public class ClubWindow1 {
 	 * Create the application.
 	 */
 	public ClubWindow1(GameEnvironment game) {
+<<<<<<< HEAD
 		this.game = game;
 		this.playerTeam = game.getPlayerTeam();
 		this.playerTeam.sortAthletes();
@@ -56,6 +57,11 @@ public class ClubWindow1 {
 		this.playerTeam.sortBowlingOrder();
 		initialize();
 		fillTeam();
+=======
+		System.out.print(game.getPlayerTeam());
+		initialize(game);
+		fillTeam(game);
+>>>>>>> 2ae237b43f84a21f9f25152389b8d5f6dda207d7
 		frame.setVisible(true);
 	}
 

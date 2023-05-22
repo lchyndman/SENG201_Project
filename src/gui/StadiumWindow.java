@@ -1,16 +1,16 @@
 package gui;
 
-import java.awt.Color;
+
 import java.awt.Container;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 import javax.swing.JFrame;
 import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import java.awt.Font;
-import java.awt.GridLayout;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -20,8 +20,7 @@ import game.EnemyTeam;
 import game.GameEnvironment;
 import game.PlayerTeam;
 import game.Stadium;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
 
 public class StadiumWindow {
 
@@ -34,7 +33,6 @@ public class StadiumWindow {
     private PlayerTeam playerTeam;
     private EnemyTeam selectedTeam;
 	private Container lblSelectedTeam;
-	private Container contentPane;
 	private Container noTeamSelected;
 	private Container teamNotReady;
     
@@ -70,30 +68,35 @@ public class StadiumWindow {
         JLabel lblPlayerTeam = new JLabel(this.playerTeam.getTeamName());
         lblPlayerTeam.setHorizontalAlignment(SwingConstants.CENTER);
         lblPlayerTeam.setFont(new Font("Tahoma", Font.BOLD, 18));
-        lblPlayerTeam.setBounds(20, 10, 225, 20);
+        lblPlayerTeam.setBounds(20, 90, 225, 20);
         contentPane.add(lblPlayerTeam);
         
         JTextArea textAreaPlayer = new JTextArea();
         textAreaPlayer.setFont(new Font("Monospaced", Font.BOLD, 16));
         contentPane.add(textAreaPlayer);
         textAreaPlayer.setEditable(false);
+<<<<<<< HEAD
+        textAreaPlayer.setBounds(20, 120, 225, 220);
+=======
         textAreaPlayer.setBounds(20, 40, 225, 220);
 
+>>>>>>> 519bb59b6916262366f16ff419c8f13418ae1eab
         textAreaPlayer.append("Batting Avg: " + this.playerTeam.getAverageBattingStarting());
         textAreaPlayer.append("\nBowling Avg: " + this.playerTeam.getAverageBowlingStarting());
         textAreaPlayer.append("\nFielding Avg: " + this.playerTeam.getAverageFieldingStarting());
         textAreaPlayer.append("\nStamina Avg: " + this.playerTeam.getAverageStaminaStarting());
         textAreaPlayer.append("\nReady To Play: " + this.playerTeam.getReadyToPlay());
         
-        JButton btnOptimize = new JButton("Optimize");
+        JButton btnOptimize = new JButton("Optimize Your Team");
         btnOptimize.setSize(225, 20);
-        btnOptimize.setLocation(20, 270);
+        btnOptimize.setLocation(20, 350);
         btnOptimize.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	playerTeam.sortAthletes();
             	playerTeam.sortBattingOrder();
             	playerTeam.sortBowlingOrder();
             	playerTeam.checkReadyToPlay();
+            	((JLabel) teamNotReady).setText("");
             	textAreaPlayer.setText(null);
                 textAreaPlayer.append("Batting Avg: " + playerTeam.getAverageBattingStarting());
                 textAreaPlayer.append("\nBowling Avg: " + playerTeam.getAverageBowlingStarting());
@@ -103,19 +106,23 @@ public class StadiumWindow {
             }
         });
         contentPane.add(btnOptimize);
+<<<<<<< HEAD
+             
+=======
         
 
         
+>>>>>>> 519bb59b6916262366f16ff419c8f13418ae1eab
         JLabel lblEnemyTeam1 = new JLabel(this.enemyTeam1.getTeamName());
         lblEnemyTeam1.setHorizontalAlignment(SwingConstants.CENTER);
         lblEnemyTeam1.setFont(new Font("Tahoma", Font.BOLD, 18));
-        lblEnemyTeam1.setBounds(265, 10, 225, 20);
+        lblEnemyTeam1.setBounds(265, 90, 225, 20);
         contentPane.add(lblEnemyTeam1);
         
         JTextArea textAreaEnemy1 = new JTextArea();
         textAreaEnemy1.setFont(new Font("Monospaced", Font.BOLD, 16));
         textAreaEnemy1.setEditable(false);
-        textAreaEnemy1.setBounds(265, 40, 225, 220);
+        textAreaEnemy1.setBounds(265, 120, 225, 220);
         contentPane.add(textAreaEnemy1);
         textAreaEnemy1.append("Batting Avg: " + this.enemyTeam1.getAverageBattingStarting());
         textAreaEnemy1.append("\nBowling Avg: " + this.enemyTeam1.getAverageBowlingStarting());
@@ -124,9 +131,9 @@ public class StadiumWindow {
         textAreaEnemy1.append("\nPoints for Winning: " + this.enemyTeam1.getPoints());
         textAreaEnemy1.append("\nReward: $" + this.enemyTeam1.getMoney());
         
-        JButton btnSelect1 = new JButton("Select");
+        JButton btnSelect1 = new JButton("Select Opponent");
         btnSelect1.setSize(225, 20);
-        btnSelect1.setLocation(265, 270);
+        btnSelect1.setLocation(265, 350);
         btnSelect1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setSelectedEnemy(enemyTeam1);
@@ -138,13 +145,13 @@ public class StadiumWindow {
         JLabel lblEnemyTeam2 = new JLabel(this.enemyTeam2.getTeamName());
         lblEnemyTeam2.setHorizontalAlignment(SwingConstants.CENTER);
         lblEnemyTeam2.setFont(new Font("Tahoma", Font.BOLD, 18));
-        lblEnemyTeam2.setBounds(500, 10, 225, 20);
+        lblEnemyTeam2.setBounds(510, 90, 225, 20);
         contentPane.add(lblEnemyTeam2);
         
         JTextArea textAreaEnemy2 = new JTextArea();
         textAreaEnemy2.setFont(new Font("Monospaced", Font.BOLD, 16));
         textAreaEnemy2.setEditable(false);
-        textAreaEnemy2.setBounds(510, 40, 225, 220);
+        textAreaEnemy2.setBounds(510, 120, 225, 220);
         contentPane.add(textAreaEnemy2); 
         textAreaEnemy2.append("Batting Avg: " + this.enemyTeam2.getAverageBattingStarting());
         textAreaEnemy2.append("\nBowling Avg: " + this.enemyTeam2.getAverageBowlingStarting());
@@ -153,9 +160,9 @@ public class StadiumWindow {
         textAreaEnemy2.append("\nPoints for Winning: " + this.enemyTeam2.getPoints());
         textAreaEnemy2.append("\nReward: $" + this.enemyTeam2.getMoney());
         
-        JButton btnSelect2 = new JButton("Select");
+        JButton btnSelect2 = new JButton("Select Opponent");
         btnSelect2.setSize(225, 20);
-        btnSelect2.setLocation(510, 270);
+        btnSelect2.setLocation(510, 350);
         btnSelect2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setSelectedEnemy(enemyTeam2);
@@ -167,13 +174,13 @@ public class StadiumWindow {
         JLabel lblEnemyTeam3 = new JLabel(this.enemyTeam3.getTeamName());
         lblEnemyTeam3.setHorizontalAlignment(SwingConstants.CENTER);
         lblEnemyTeam3.setFont(new Font("Tahoma", Font.BOLD, 18));
-        lblEnemyTeam3.setBounds(755, 10, 225, 20);
+        lblEnemyTeam3.setBounds(755, 90, 225, 20);
         contentPane.add(lblEnemyTeam3);
         
         JTextArea textAreaEnemy3 = new JTextArea();
         textAreaEnemy3.setFont(new Font("Monospaced", Font.BOLD, 16));
         textAreaEnemy3.setEditable(false);
-        textAreaEnemy3.setBounds(755, 40, 225, 220);
+        textAreaEnemy3.setBounds(755, 120, 225, 220);
         contentPane.add(textAreaEnemy3);
         textAreaEnemy3.append("Batting Avg: " + this.enemyTeam3.getAverageBattingStarting());
         textAreaEnemy3.append("\nBowling Avg: " + this.enemyTeam3.getAverageBowlingStarting());
@@ -182,9 +189,9 @@ public class StadiumWindow {
         textAreaEnemy3.append("\nPoints for Winning: " + this.enemyTeam3.getPoints());
         textAreaEnemy3.append("\nReward: $" + this.enemyTeam3.getMoney());
         
-        JButton btnSelect3 = new JButton("Select");
+        JButton btnSelect3 = new JButton("Select Opponent");
         btnSelect3.setSize(225, 20);
-        btnSelect3.setLocation(755, 270);
+        btnSelect3.setLocation(755, 350);
         btnSelect3.addActionListener(new ActionListener() {
         	
             public void actionPerformed(ActionEvent e) {
@@ -196,18 +203,18 @@ public class StadiumWindow {
       
         lblSelectedTeam = new JLabel();
         lblSelectedTeam.setFont(new Font("Monospaced", Font.BOLD, 16));
-        lblSelectedTeam.setBounds(300, 320, 400, 50);
+        lblSelectedTeam.setBounds(300, 393, 400, 50);
         contentPane.add(lblSelectedTeam);
        
         
         this.teamNotReady = new JLabel();
         teamNotReady.setFont(new Font("Tahoma", Font.BOLD, 14));
-        teamNotReady.setBounds(100, 510, 200, 53);
+        teamNotReady.setBounds(100, 390, 200, 53);
         contentPane.add(teamNotReady);
         
         this.noTeamSelected = new JLabel();
         noTeamSelected.setFont(new Font("Tahoma", Font.BOLD, 14));
-        noTeamSelected.setBounds(100, 510, 200, 53);
+        noTeamSelected.setBounds(100, 390, 200, 53);
         contentPane.add(noTeamSelected);
         
         JButton btnPlayMatch = new JButton("Play Match");
@@ -221,6 +228,9 @@ public class StadiumWindow {
         			selectedEnemy();
         		}
         		else {
+<<<<<<< HEAD
+        			playerTeam.restReserves();
+=======
         			gameEnvironment.getStadium().playMatch(gameEnvironment.getPlayerTeam(), selectedTeam);
         			frame.dispose();
     				// open Match window
@@ -234,11 +244,12 @@ public class StadiumWindow {
     						}
     					}
     				});
+>>>>>>> 519bb59b6916262366f16ff419c8f13418ae1eab
         		}
         	}
         });
         
-        btnPlayMatch.setBounds(100, 400, 200, 100);
+        btnPlayMatch.setBounds(100, 453, 200, 100);
         contentPane.add(btnPlayMatch);
 
         
@@ -248,6 +259,7 @@ public class StadiumWindow {
             frame.dispose();
             EventQueue.invokeLater(() -> {
                 try {
+                	playerTeam.restAllAthletes();
             		gameEnvironment.nextWeek();
                 	gameEnvironment.setPlayerTeam(playerTeam);
                     StadiumWindow stadium = new StadiumWindow(gameEnvironment);
@@ -257,7 +269,7 @@ public class StadiumWindow {
             }); 
         });
  
-        btnTakeBye.setBounds(400, 400, 200, 100);
+        btnTakeBye.setBounds(399, 453, 200, 100);
         contentPane.add(btnTakeBye);
 
         
@@ -275,14 +287,28 @@ public class StadiumWindow {
             });
         });
         
-        btnBackToHome.setBounds(700, 400, 200, 100);
+        btnBackToHome.setBounds(700, 453, 200, 100);
         contentPane.add(btnBackToHome);
+        
+        
+        JLabel header = new JLabel("STADIUM");
+		header.setFont(new Font("Bookman Old Style", Font.BOLD, 60));
+        header.setHorizontalAlignment(SwingConstants.CENTER);
+        header.setBounds(300, 30, 400, 50);
+        contentPane.add(header);
+        
+        JLabel stats = new JLabel("Current Week: "+this.gameEnvironment.getCurrentWeek());
+        stats.setHorizontalAlignment(SwingConstants.CENTER);
+        stats.setFont(new Font("Tahoma", Font.BOLD, 18));
+        stats.setBounds(10, 10, 225, 20);
+        contentPane.add(stats);
 
     }
 
     private void setSelectedEnemy(EnemyTeam enemyTeam) {
         this.selectedTeam = enemyTeam;
         ((JLabel) this.lblSelectedTeam).setText("Selected Opponent: " + enemyTeam.getTeamName());
+        ((JLabel) this.noTeamSelected).setText("");
 	}
     
     private void teamReady() {

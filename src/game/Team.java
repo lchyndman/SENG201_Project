@@ -34,10 +34,6 @@ public class Team {
                 a.setStarting(false);
             }
         }
-
-        this.sortAthletes();
-        this.sortBattingOrder();
-        this.sortBowlingOrder();
     }
 
     /**
@@ -422,4 +418,20 @@ public class Team {
     public int getMAX_ATHLETES() {
         return MAX_ATHLETES;
     }
-}
+    
+    public void restAllAthletes() {
+    	for (Athlete a: this.athletes) {
+    		a.setCurrentStamina(a.getStamina());
+    	}
+    }
+    public void restReserves() {
+    	for (Athlete a: this.reserveAthletes) {
+    		a.setCurrentStamina(a.getStamina());
+    	}
+    }
+    
+    public String toString() {
+		return teamName;
+    
+    }
+}  

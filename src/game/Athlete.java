@@ -28,9 +28,8 @@ public class Athlete {
 	private ArrayList<Item> appliedItems = new ArrayList<Item>(); // list of items applied to athlete
 	private String itemsString = ""; // string representation of items applied to athlete
 	
-	private int bowlingOrderNumber;
 	private int battingOrderNumber;
-	
+	private int bowlingOrderNumber;
 	/**
 	 * Constructs an Athlete with the specified name, batting, bowling, fielding, and stamina.
 	 *
@@ -304,42 +303,6 @@ public class Athlete {
 	}
 	
 	/**
-	 * Retrieves the bowling order number of the athlete.
-	 *
-	 * @return The bowling order number of the athlete.
-	 */
-	public int getBowlingOrderNumber() {
-		return bowlingOrderNumber;
-	}
-	
-	/**
-	 * Sets the bowling order number of the athlete.
-	 *
-	 * @param bowlingOrderNumber The bowling order number to be set.
-	 */
-	public void setBowlingOrderNumber(int bowlingOrderNumber) {
-		this.bowlingOrderNumber = bowlingOrderNumber;
-	}
-	
-	/**
-	 * Retrieves the batting order number of the athlete.
-	 *
-	 * @return The batting order number of the athlete.
-	 */
-	public int getBattingOrderNumber() {
-		return battingOrderNumber;
-	}
-	
-	/**
-	 * Sets the batting order number of the athlete.
-	 *
-	 * @param battingOrderNumber The batting order number to be set.
-	 */
-	public void setBattingOrderNumber(int battingOrderNumber) {
-		this.battingOrderNumber = battingOrderNumber;
-	}
-	
-	/**
 	 * Checks if the athlete is starting.
 	 *
 	 * @return true if the athlete is starting, false otherwise.
@@ -373,6 +336,22 @@ public class Athlete {
 	 */
 	public String getItemsString() {
 		return itemsString;
+	}
+
+	public int getBattingOrderNumber() {
+		return battingOrderNumber;
+	}
+
+	public void setBattingOrderNumber(int battingOrderNumber) {
+		this.battingOrderNumber = battingOrderNumber;
+	}
+
+	public int getBowlingOrderNumber() {
+		return bowlingOrderNumber;
+	}
+
+	public void setBowlingOrderNumber(int bowlingOrderNumber) {
+		this.bowlingOrderNumber = bowlingOrderNumber;
 	}
 	
 }

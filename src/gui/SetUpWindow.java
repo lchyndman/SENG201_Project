@@ -142,10 +142,6 @@ public class SetUpWindow {
 						game.setDifficulty(3);
 					}
 					
-					System.out.println(game.getPlayerTeam().getTeamName());
-					System.out.println(game.getDifficulty());
-					System.out.println(game.getSeasonLength());
-					
 					frame.dispose();
 					// open main menu window
 					EventQueue.invokeLater(new Runnable() {
