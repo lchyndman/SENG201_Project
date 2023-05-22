@@ -422,11 +422,13 @@ public class Team {
     public void restAllAthletes() {
     	for (Athlete a: this.athletes) {
     		a.setCurrentStamina(a.getStamina());
+    		a.setInjured(false);
     	}
     }
     public void restReserves() {
     	for (Athlete a: this.reserveAthletes) {
     		a.setCurrentStamina(a.getStamina());
+    		a.setInjured(false);
     	}
     }
     
