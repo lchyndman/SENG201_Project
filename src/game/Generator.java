@@ -11,7 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * The Generator class generates unique items, athletes, and numbers for the game.
+ * The Generator class generates unique items, athletes, names, team names, and numbers for the game.
  * 
  * @author Luke Hyndman
  * @version 1.0
@@ -19,30 +19,32 @@ import java.io.IOException;
  */
 public class Generator {
 	
-    private Random random = new Random();
-    private final int MAX_LEVEL = 100;
-    private final int MIN_LEVEL;
-    private final int MAX_BUFF = 30;
-    private final int MIN_BUFF = 10;
-    private ArrayList<String> firstNames = new ArrayList<String>();
-    private ArrayList<String> lastNames = new ArrayList<String>();
-    private ArrayList<String> teamNames = new ArrayList<String>();
-    private String[] itemTypes = { "Shoes", "Bat", "Steroids", "Blue V" };
+    private Random random = new Random(); // start a new random obj to make random ints
+    private final int MAX_LEVEL = 100; // maximum level an athletes ability can be
+    private final int MIN_LEVEL; // minimum level an athletes ability can be, depends on difficulty
+    private final int MAX_BUFF = 30; // maximum buff items can give players
+    private final int MIN_BUFF = 10; // minimum buff items can give players
+    private ArrayList<String> firstNames = new ArrayList<String>(); // arraylist to store first names
+    private ArrayList<String> lastNames = new ArrayList<String>(); // arraylist to store last names
+    private ArrayList<String> teamNames = new ArrayList<String>(); // arraylist to store team names
+    private String[] itemTypes = { "Shoes", "Bat", "Steroids", "Blue V" }; // 4 different types of items, each effect different combinations of abilities
 
+    
     /**
      * Constructs a Generator object with default minimum level.
      */
     public Generator() {
-        this.fillNames();
+        this.fillNames(); // reading names out of Names/ folder
         this.MIN_LEVEL = 20;
     }
 
+    
     /**
      * Constructs a Generator object with a specified difficulty level.
      *
      * @param difficulty The difficulty level (1, 2, or 3).
      */
-    public Generator(int difficulty) {
+    public Generator(int difficulty) { // MIN_LEVEL is set according to difficulty
         if (difficulty == 1) {
             this.MIN_LEVEL = 20;
         } else if (difficulty == 2) {
@@ -53,67 +55,57 @@ public class Generator {
         this.fillNames();
     }
 
+    
+
     /**
-     * Fills the firstNames and lastNames lists with names from text files.
+     * Reads lines from a given filename
+     * returns them in an arrayList after check for special chars
+     * @param filename
+     * @return arrayList of lines
+     */
+    public ArrayList<String> readTxt(String filename){
+    	BufferedReader reader;
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        ArrayList<String> outList = new ArrayList<String>();
+        try {
+            reader = new BufferedReader(new FileReader(filename));
+            String line = reader.readLine();
+            while (line != null) {
+                Matcher m = p.matcher(line);
+                if (!m.find()) {
+                    outList.add(line);
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return outList;
+    }
+    
+    
+    /**
+     * Fills the firstNames and lastNames, teamNames lists with names from text files.
      * Checks for special chars in each name.
      */
     public void fillNames() {
-        BufferedReader reader;
-        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
-
-        try {
-            reader = new BufferedReader(new FileReader("Names/first_names.txt"));
-            String line = reader.readLine();
-
-            while (line != null) {
-                Matcher m = p.matcher(line);
-                if (!m.find()) {
-                    this.firstNames.add(line);
-                }
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            reader = new BufferedReader(new FileReader("Names/first_names.txt"));
-            String line = reader.readLine();
-
-            while (line != null) {
-                Matcher m = p.matcher(line);
-                if (!m.find()) {
-                    this.lastNames.add(line);
-                }
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-       try {
-            reader = new BufferedReader(new FileReader("Names/team_names.txt"));
-            String line = reader.readLine();
-
-            while (line != null) {
-                Matcher m = p.matcher(line);
-                if (!m.find()) {
-                    this.teamNames.add(line);
-                }
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.firstNames = this.readTxt("Names/first_names.txt");
+        this.lastNames = this.readTxt("Names/last_names.txt");
+        this.teamNames = this.readTxt("Names/team_names.txt");
     }
 
+    
+    /**
+     * Picks a random team name from list of team names
+     * 
+     * @return randomly selected team name
+     */
     public String getRandomTeamName() {
     	int index = this.getRandomNumber(0, this.teamNames.size()-1);
     	return this.teamNames.get(index);
     }
+    
     
     /**
      * Generates a random name by combining a random first name and last name.
@@ -127,8 +119,9 @@ public class Generator {
         return name;
     }
 
+    
     /**
-     * Generates a random integer between the specified minimum and maximum values.
+     * Generates a random integer between the specified minimum and maximum values inclusive.
      *
      * @param min The minimum value.
      * @param max The maximum value.
@@ -139,6 +132,7 @@ public class Generator {
         return randomNumber;
     }
 
+    
     /**
      * Generates a random stat value within the range of minimum and maximum levels.
      *
@@ -148,6 +142,7 @@ public class Generator {
         return this.getRandomNumber(this.getMIN_LEVEL(), this.getMAX_LEVEL());
     }
 
+    
     /**
      * Generates a random buff value within the range of minimum and maximum buffs.
      *
@@ -157,6 +152,7 @@ public class Generator {
         return this.getRandomNumber(this.getMIN_BUFF(), this.getMAX_BUFF());
     }
 
+    
     /**
      * Generates a new Athlete object with a random name and attributes.
      *
@@ -166,6 +162,7 @@ public class Generator {
         return new Athlete(this.getRandomName(), this.getRandomStat(), this.getRandomStat(), this.getRandomStat(), this.getRandomStat());
     }
 
+    
     /**
      * Generates an ArrayList of randomly generated Athlete objects.
      *
@@ -180,24 +177,26 @@ public class Generator {
         return athletes;
     }
 
+    
     /**
      * Generates a random Item object.
      *
      * @return The generated Item object.
      */
     public Item generateItem() {
-        int typeIndex = this.getRandomNumber(0, this.itemTypes.length - 1);
+        int typeIndex = this.getRandomNumber(0, this.itemTypes.length - 1); // pick a random item type
         String type = this.itemTypes[typeIndex];
-        if (type.equals("Shoes")) {
-            return new Item(type, 0, this.getRandomBuff(), getRandomBuff(), 0);
+        if (type.equals("Shoes")) { // set buffs based on type
+            return new Item(type, 0, this.getRandomBuff(), getRandomBuff(), 0); // shoes effect running so improve bowling + fielding
         } else if (type.equals("Bat")) {
-            return new Item(type, this.getRandomBuff(), 0, 0, 0);
+            return new Item(type, this.getRandomBuff(), 0, 0, 0); // a good batt improves batting etc
         } else if (type.equals("Steroids")) {
             return new Item(type, this.getRandomBuff(), this.getRandomBuff(), this.getRandomBuff(), 0);
         }
         return new Item(type, 0, 0, 0, this.getRandomBuff());
     }
 
+    
     /**
      * Generates an ArrayList of randomly generated Item objects.
      *
@@ -212,6 +211,7 @@ public class Generator {
         return items;
     }
 
+    
     /**
      * Returns the minimum level for athlete attributes.
      *
@@ -221,6 +221,7 @@ public class Generator {
         return MIN_LEVEL;
     }
 
+    
     /**
      * Returns the maximum level for athlete attributes.
      *
@@ -230,6 +231,7 @@ public class Generator {
         return MAX_LEVEL;
     }
 
+    
     /**
      * Returns the minimum buff amount for items.
      *
@@ -239,6 +241,7 @@ public class Generator {
         return MIN_BUFF;
     }
 
+    
     /**
      * Returns the maximum buff amount for items.
      *

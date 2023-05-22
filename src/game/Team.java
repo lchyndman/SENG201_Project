@@ -419,21 +419,36 @@ public class Team {
         return MAX_ATHLETES;
     }
     
+    
+    /**
+     * Rests all athletes in the team.
+     * Resets the current stamina of each athlete to their maximum stamina and marks them as not injured.
+     */
     public void restAllAthletes() {
-    	for (Athlete a: this.athletes) {
-    		a.setCurrentStamina(a.getStamina());
-    		a.setInjured(false);
-    	}
+        for (Athlete a : this.athletes) {
+            a.setCurrentStamina(a.getStamina());
+            a.setInjured(false);
+        }
     }
+
+    /**
+     * Rests all reserve athletes in the team.
+     * Resets the current stamina of each reserve athlete to their maximum stamina and marks them as not injured.
+     */
     public void restReserves() {
-    	for (Athlete a: this.reserveAthletes) {
-    		a.setCurrentStamina(a.getStamina());
-    		a.setInjured(false);
-    	}
+        for (Athlete a : this.reserveAthletes) {
+            a.setCurrentStamina(a.getStamina());
+            a.setInjured(false);
+        }
     }
-    
+
+    /**
+     * Returns a string representation of the team.
+     *
+     * @return The team name
+     */
+    @Override
     public String toString() {
-		return teamName;
-    
+        return teamName;
     }
-}  
+}
