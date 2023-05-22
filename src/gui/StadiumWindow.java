@@ -78,7 +78,7 @@ public class StadiumWindow {
         contentPane.add(textAreaPlayer);
         textAreaPlayer.setEditable(false);
         textAreaPlayer.setBounds(20, 40, 225, 220);
-<<<<<<< HEAD
+
         textAreaPlayer.append("Batting Avg: " + this.playerTeam.getAverageBattingStarting());
         textAreaPlayer.append("\nBowling Avg: " + this.playerTeam.getAverageBowlingStarting());
         textAreaPlayer.append("\nFielding Avg: " + this.playerTeam.getAverageFieldingStarting());
@@ -104,14 +104,7 @@ public class StadiumWindow {
         });
         contentPane.add(btnOptimize);
         
-=======
-        textAreaPlayer.append("Batting Avg: " + this.playerTeam.getAverageBatting());
-        textAreaPlayer.append("\nBowling Avg: " + this.playerTeam.getAverageBowling());
-        textAreaPlayer.append("\nFielding Avg: " + this.playerTeam.getAverageFielding());
-        textAreaPlayer.append("\nStamina Avg: " + this.playerTeam.getAverageStamina());
 
-
->>>>>>> b6e40228211ab8533a8ec7ffdf05e71253f338cb
         
         JLabel lblEnemyTeam1 = new JLabel(this.enemyTeam1.getTeamName());
         lblEnemyTeam1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -228,7 +221,19 @@ public class StadiumWindow {
         			selectedEnemy();
         		}
         		else {
+        			gameEnvironment.getStadium().playMatch(gameEnvironment.getPlayerTeam(), selectedTeam);
+        			frame.dispose();
+    				// open Match window
         			
+    				EventQueue.invokeLater(new Runnable() {
+    					public void run() {
+    						try {
+    							MatchWindow matchWindow = new MatchWindow(gameEnvironment);
+    						} catch (Exception e) {
+    							e.printStackTrace();
+    						}
+    					}
+    				});
         		}
         	}
         });

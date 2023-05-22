@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -40,7 +41,6 @@ public class ClubWindow {
 	JTextArea reserveInfoBox;
 	JList<String> startingList;
 	
-	ClubEnum listStatus;
 	
 
 
@@ -49,7 +49,6 @@ public class ClubWindow {
 	 */
 	public ClubWindow(GameEnvironment game) {
 		
-		ClubEnum listStatus = ClubEnum.ATHLETES;
 		initialize(game);
 		fillTeam(game);
 		frame.setVisible(true);
@@ -85,17 +84,6 @@ public class ClubWindow {
 	 */
 	private void initialize(GameEnvironment game) {
 		
-		// checks enum
-		switch (listStatus) {
-		case ATHLETES:
-			listModelStarting = listModelAthletes;
-		case BATTING:
-			listModelStarting = listModelBatting;
-		case BOWLING:
-			listModelStarting = listModelBowling;
-		}
-		
-
 		
 		setFrame(new JFrame());
 		getFrame().setBounds(100, 100, 1000, 600);
@@ -336,7 +324,7 @@ public class ClubWindow {
 		JButton sortBowling = new JButton("Sort by Bowling");
 		sortBowling.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listStatus = ClubEnum.BATTING;
+				
 			}
 		});
 		sortBowling.setBounds(21, 152, 114, 21);
@@ -345,7 +333,7 @@ public class ClubWindow {
 		JButton sortBatting = new JButton("Sort by Batting");
 		sortBatting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listStatus = ClubEnum.BATTING;
+				
 			}
 		});
 		sortBatting.setBounds(21, 124, 116, 21);

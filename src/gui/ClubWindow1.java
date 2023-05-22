@@ -66,9 +66,10 @@ public class ClubWindow1 {
 		for (Item item : game.getPlayerTeam().getInventory()) {
 			listModelItems.addElement(item.getName());
 		}
+		
 		game.getPlayerTeam().sortBattingOrder();
 		for (Athlete athlete : game.getPlayerTeam().getBattingOrder()) {
-			listModelBatting.addElement(athlete.getName());
+			System.out.println(athlete);
 		}
 		
 		game.getPlayerTeam().sortBowlingOrder();

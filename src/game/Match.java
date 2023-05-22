@@ -9,11 +9,15 @@ public class Match {
 	private int currentOver = 0;
 	private PlayerTeam playerTeam;
 	private EnemyTeam opponentTeam;
-	private String winner;
+	private int winner;  // playerTeam=1, opponent=2, draw = 3
+	
+	private int opponentFinalScore = 0;
+	private int playerFinalScore = 0;
 	
 	public Match(PlayerTeam P, EnemyTeam M) { //creates an instance match
 		playerTeam = P;
-		opponentTeam = M;
+		setOpponentTeam(M);
+		playMatch();
 	}
 	
 	public boolean allInjured(Team team) { // checks if all players in a given team are injured
@@ -26,44 +30,38 @@ public class Match {
 		return playersAllInjured;
 	}
 	
-	public String playMatch() { //plays a match
+	public void playMatch() { //plays a match
 		
-		int opponentFinalScore = 0;
-		int playerFinalScore = 0;
-		
-		playerFinalScore = playHalf(playerTeam, opponentTeam); // plays the first half of the game, players team is batting
-//		System.out.println("player final score: "+playerFinalScore);
+		playerFinalScore = playHalf(playerTeam, getOpponentTeam()); // plays the first half of the game, players team is batting
 		
 		if (allInjured(playerTeam)) {  // if all the payers of a team are injured, that team automatically loses.
-			winner = "Opponent wins";
+			winner = 2;
 		}
-		else if (allInjured(opponentTeam)) {
-			winner = "Player team wins";
+		else if (allInjured(getOpponentTeam())) {
+			winner = 1;
 		}
 		else {
-			opponentFinalScore = playHalf(opponentTeam,playerTeam); // plays the second half of the game, the opponent team is batting
-//			System.out.println("opponent final score: "+opponentFinalScore);
-			
+			opponentFinalScore = playHalf(getOpponentTeam(),playerTeam); // plays the second half of the game, the opponent team is batting
+
 			if (allInjured(playerTeam)) { // if all the payers of a team are injured, that team automatically loses, other team wins.
-				winner = "Opponent wins";
+				winner = 2;
 			}
-			else if (allInjured(opponentTeam)) {
-				winner = "Player team wins";
+			else if (allInjured(getOpponentTeam())) {
+				winner = 1;
 			}
 			
 			else {  											// if both teams aren't all injured compares scores and spits out the winner
 				if (playerFinalScore > opponentFinalScore) {
-					winner = "Player team wins";
+					winner = 1;
 				}
 				else if (playerFinalScore < opponentFinalScore) {
-					winner = "Opponent wins";
+					winner = 2;
 				}
 				else {
-					winner = "It was a draw";
+					winner = 3;
 				}
 			}
 		}	
-		return winner;
 	}
 	
 	public int playHalf(Team team1, Team team2) {
@@ -282,54 +280,70 @@ public class Match {
 	
 	public static void main(String args[]) {
 		
-		PlayerTeam team = new PlayerTeam(1000000);
-		EnemyTeam team1 = new EnemyTeam(1);
-//		Generator g = new Generator();
-//		for (int i=0; i < 11; i++) {
-//			team.addAthlete(g.generateAthlete());
+//		PlayerTeam team = new PlayerTeam(1000000);
+//		EnemyTeam team1 = new EnemyTeam(1);
+////		Generator g = new Generator();
+////		for (int i=0; i < 11; i++) {
+////			team.addAthlete(g.generateAthlete());
+////		}
+//	    team1.fillTeam();
+//		
+//	    for (Athlete player : team1.getStartingAthletes()) {
+//	    	team.addAthlete(player);
+//	    }
+//	    
+//		int opponentWins = 0;
+//		int playerWins = 0;
+//		int draw = 0;
+//		for (int i=0; i < 1000000; i += 1) {
+//			
+//
+//		Match match = new Match(team,team1);
+//		String thing = match.playMatch();
+//		
+//		for (Athlete player : team.getStartingAthletes()) {
+//			player.setCurrentStamina(player.getStamina());
+//			player.setInjured(false);
 //		}
-	    team1.fillTeam();
-		
-	    for (Athlete player : team1.getStartingAthletes()) {
-	    	team.addAthlete(player);
-	    }
-	    
-		int opponentWins = 0;
-		int playerWins = 0;
-		int draw = 0;
-		for (int i=0; i < 1000000; i += 1) {
-			
-
-		Match match = new Match(team,team1);
-		String thing = match.playMatch();
-		
-		for (Athlete player : team.getStartingAthletes()) {
-			player.setCurrentStamina(player.getStamina());
-			player.setInjured(false);
-		}
-		
-		for (Athlete player : team1.getStartingAthletes()) {
-			player.setCurrentStamina(player.getStamina());
-			player.setInjured(false);
-		}
-		
-		if (thing == "Player team wins") {
-			playerWins+= 1;
-		}
-		if (thing == "Opponent wins") {
-			opponentWins+= 1;
-		}
-		if (thing == "It was a draw") {
-			draw+= 1;
-		}
-		
-		}
-		System.out.println("players: "+playerWins+"\n oppoent: "+opponentWins+"\n draw: "+draw);
+//		
+//		for (Athlete player : team1.getStartingAthletes()) {
+//			player.setCurrentStamina(player.getStamina());
+//			player.setInjured(false);
+//		}
+//		
+//		if (thing == "Player team wins") {
+//			playerWins+= 1;
+//		}
+//		if (thing == "Opponent wins") {
+//			opponentWins+= 1;
+//		}
+//		if (thing == "It was a draw") {
+//			draw+= 1;
+//		}
+//		
+//		}
+//		System.out.println("players: "+playerWins+"\n oppoent: "+opponentWins+"\n draw: "+draw);
 	}
 
 
-	public String getWinner() {
+	public int getWinner() {
 		return winner;
+	}
+	
+	public int getPlayerFinalScore() {
+		return playerFinalScore;
+	}
+	
+	public int getOpponentFinalScore() {
+		return opponentFinalScore;
+	}
+
+	public EnemyTeam getOpponentTeam() {
+		return opponentTeam;
+	}
+
+	public void setOpponentTeam(EnemyTeam opponentTeam) {
+		this.opponentTeam = opponentTeam;
 	}
 	
 	

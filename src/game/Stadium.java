@@ -17,6 +17,7 @@ public class Stadium {
 	private Scanner sc = new Scanner(System.in);
 	private EnemyTeam[] opponents;
 	private int difficulty;
+	private Match match1;
 	
 	public Stadium(int difficulty) {
 		this.difficulty = difficulty;
@@ -54,35 +55,24 @@ public class Stadium {
 	}
 	
 	
-	public void playMatch(PlayerTeam playerTeam) {
+	public void playMatch(PlayerTeam playerTeam, EnemyTeam opponent) {
 		
-		for (Athlete player : playerTeam.getStartingAthletes()) {
-			if (! player.isInjured()) {
-				allInjured = false;
-			}
+		setMatch1(new Match(playerTeam, enemyTeam));
 		}
-				
-		if (!allInjured) {   //team also needs to be full
-		Match game = new Match(playerTeam, enemyTeam);
-		String outcome = game.getWinner();
-		if (outcome =="Player team wins") {
-			playerTeam.addBalance(enemyTeam.getMoney());
-			playerTeam.addPoints(enemyTeam.getPoints());
-		}
-		if (outcome == "Opponent wins") {
-//			"get better"
-		}
-		else { // u tied
-			playerTeam.addBalance((enemyTeam.getMoney())/2);
-			playerTeam.addPoints((enemyTeam.getPoints())/2);
-			}
-		}
-	}
 	
-	public void printOpponents() { // these aren't numbered
-		for (EnemyTeam opponent : this.enemyOptions) {
-			System.out.println(opponent);
-		}
+	
+//	public void printOpponents() { // these aren't numbered
+//		for (EnemyTeam opponent : this.enemyOptions) {
+//			System.out.println(opponent);
+//		}
+//	}
+
+	public Match getMatch1() {
+		return match1;
+	}
+
+	public void setMatch1(Match match1) {
+		this.match1 = match1;
 	}
 }
 
