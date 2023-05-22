@@ -1,29 +1,25 @@
 package gui;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
 import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.JSlider;
-import javax.swing.JProgressBar;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-
-import game.GameEnvironment;
-import game.PlayerTeam;
-
 import java.awt.Color;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import javax.swing.JSlider;
+import javax.swing.border.LineBorder;
+
+import game.GameEnvironment;
+
 
 public class SetUpWindow {
 
@@ -158,6 +154,7 @@ public class SetUpWindow {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
+								@SuppressWarnings("unused")
 								HomeWindow main = new HomeWindow(game);
 							} catch (Exception e) {
 								e.printStackTrace();

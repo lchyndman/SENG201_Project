@@ -1,18 +1,18 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 import game.GameEnvironment;
 
-import javax.swing.JButton;
-import java.awt.Font;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class HomeWindow {
 
@@ -43,6 +43,7 @@ public class HomeWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							@SuppressWarnings("unused")
 							ClubWindow club = new ClubWindow(game);   //changed for testing
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -63,6 +64,7 @@ public class HomeWindow {
 
 					public void run() {
 						try {
+							@SuppressWarnings("unused")
 							StadiumWindow stadium = new StadiumWindow(game);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -85,6 +87,7 @@ public class HomeWindow {
 
 					public void run() {
 						try {
+							@SuppressWarnings("unused")
 							MarketWindow market = new MarketWindow(game);
 						} catch (Exception e) {
 							e.printStackTrace();

@@ -1,23 +1,24 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
 
-
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JList;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import game.Athlete;
 import game.GameEnvironment;
 import game.Match;
 
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.JList;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
+
+
 
 public class MatchWindow {
 
@@ -26,7 +27,7 @@ public class MatchWindow {
 	
 	private JFrame frame;
 	private JLabel matchOutcome;
-	private Match match1;
+	private Match match;
 	private JTextArea athleteStats;
 	private JLabel errorMessage;
 	
@@ -37,7 +38,7 @@ public class MatchWindow {
 	 * Create the application.
 	 */
 	public MatchWindow(GameEnvironment game) {
-		match1 = game.getStadium().getMatch1();
+		match = game.getStadium().getMatch();
 		fillTeam(game);
 		giveRewards(game);
 
@@ -50,10 +51,10 @@ public class MatchWindow {
 	}
 
 	private void giveRewards(GameEnvironment game) {
-		if (match1.getWinner() == 1) {
+		if (match.getWinner() == 1) {
 			game.addGameWon();
-			game.getPlayerTeam().addBalance(match1.getOpponentTeam().getMoney());
-			game.getPlayerTeam().addPoints(match1.getOpponentTeam().getPoints());
+			game.getPlayerTeam().addBalance(match.getOpponentTeam().getMoney());
+			game.getPlayerTeam().addPoints(match.getOpponentTeam().getPoints());
 			for (Athlete athlete : game.getPlayerTeam().getStartingAthletes()) {
 				athlete.battingIncrement(winningAdd);
 				athlete.bowlingIncrement(winningAdd);
@@ -61,15 +62,15 @@ public class MatchWindow {
 				athlete.staminaIncrement(winningAdd+2);
 			}
 		}
-		else if (match1.getWinner() == 2) {
+		else if (match.getWinner() == 2) {
 			game.addGameLost();
-			game.getPlayerTeam().addBalance((match1.getOpponentTeam().getMoney())/5);
-			game.getPlayerTeam().addPoints((match1.getOpponentTeam().getPoints())/5);
+			game.getPlayerTeam().addBalance((match.getOpponentTeam().getMoney())/5);
+			game.getPlayerTeam().addPoints((match.getOpponentTeam().getPoints())/5);
 		}
 		else {
-			game.addGameDrew();
-			game.getPlayerTeam().addBalance((match1.getOpponentTeam().getMoney())/2);
-			game.getPlayerTeam().addPoints((match1.getOpponentTeam().getPoints())/2);
+			game.addGameDrawn();
+			game.getPlayerTeam().addBalance((match.getOpponentTeam().getMoney())/2);
+			game.getPlayerTeam().addPoints((match.getOpponentTeam().getPoints())/2);
 			for (Athlete athlete : game.getPlayerTeam().getStartingAthletes()) {
 				athlete.battingIncrement(drawAdd);
 				athlete.bowlingIncrement(drawAdd);
@@ -99,10 +100,10 @@ public class MatchWindow {
 		frame.getContentPane().add(lblMatchOutcome);
 		
 		matchOutcome = new JLabel("");
-		if (match1.getWinner() == 1) {
+		if (match.getWinner() == 1) {
 			matchOutcome.setText("Well done! Your team won the match!");
 		}
-		else if (match1.getWinner() == 2) {
+		else if (match.getWinner() == 2) {
 			matchOutcome.setText("Better luck next time! Unfortunetly you team lost.");
 		}
 		else  {
@@ -113,7 +114,7 @@ public class MatchWindow {
 		frame.getContentPane().add(matchOutcome);
 		
 		JTextArea scoreDisplay = new JTextArea();
-		scoreDisplay.setText("\r\nYour teams Final Score: "+match1.getPlayerFinalScore()+"\r\n\r\nOpponents Final Score:  "+match1.getOpponentFinalScore());
+		scoreDisplay.setText("\r\nYour teams Final Score: "+match.getPlayerFinalScore()+"\r\n\r\nOpponents Final Score:  "+match.getOpponentFinalScore());
 		scoreDisplay.setBounds(90, 165, 255, 106);
 		frame.getContentPane().add(scoreDisplay);
 		
@@ -163,6 +164,7 @@ public class MatchWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							@SuppressWarnings("unused")
 							EndWindow end = new EndWindow(game);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -176,6 +178,7 @@ public class MatchWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							@SuppressWarnings("unused")
 							HomeWindow main = new HomeWindow(game);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -191,17 +194,17 @@ public class MatchWindow {
 		
 		JTextArea gameWinnings = new JTextArea();
 		String string;
-		if (match1.getWinner() == 1) {
+		if (match.getWinner() == 1) {
 			string = "winning";
-			gameWinnings.setText("You made "+match1.getOpponentTeam().getMoney()+" by "+string+".\r\nand got "+match1.getOpponentTeam().getPoints()+" Experiance Points\r\nStarting players Stats increased by the following amount:\r\n\r\nBATTING:  "+winningAdd+"\r\nBOWLING:  "+winningAdd+"\r\nFIELDING:  "+(winningAdd+=1)+"\r\nSTAMINA:  "+(winningAdd+=2)+"\r\n\r\nNote, your players Stats cannot increase over 100.");
+			gameWinnings.setText("You made "+match.getOpponentTeam().getMoney()+" by "+string+".\r\nand got "+match.getOpponentTeam().getPoints()+" Experiance Points\r\nStarting players Stats increased by the following amount:\r\n\r\nBATTING:  "+winningAdd+"\r\nBOWLING:  "+winningAdd+"\r\nFIELDING:  "+(winningAdd+=1)+"\r\nSTAMINA:  "+(winningAdd+=2)+"\r\n\r\nNote, your players Stats cannot increase over 100.");
 		}
-		else if (match1.getWinner() == 2) {
+		else if (match.getWinner() == 2) {
 			string = "losing";
-			gameWinnings.setText("You made "+(match1.getOpponentTeam().getMoney())/5+" by "+string+".\r\nand got "+(match1.getOpponentTeam().getPoints())/5+" Experiance Points\r\nStarting players Stats increased by the following amount:\r\n\r\nBATTING:  0\r\nBOWLING:  0\r\nFIELDING:  0\r\nSTAMINA:  0\r\n\r\nNote, your players Stats cannot increase over 100.");
+			gameWinnings.setText("You made "+(match.getOpponentTeam().getMoney())/5+" by "+string+".\r\nand got "+(match.getOpponentTeam().getPoints())/5+" Experiance Points\r\nStarting players Stats increased by the following amount:\r\n\r\nBATTING:  0\r\nBOWLING:  0\r\nFIELDING:  0\r\nSTAMINA:  0\r\n\r\nNote, your players Stats cannot increase over 100.");
 		}
 		else {
 			string = "drawing";
-			gameWinnings.setText("You made "+(match1.getOpponentTeam().getMoney()/2)+" by "+string+".\r\nand got "+(match1.getOpponentTeam().getPoints())/2+" Experiance Points\r\nStarting players Stats increased by the following amount:\r\n\r\nBATTING:  "+drawAdd+"\r\nBOWLING:  "+drawAdd+"\r\nFIELDING:  "+drawAdd+"\r\nSTAMINA:  "+(drawAdd+=1)+"\r\n\r\nNote, your players Stats cannot increase over 100.");
+			gameWinnings.setText("You made "+(match.getOpponentTeam().getMoney()/2)+" by "+string+".\r\nand got "+(match.getOpponentTeam().getPoints())/2+" Experiance Points\r\nStarting players Stats increased by the following amount:\r\n\r\nBATTING:  "+drawAdd+"\r\nBOWLING:  "+drawAdd+"\r\nFIELDING:  "+drawAdd+"\r\nSTAMINA:  "+(drawAdd+=1)+"\r\n\r\nNote, your players Stats cannot increase over 100.");
 		}
 		
 		gameWinnings.setBounds(42, 304, 484, 184);

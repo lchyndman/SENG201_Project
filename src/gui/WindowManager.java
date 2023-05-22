@@ -3,7 +3,6 @@ package gui;
 import java.awt.EventQueue;
 
 import game.GameEnvironment;
-import game.PlayerTeam;
 
 public class WindowManager {
 	private GameEnvironment game;
@@ -12,7 +11,7 @@ public class WindowManager {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SetUpWindow setUp = new SetUpWindow(getGame());
+					new SetUpWindow(game);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -30,8 +29,4 @@ public class WindowManager {
 		manager.newGame();
 
 	}
-	public GameEnvironment getGame() {
-		return game;
-	}
-
 }

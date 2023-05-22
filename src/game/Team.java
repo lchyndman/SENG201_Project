@@ -34,6 +34,8 @@ public class Team {
                 a.setStarting(false);
             }
         }
+        this.sortBattingOrder();
+        this.sortBowlingOrder();
     }
 
     /**
@@ -46,18 +48,15 @@ public class Team {
         if (!this.athletes.isEmpty() && i >= 0 && i < this.athletes.size()) { // Don't think we need this as the gui restricts input?
             Athlete removed = this.athletes.get(i);
             this.athletes.remove(removed);
-            if (removed.isStarting()) {
+            if (removed.isStarting() == true) {
                 this.startingAthletes.remove(removed);
                 this.bowlingOrder[(removed.getBowlingOrderNumber() - 1)] = null;
                 this.battingOrder[(removed.getBattingOrderNumber() - 1)] = null;
             } else {
-                this.reserveAthletes.remove(removed);
+                this.reserveAthletes.remove(removed); 
             }
-        } else if (this.athletes.isEmpty()) {
-            System.out.println("Team has no athletes to be removed!");
-        } else {
-            System.out.println("Incorrect index supplied");
         }
+        
     }
 
     /**
@@ -451,4 +450,6 @@ public class Team {
     public String toString() {
         return teamName;
     }
+    
 }
+

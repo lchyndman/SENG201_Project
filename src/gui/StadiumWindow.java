@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
@@ -75,21 +74,7 @@ public class StadiumWindow {
         textAreaPlayer.setFont(new Font("Monospaced", Font.BOLD, 16));
         contentPane.add(textAreaPlayer);
         textAreaPlayer.setEditable(false);
-<<<<<<< HEAD
-
-
         textAreaPlayer.setBounds(20, 120, 225, 220);
-=======
-
-        textAreaPlayer.setBounds(20, 120, 225, 220);
-
-        textAreaPlayer.setBounds(20, 120, 225, 220);
-
-        textAreaPlayer.setBounds(20, 40, 225, 220);
-
-
->>>>>>> c1404f5b07d43edea17da472a11aed9fe381ed83
-
         textAreaPlayer.append("Batting Avg: " + this.playerTeam.getAverageBattingStarting());
         textAreaPlayer.append("\nBowling Avg: " + this.playerTeam.getAverageBowlingStarting());
         textAreaPlayer.append("\nFielding Avg: " + this.playerTeam.getAverageFieldingStarting());
@@ -116,10 +101,6 @@ public class StadiumWindow {
         });
         contentPane.add(btnOptimize);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c1404f5b07d43edea17da472a11aed9fe381ed83
         JLabel lblEnemyTeam1 = new JLabel(this.enemyTeam1.getTeamName());
         lblEnemyTeam1.setHorizontalAlignment(SwingConstants.CENTER);
         lblEnemyTeam1.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -245,16 +226,13 @@ public class StadiumWindow {
     				EventQueue.invokeLater(new Runnable() {
     					public void run() {
     						try {
-    							MatchWindow matchWindow = new MatchWindow(gameEnvironment);
+    							@SuppressWarnings("unused")
+								MatchWindow matchWindow = new MatchWindow(gameEnvironment);
     						} catch (Exception e) {
     							e.printStackTrace();
     						}
     					}
     				});
-<<<<<<< HEAD
-
-=======
->>>>>>> c1404f5b07d43edea17da472a11aed9fe381ed83
         		}
         	}
         });
@@ -277,7 +255,7 @@ public class StadiumWindow {
         				EventQueue.invokeLater(new Runnable() {
         					public void run() {
         						try {
-        							EndWindow end = new EndWindow(gameEnvironment);
+        							new EndWindow(gameEnvironment);
         						} catch (Exception e) {
         							e.printStackTrace();
         						}
@@ -289,7 +267,7 @@ public class StadiumWindow {
         				EventQueue.invokeLater(new Runnable() {
         					public void run() {
         						try {
-        							HomeWindow main = new HomeWindow(gameEnvironment);
+        							new HomeWindow(gameEnvironment);
         						} catch (Exception e) {
         							e.printStackTrace();
         						}
@@ -314,7 +292,7 @@ public class StadiumWindow {
             EventQueue.invokeLater(() -> {
                 try {
                 	gameEnvironment.setPlayerTeam(playerTeam);
-                    HomeWindow home = new HomeWindow(gameEnvironment);
+                    new HomeWindow(gameEnvironment);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
