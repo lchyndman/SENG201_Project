@@ -112,7 +112,6 @@ public class Match {
 		int lenBowl = bowlingOrder.length;
 		int bowlIn = 0;
 		Athlete currentBowler = bowlingOrder[bowlIn];
-		
 		int bowlerThree = 0;
 		
 		int currentScore = 0;
@@ -124,28 +123,29 @@ public class Match {
 				
 				int points = faceOff(currentBatter, currentBowler);
 				
-				boolean batterFreakInjury = false;
+//				Random chance that a batter is injured during their faceOff.
 				int risk = 100 - currentBatter.getStamina();
 				int random = generator.getRandomNumber(0, 1000);
 				if (random < risk) {
-					batterFreakInjury = true;
-					currentBowler.setInjured(batterFreakInjury);
+					currentBatter.setInjured(true);
 				}
 				
-				boolean bowlerFreakInjury = false;
+//				Random chance that a bowler is injured during their faceOff.
 				int risk1 = 100 - currentBowler.getStamina();
 				int random1 = generator.getRandomNumber(0, 1000);
 				if (random1 < risk1) {
-					bowlerFreakInjury = true;
 					currentBowler.setInjured(true);
 				}
 				
+//				Based on the outcome of the faceOff, a player may be bowled out or caught out.
 				int field = bowlingTeam.getAverageFielding();
 				int fieldStat = field / 10;
 				
-				if (points < 0) {
+//				player was bowled out.
+				if (points < 0) { 
 					batterOut = true;
 				}
+//				chance a player could be caught out, if they didn't hit it out of the boundary on the full.
 				if (0 <= points && points <= 4) {
 					int number = generator.getRandomNumber(0, 100);
 					if (number <= fieldStat) {
@@ -153,7 +153,8 @@ public class Match {
 					}
 				}
 				
-				if (batterOut || batterFreakInjury) {
+//				The following code increments the batter and bowler if they are injured or out.			
+				if (batterOut || currentBatter.isInjured()) {
 					batIn += 1;
 					currentBatter.batOver(5);
 					if (batIn >= lenBat) {
@@ -171,7 +172,7 @@ public class Match {
 					currentScore += points;
 				}
 				
-				if (bowlerFreakInjury) {
+				if (currentBowler.isInjured()) {
 					bowlIn += 1;
 					if (bowlIn >= lenBowl) {
 						bowlIn = 0;
@@ -193,7 +194,10 @@ public class Match {
 						break;
 					}
 					bowlerThree = 0;
-				} else {
+				}
+//				The bowler can bowl for three overs before they must rotate to the next bowler.
+//				If the whole team has bowled, they start at the beginning of the line up, skipping injured bowlers.
+				 else {
 					bowlerThree += 1;
 					if (bowlerThree % 3 == 0) {
 						bowlIn += 1;
@@ -234,8 +238,9 @@ public class Match {
 	 * @return the score of the batter based on the face-off result
 	 */
 	public int faceOff(Athlete batter, Athlete bowler) {
-	    bowler.bowlOver();
+	    bowler.bowlOver();	    
 	    
+	    //The batter and bowlers respective stats are multiplied by a random number.
 	    int base_result = 500;
 	    int batting = batter.getBatting();
 	    int bowling = bowler.getBowling();
@@ -247,6 +252,9 @@ public class Match {
 	    
 	    int num = base_result + batterStat - bowlerStat;
 	    
+//	    The possible points are split into brackets, determining the points made.
+//	    The sizes of the brackets are based off of average game statistics, for example a 3 is rare.    
+//	    -1 is bowled out, the rest relate to possible points gained, such as 0,1,2, or 3 runs and 4 and 6 for a Boundary.
 	    switch ((num <= 71) ? -1 :
 	            (72 <= num && num <= 344) ? 0 :
 	            (345 <= num && num <= 683) ? 1 :

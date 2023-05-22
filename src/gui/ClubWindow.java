@@ -149,10 +149,10 @@ public class ClubWindow {
 		itemInfoBox.setEditable(false);
 		getFrame().getContentPane().add(itemInfoBox);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("ATHLETE INFO:");
-		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1_1_1.setBounds(216, 23, 104, 23);
-		getFrame().getContentPane().add(lblNewLabel_1_1_1_1);
+		JLabel teamName = new JLabel(this.playerTeam.getTeamName());
+		teamName.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		teamName.setBounds(180, 56, 140, 23);
+		getFrame().getContentPane().add(teamName);
 		
 		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("ITEM INFO:");
 		lblNewLabel_1_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));

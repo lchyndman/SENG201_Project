@@ -7,21 +7,10 @@ package game;
  *
  */
 public class GameEnvironment {
-<<<<<<< HEAD
-	private MarketPlace market = new MarketPlace();
-	private int seasonLength;
-	private int currentWeek = 1;
-	private int startingBalance = 1000 * 1000 * 11 + 100000000; //i added some more for testing -ken
-	private Generator generator = new Generator();
-	private Stadium stadium;
-	private PlayerTeam playerTeam;
-	private int difficulty;
-	private int gamesWon;
-	private int gamesLost;
-	private int gamesDrew;
-=======
->>>>>>> c1404f5b07d43edea17da472a11aed9fe381ed83
+
 	
+	
+
 	private MarketPlace market = new MarketPlace(); // marketplace class generates items and athletes to purchase
 	private int seasonLength; // number of weeks the season lasts
 	private int currentWeek = 1; // current week of the season. set to 1 on init
@@ -30,6 +19,9 @@ public class GameEnvironment {
 	private Stadium stadium; // stadium generates enemy teams to play as well as initialising matches against said teams
 	private PlayerTeam playerTeam; // the player's team, holds all their athletes, items, money, points, etc
 	private int difficulty; // 1-3, chosen by player
+	private int gamesWon;
+	private int gamesLost;
+	private int gamesDrew;
 	
 	
 	/**
@@ -185,7 +177,7 @@ public class GameEnvironment {
 	public void setStadium(Stadium stadium) {
 		this.stadium = stadium;
 	}
-<<<<<<< HEAD
+
 
 	public int getGamesWon() {
 		return gamesWon;
@@ -211,6 +203,5 @@ public class GameEnvironment {
 	}
 	
 
-=======
->>>>>>> c1404f5b07d43edea17da472a11aed9fe381ed83
+
 }

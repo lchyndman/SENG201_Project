@@ -43,6 +43,18 @@ public class MarketWindow {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Checks that the player has the funds to continue the game. Ends the game if not.
+	 */
+	public void checkBalance(GameEnvironment game) {
+		if (game.getPlayerTeam().getAthletes().size() < 10 && game.getPlayerTeam().getBalance() < 500000) {
+			if (game.getPlayerTeam().getInventory().size() < 16) {
+				frame.dispose();
+			}
+		}
+		
+	}
+	
 	public void fillLists(GameEnvironment game) {
 		
 		for (Athlete athlete : game.getPlayerTeam().getAthletes()) {
@@ -154,8 +166,9 @@ public class MarketWindow {
 					marketAthletes.remove(marketAthleteList.getSelectedIndex());
 					playerAthletes.addElement(athlete.getName());
 					marketAthletes.addElement(game.getMarket().getAthletes().get(5).getName());
-					balanceBox.setText("BALANCE:  "+game.getPlayerTeam().getBalance());
+					balanceBox.setText("BALANCE:  $"+game.getPlayerTeam().getBalance());
 					errorMessage.setText("");
+					checkBalance(game);
 				}
 				else if (game.getPlayerTeam().canFit()) {
 					errorMessage.setText("You are unable to afford this athlete.");
@@ -184,6 +197,7 @@ public class MarketWindow {
 						marketItems.addElement(game.getMarket().getItems().get(3).getName());
 						balanceBox.setText("BALANCE:  "+game.getPlayerTeam().getBalance());
 						errorMessage.setText("");
+						checkBalance(game);
 					}
 					else {
 						errorMessage.setText("You cannot afford this item.");
@@ -200,16 +214,16 @@ public class MarketWindow {
 		JButton sellAthlete = new JButton("Sell Athlete");
 		sellAthlete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
+//				try {
 					game.getPlayerTeam().sellAthlete(playerAthleteList.getSelectedIndex());
 					playerAthletes.remove(playerAthleteList.getSelectedIndex());
 					balanceBox.setText("BALANCE:  "+game.getPlayerTeam().getBalance());
 					errorMessage.setText("");
 					
-					}
-				catch(IndexOutOfBoundsException t) {
-					errorMessage.setText("Please select an athlete from your team.");
-				}
+//					}
+//				catch(IndexOutOfBoundsException t) {
+//					errorMessage.setText("Please select an athlete from your team.");
+//				}
 			}
 		});
 		sellAthlete.setBounds(776, 525, 112, 21);
