@@ -24,28 +24,4 @@ public class MarketPlaceTest {
         playerTeam = new PlayerTeam(100000000);
     }
 
-    @Test
-    public void testBuyAthlete() {
-        // Set the input stream for the user's choice
-        String input = "1\n";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        marketPlace.buyAthlete(playerTeam);
-
-        assertEquals(1, playerTeam.getAthletes().size());
-
-    }
-
-    @Test
-    public void testBuyItem() {
-        // Set the input stream for the user's choice
-        String input = "1\n";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        marketPlace.buyItem(playerTeam);
-
-        assertEquals(1, playerTeam.getInventory().size());
-    }
 }

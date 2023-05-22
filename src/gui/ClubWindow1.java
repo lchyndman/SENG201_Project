@@ -46,7 +46,7 @@ public class ClubWindow1 {
 	 * Create the application.
 	 */
 	public ClubWindow1(GameEnvironment game) {
-		
+		System.out.print(game.getPlayerTeam());
 		initialize(game);
 		fillTeam(game);
 		frame.setVisible(true);

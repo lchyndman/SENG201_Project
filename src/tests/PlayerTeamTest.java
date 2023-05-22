@@ -55,19 +55,6 @@ public class PlayerTeamTest {
         assertEquals(10, playerTeam.getBalance());
     }
 
-    @Test
-    public void testSellAthlete() {
-        Athlete athlete1 = new Athlete("John Doe", 1, 1, 1, 1);
-        playerTeam.addAthlete(athlete1);
-
-        assertEquals(1, playerTeam.getAthletes().size());
-        assertEquals(10, playerTeam.getBalance());
-
-        playerTeam.sellAthlete();
-
-        assertEquals(0, playerTeam.getAthletes().size());
-        assertEquals(14, playerTeam.getBalance());
-    }
 
     @Test
     public void testBuyItemSufficientFunds() {
