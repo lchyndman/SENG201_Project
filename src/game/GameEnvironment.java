@@ -12,8 +12,7 @@ public class GameEnvironment {
 	
 	public GameEnvironment() {
 		playerTeam = new PlayerTeam(startingBalance);
-		this.playerTeam.setAthletes(this.generator.generateAthletes(16));
-		this.playerTeam.sortAthletes();
+		playerTeam.setAthletes(generator.generateAthletes(11));
 	}		
 
 	public void nextWeek() {

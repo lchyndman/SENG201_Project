@@ -237,6 +237,76 @@ public class Team {
     }
 
     /**
+     * Calculates the average batting ability of the starting players.
+     *
+     * @return The average batting ability
+     */
+    public int getAverageBattingStarting() {
+    	if (this.startingAthletes.size() > 0) {
+	        int total = 0;
+	        for (Athlete a : this.startingAthletes) {
+	            total += a.getBatting();
+	        }
+	        return (total / this.startingAthletes.size());
+    	} else {
+    		return 0;
+    	}
+    }
+    
+
+    /**
+     * Calculates the average bowling ability of the starting players.
+     *
+     * @return The average bowling ability
+     */
+    public int getAverageBowlingStarting() {
+    	if (this.startingAthletes.size() > 0) {
+	        int total = 0;
+	        for (Athlete a : this.startingAthletes) {
+	            total += a.getBowling();
+	        }
+	        return (total / this.startingAthletes.size());
+    	} else {
+    		return 0;
+    	}
+    }
+   
+
+    /**
+     * Calculates the average fielding ability of the starting players.
+     *
+     * @return The average fielding ability
+     */
+    public int getAverageFieldingStarting() {
+    	if (this.startingAthletes.size() > 0) {
+	        int total = 0;
+	        for (Athlete a : this.startingAthletes) {
+	            total += a.getFielding();
+	        }
+	        return (total / this.startingAthletes.size());
+    	} else {
+    		return 0;
+    	}
+    }
+    
+    /**
+     * Calculates the average stamina ability of the starting players.
+     *
+     * @return The average stamina ability
+     */
+    public int getAverageStaminaStarting() {
+    	if (this.startingAthletes.size() > 0) {
+	        int total = 0;
+	        for (Athlete a : this.startingAthletes) {
+	            total += a.getStamina();
+	        }
+	        return (total / this.startingAthletes.size());
+    	} else {
+    		return 0;
+    	}
+    }
+    
+    /**
      * Returns the team name.
      *
      * @return The team name
