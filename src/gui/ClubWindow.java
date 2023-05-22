@@ -75,11 +75,15 @@ public class ClubWindow {
 		}
 		
 		for (Athlete athlete : playerTeam.getBattingOrder()) {
+			if (athlete != null) {
 			System.out.println(athlete);
+			}
 		}
 		
 		for (Athlete athlete : playerTeam.getBowlingOrder()) {
+			if (athlete !=null) {
 			listModelBowling.addElement(athlete.getName());
+			}
 		}
 	}
 	
@@ -383,6 +387,9 @@ public class ClubWindow {
 				listModelBowling = new DefaultListModel<String>();
 				playerTeam.sortBowlingOrder();
 				for (Athlete athlete : playerTeam.getBowlingOrder()) {
+					if (athlete == null) {
+						break;
+					}
 					listModelBowling.addElement(athlete.getName());
 				}
 				startingList.setModel(listModelBowling);
@@ -394,14 +401,19 @@ public class ClubWindow {
 		JButton sortBatting = new JButton("Sort by Batting");
 		sortBatting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				sortByBatting = true;
 				sortByBowling = false;
 				listModelBatting = new DefaultListModel<String>();
 				playerTeam.sortBattingOrder();
 				for (Athlete athlete : playerTeam.getBattingOrder()) {
+					if (athlete == null) {
+						break;
+					}
 					listModelBatting.addElement(athlete.getName());
 				}
 				startingList.setModel(listModelBatting);
+				
 			}
 		});
 		sortBatting.setBounds(21, 124, 116, 21);

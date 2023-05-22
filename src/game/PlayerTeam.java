@@ -27,8 +27,7 @@ public class PlayerTeam extends Team {
 		 */
 		
 			this.addAthlete(a);
-			this.balance -= a.getPrice();
-//			System.out.println(a.getName()+" bought for $"+a.getPrice()+"\nNew Balance: $"+this.getBalance());
+			this.balance -= a.getPrice();			
 		}
 	
 	public boolean canAfford(int n) {
@@ -85,11 +84,7 @@ public class PlayerTeam extends Team {
 
 			this.addItem(e);
 			this.balance -= e.getPrice();
-			System.out.println(e.getName()+" bought for $"+e.getPrice()+"\nNew Balance: $"+this.getBalance());
-
-		}
-		else {
-			System.out.println("Insufficient funds for purchase!\n(Price: $"+e.getPrice()+", Balance: $"+this.balance+")");
+		
 		}
 		
 	}

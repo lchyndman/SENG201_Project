@@ -136,7 +136,7 @@ public class MatchWindow {
 				}
 				else {
 					int startIn = teamList.getSelectedIndex();
-					athleteStats.setText(game.getPlayerTeam().getStartingAthletes().get(startIn).toString());
+					athleteStats.setText(game.getPlayerTeam().getAthletes().get(startIn).toString());
 					errorMessage.setText("");
 				}
 			}
