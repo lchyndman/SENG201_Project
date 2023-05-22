@@ -59,15 +59,6 @@ public class StadiumWindow {
         frame.setContentPane(contentPane);
         contentPane.setLayout(null);
               
-
-<<<<<<< HEAD
-	/**
-	 * Create the application.
-	 */
-	public StadiumWindow(GameEnvironment game) {
-		initialize();
-	}
-=======
         JLabel lblPlayerTeam = new JLabel(this.playerTeam.getTeamName());
         lblPlayerTeam.setHorizontalAlignment(SwingConstants.CENTER);
         lblPlayerTeam.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -82,7 +73,7 @@ public class StadiumWindow {
         textAreaPlayer.append("\nBowling Avg: " + this.playerTeam.getAverageBowling());
         textAreaPlayer.append("\nFielding Avg: " + this.playerTeam.getAverageFielding());
         textAreaPlayer.append("\nStamina Avg: " + this.playerTeam.getAverageStamina());
->>>>>>> 1d518505bb5a38e29ade25221e7481bb4fe84530
+
 
         
         JLabel lblEnemyTeam1 = new JLabel(this.enemyTeam1.getTeamName());

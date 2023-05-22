@@ -114,7 +114,7 @@ public class Team {
      * Sorts the bowling order based on athlete bowling ability.
      */
     public void sortBowlingOrder() {
-        Athlete[] arr = this.athleteArray();
+        Athlete[] arr = this.startingArray();
 
         for (int i = 0; i < this.startingAthletes.size(); i++) {
             for (int j = i + 1; j < arr.length; j++) {

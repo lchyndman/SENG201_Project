@@ -54,6 +54,7 @@ public class SetUpWindow {
 		txtrWelcomeToBoundary.setText("Welcome to Boundary Bashers!");
 		txtrWelcomeToBoundary.setBounds(133, 38, 341, 38);
 		frame.getContentPane().add(txtrWelcomeToBoundary);
+		txtrWelcomeToBoundary.setEditable(false);
 		
 		JLabel lblNewLabel = new JLabel("Choose Team Name:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));

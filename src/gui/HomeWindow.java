@@ -43,7 +43,7 @@ public class HomeWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							ClubWindow club = new ClubWindow(game);
+							ClubWindow1 club = new ClubWindow1(game);   //changed for testing
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
