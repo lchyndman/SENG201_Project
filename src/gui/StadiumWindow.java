@@ -254,6 +254,7 @@ public class StadiumWindow {
             		gameEnvironment.nextWeek();
                 	gameEnvironment.setPlayerTeam(playerTeam);
                 	
+//                	the game has ended, all weeks played.
                 	if (gameEnvironment.getCurrentWeek() > gameEnvironment.getSeasonLength()) {
         				EventQueue.invokeLater(new Runnable() {
         					public void run() {
@@ -265,12 +266,17 @@ public class StadiumWindow {
         					}
         				});
         				}
-        				else {			
-        				// open main menu window
+        			else {			
+//                      You go to the bye window, If you have any players to train.
         				EventQueue.invokeLater(new Runnable() {
         					public void run() {
         						try {
-        							new HomeWindow(gameEnvironment);
+        							if (gameEnvironment.getPlayerTeam().getAthletes().size() > 0) {
+        								new ByeWindow(gameEnvironment);
+        							}
+        							else {
+        								new HomeWindow(gameEnvironment);
+        							}
         						} catch (Exception e) {
         							e.printStackTrace();
         						}
