@@ -272,15 +272,21 @@ public class StadiumWindow {
         				EventQueue.invokeLater(new Runnable() {
         					public void run() {
         						try {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 230040d3fb70fd7b63a26dec5c8e2cdf4efbe832
         							if (gameEnvironment.getPlayerTeam().getAthletes().size() > 0) {
         								new ByeWindow(gameEnvironment);
         							}
         							else {
         								new HomeWindow(gameEnvironment);
         							}
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 230040d3fb70fd7b63a26dec5c8e2cdf4efbe832
         						} catch (Exception e) {
         							e.printStackTrace();
         						}
