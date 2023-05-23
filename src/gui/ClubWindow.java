@@ -4,27 +4,27 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.Window;
-
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.awt.event.ActionEvent;
 
 import game.Athlete;
 import game.GameEnvironment;
 import game.Item;
 import game.PlayerTeam;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
+
+
+
 
 public class ClubWindow {
 	
@@ -368,6 +368,7 @@ public class ClubWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							@SuppressWarnings("unused")
 							HomeWindow main = new HomeWindow(game);
 						} catch (Exception e) {
 							e.printStackTrace();

@@ -1,16 +1,15 @@
 package gui;
 
-import java.awt.EventQueue;
+import game.GameEnvironment;
 
 
 import javax.swing.JFrame;
-
-import game.GameEnvironment;
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -59,7 +58,8 @@ public class EndWindow {
 		if (difficulty == 3) {
 			dif = "Hard";
 		}
-		txtrChosenDifficultyTotal.setText("Chosen Difficulty:  "+dif+"\r\n\r\nChosen Season Length:  "+game.getSeasonLength()+"\r\n\r\nTotal Matches Won:  "+game.getGamesWon()+"\r\n\r\nTotal Matches Lost:  "+game.getGamesLost()+"\r\n\r\nTotal Matches Drew:  "+game.getGamesDrew()+"\r\n\r\nEnding Balence:  "+game.getPlayerTeam().getBalance()+" \r\n\r\nEnding Points:  "+game.getPlayerTeam().getPoints());
+
+		txtrChosenDifficultyTotal.setText("Chosen Difficulty:  "+dif+"\r\n\r\nChosen Season Length:  "+game.getSeasonLength()+"\r\n\r\nTotal Matches Won:  "+game.getGamesWon()+"\r\n\r\nTotal Matches Lost:  "+game.getGamesLost()+"\r\n\r\nTotal Matches Drew:  "+game.getGamesDrawn()+"\r\n\r\nEnding Balence:  "+game.getPlayerTeam().getBalance()+" \r\n\r\nEnding Points:  "+game.getPlayerTeam().getPoints());
 		txtrChosenDifficultyTotal.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		txtrChosenDifficultyTotal.setBounds(27, 228, 647, 335);
 		frame.getContentPane().add(txtrChosenDifficultyTotal);

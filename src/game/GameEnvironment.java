@@ -8,20 +8,21 @@ package game;
  */
 public class GameEnvironment {
 
-	
-	
 
 	private MarketPlace market = new MarketPlace(); // marketplace class generates items and athletes to purchase
-	private int seasonLength; // number of weeks the season lasts
-	private int currentWeek = 1; // current week of the season. set to 1 on init
-	private int startingBalance = 8000000; // starting balance the player recieves, modified by difficulty
-	private Generator generator = new Generator(); // generator for various random number generation
 	private Stadium stadium; // stadium generates enemy teams to play as well as initialising matches against said teams
 	private PlayerTeam playerTeam; // the player's team, holds all their athletes, items, money, points, etc
+	
 	private int difficulty; // 1-3, chosen by player
-	private int gamesWon;
+	private int seasonLength; // number of weeks the season lasts
+	private int currentWeek = 1; // current week of the season. set to 1 on init
+	private int startingBalance = 6000000; // starting balance the player recieves, modified by difficulty
+	
+	
+	private int gamesWon; // number of games won, lost, and drawn by the player
 	private int gamesLost;
-	private int gamesDrew;
+	private int gamesDrawn;
+
 	
 	
 	/**
@@ -178,30 +179,56 @@ public class GameEnvironment {
 		this.stadium = stadium;
 	}
 
-
+	
+	/**
+	 * return the number of games won by the player this season
+	 * 
+	 * @return the number of wins
+	 */
 	public int getGamesWon() {
 		return gamesWon;
 	}
 	
+	
+	/**
+	 * increment the number of games won this season by 1
+	 */
 	public void addGameWon() {
-		gamesWon+=1;
+		gamesWon++;
 	}
 
+	
+	/**
+	 * retrieves the number of games lost by the player this season
+	 * 
+	 * @return the number of lost games
+	 */
 	public int getGamesLost() {
 		return gamesLost;
 	}
 	
+	
+	/**
+	 * increment the number of losses by 1
+	 */
 	public void addGameLost() {
-		gamesLost+=1;
+		gamesLost++;
 	}
 
-	public int getGamesDrew() {
-		return gamesDrew;
-	}
-	public void addGameDrew() {
-		gamesDrew+=1;
+	
+	/*
+	 * Retrieves the number of draws this season.
+	 */
+	public int getGamesDrawn() {
+		return gamesDrawn;
 	}
 	
 
+	/*
+	 * increments the number of draws by 1
+	 */
+	public void addGameDrawn() {
+		gamesDrawn++;
+	}	
 
 }

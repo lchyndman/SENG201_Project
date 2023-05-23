@@ -1,26 +1,24 @@
 package gui;
 
 import java.awt.EventQueue;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-
-import game.Athlete;
-import game.GameEnvironment;
-import game.Item;
-import game.PlayerTeam;
-
-import javax.swing.JList;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JList;
+import javax.swing.JButton;
+
+import game.Athlete;
+import game.GameEnvironment;
+import game.Item;
+
 
 public class MarketWindow {
 
@@ -367,6 +365,7 @@ public class MarketWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							@SuppressWarnings("unused")
 							HomeWindow main = new HomeWindow(game);
 						} catch (Exception e) {
 							e.printStackTrace();

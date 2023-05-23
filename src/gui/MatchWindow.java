@@ -1,23 +1,24 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
 
-
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JList;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import game.Athlete;
 import game.GameEnvironment;
 import game.Match;
 
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.JList;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
+
+
 
 public class MatchWindow {
 
@@ -67,7 +68,9 @@ public class MatchWindow {
 			game.getPlayerTeam().addPoints((match.getOpponentTeam().getPoints())/5);
 		}
 		else {
-			game.addGameDrew();
+
+			game.addGameDrawn();
+
 			game.getPlayerTeam().addBalance((match.getOpponentTeam().getMoney())/2);
 			game.getPlayerTeam().addPoints((match.getOpponentTeam().getPoints())/2);
 			for (Athlete athlete : game.getPlayerTeam().getStartingAthletes()) {
@@ -163,6 +166,7 @@ public class MatchWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							@SuppressWarnings("unused")
 							EndWindow end = new EndWindow(game);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -176,6 +180,7 @@ public class MatchWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							@SuppressWarnings("unused")
 							HomeWindow main = new HomeWindow(game);
 						} catch (Exception e) {
 							e.printStackTrace();
