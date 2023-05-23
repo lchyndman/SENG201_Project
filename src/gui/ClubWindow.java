@@ -29,10 +29,8 @@ import game.PlayerTeam;
 public class ClubWindow {
 	
 	private DefaultListModel<String> listModelStarting = new DefaultListModel<>();
-	
 	private DefaultListModel<String> listModelBatting = new DefaultListModel<>();
 	private DefaultListModel<String> listModelBowling = new DefaultListModel<>();
-	
 	private JFrame frame;
 	private DefaultListModel<String> listModelReserves = new DefaultListModel<>();
 	private DefaultListModel<String> listModelItems = new DefaultListModel<>();

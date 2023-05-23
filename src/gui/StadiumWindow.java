@@ -2,6 +2,7 @@ package gui;
 
 
 import java.awt.Container;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -271,16 +272,15 @@ public class StadiumWindow {
         				EventQueue.invokeLater(new Runnable() {
         					public void run() {
         						try {
-<<<<<<< HEAD
+
         							if (gameEnvironment.getPlayerTeam().getAthletes().size() > 0) {
         								new ByeWindow(gameEnvironment);
         							}
         							else {
         								new HomeWindow(gameEnvironment);
         							}
-=======
-        							new RandomEventWindow(gameEnvironment);
->>>>>>> aa18b1c7311f18623228c9f6d0831e9a51461f67
+
+
         						} catch (Exception e) {
         							e.printStackTrace();
         						}
