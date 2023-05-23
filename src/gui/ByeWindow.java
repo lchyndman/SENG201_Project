@@ -121,7 +121,7 @@ public class ByeWindow {
 							athlete.staminaIncrement(15);
 						}
 						frame.dispose();
-						new HomeWindow(game);
+						new RandomEventWindow(game);
 						
 					}
 					catch(IndexOutOfBoundsException g) {

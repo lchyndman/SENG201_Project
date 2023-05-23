@@ -14,6 +14,10 @@ import game.Generator;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+
+/*
+ * Creates a window simulating a random event of either a player joining or leaving the team
+ */
 public class RandomEventWindow {
 
 	private JFrame frame;
