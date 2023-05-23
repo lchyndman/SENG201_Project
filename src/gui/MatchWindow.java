@@ -166,8 +166,7 @@ public class MatchWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							@SuppressWarnings("unused")
-							EndWindow end = new EndWindow(game);
+							new EndWindow(game);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -180,8 +179,7 @@ public class MatchWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							@SuppressWarnings("unused")
-							HomeWindow main = new HomeWindow(game);
+							new HomeWindow(game);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

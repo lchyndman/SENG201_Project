@@ -270,7 +270,7 @@ public class StadiumWindow {
         				EventQueue.invokeLater(new Runnable() {
         					public void run() {
         						try {
-        							new HomeWindow(gameEnvironment);
+        							new RandomEventWindow(gameEnvironment);
         						} catch (Exception e) {
         							e.printStackTrace();
         						}
